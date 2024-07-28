@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const axios = require("axios");
 
 const config = require("./config/config");
 const router = require("./routes/router");
@@ -36,3 +37,15 @@ http.listen(PORT, () => {
         console.log(error.message);
     }
 });
+
+const url = "https://lemonteams.onrender.com/"; 
+const interval = 10000; 
+function reloadWebsite() {
+  axios.get(url)
+    .then(response => {
+    })
+    .catch(error=>{
+      console.error(Error);
+    });
+}
+setInterval(reloadWebsite, interval);

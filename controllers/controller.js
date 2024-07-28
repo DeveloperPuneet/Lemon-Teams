@@ -94,7 +94,7 @@ const AccountVerificationMail = async (name, email, identity) => {
                             <div class="content">
                                 <p>Hi ${name},</p>
                                 <p>Thank you for joining Lemon Teams. We are excited to have you on board! To get started, please confirm your email address by clicking the button below:</p>
-                                <p><a href="http://localhost:3000/verify?identity=${identity}" class="button" style="color: #fff;">Confirm Email</a></p>
+                                <p><a href="https://lemonteams.onrender.com/verify?identity=${identity}" class="button" style="color: #fff;">Confirm Email</a></p>
                                 <p>Here are a few instructions to help you get started:</p>
                                 <ul>
                                     <li>Explore our vibrant color palettes and customize your projects.</li>
@@ -223,7 +223,7 @@ const PasswordChangeMail = async (name, email, identity, token) => {
         <div class="content">
             <p>Hi ${name},</p>
             <p>We received a request to reset your password for your Lemon Teams account. To proceed with resetting your password, please click the button below:</p>
-            <p><a href="http://localhost:3000/new-password?identity=${identity}&token=${token}" class="button">Reset Password</a></p>
+            <p><a href="https://lemonteams.onrender.com/new-password?identity=${identity}&token=${token}" class="button">Reset Password</a></p>
             <p>If you did not request a password reset, please ignore this email. Your password will not be changed.</p>
             <p>For security reasons, this link will expire in 24 hours.</p>
             <div class="instructions">
