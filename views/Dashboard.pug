@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../public/components/header.pug
+        link(rel="stylesheet", href="/css/Dashboard.css")
+        title Lemon Teams: Dashboard
+    body#body 
+        include ../public/layouts/navigation.pug
+        .container
+            .apps 
+                .app
+                    a(href="/lemon-color-lab") 
+                        img(src="/ecosystem/lemon-color-lab.png", alt="Loading")
+                        | Lemon Color Lab
+            .activities 
+                h4 Your Activities 
+                .lemon-color-lab 
+                    h5 Lemon Color Lab
+                    .palettes
+                        each palette in palettes
+                            a.goto(href=`/open-palette?code=${palette.code}`) 
+                                .palette
+                                    each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
+                                        if color
+                                            .color(data-color=`${color}`, style=`background: ${color};`)
+        include ../public/layouts/footer.pug
+        script(src="/js/OpenPalette.js")

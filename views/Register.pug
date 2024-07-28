@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="/css/Register.css")
+        include ../public/components/header.pug
+        title Lemon Teams: Register 
+    body 
+        include ../public/layouts/navigation.pug
+        .container
+            h1 Register
+            - if(message !== undefined)
+                .message-box
+                    p= message
+            .form
+                form(method="post" action="/register")
+                    input(type="text" name="name" placeholder="Jhone Doe" required)
+                    input(type="email" placeholder="abc@xyz.com" name="email" required)
+                    input(type="password" placeholder="**** ****" name="password" required)
+                    .form-options 
+                        a(href="/login" title="login to your account") Login
+                    input(type="submit" value="Create Account")
+        include ../public/layouts/footer.pug

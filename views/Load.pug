@@ -1,0 +1,37 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../public/components/header.pug
+        link(rel="stylesheet", href="/css/Load.css")
+        title Lemon Teams: Brighten Your Workflow
+    body#body 
+        include ../public/layouts/navigation.pug
+        .container-start 
+            .video-container
+                video.video#bg-video(src="/media/videos/background.mp4" alt="background video Loading..." autoplay muted loop playsinline) 
+            .start-text 
+                .text-description
+                    h1 Brighten Your Workflow
+                    p <span class="font-playWrite">Lemon Teams</span> is a vibrant and innovative platform designed to bring out the best in individuals and teams, enhancing collaboration and productivity. Our range of tools and services, including color palettes, project management, and communication tools, make everything easy and enjoyable. With Lemon Teams, fill your projects with color and bring a new zest to your work. We're here for you every step of the way, ensuring your teamwork and creativity shine like a star.
+        .features 
+            h1 Highlights
+            .feature-container
+                .feature-cards 
+                    .card-img 
+                        img(src="/ecosystem/lemon-color-lab.png", alt="Loading...")
+                    .card-text 
+                        h3 Lemon Color Lab
+                        p Lemon Color Lab is a powerful tool that provides developers with vibrant and customizable color palettes. Find the perfect shades you need and give your projects a fresh look. With a simple interface and extensive color options, your design process becomes easier and more enjoyable.
+                        a.visit-btn(href="/lemon-color-lab") Color Lab
+        .Testimonials 
+            h1 What Our Users Say
+            .testimonials-container 
+                each testimonial in testimonialsData
+                    .testimonial-card
+                        h3 By #{testimonial.name}
+                        p= testimonial.Testimonials
+                        .date-testimonials= testimonial.publishing_date
+        include ../public/layouts/footer.pug
+    script(src="/js/Load.js") 

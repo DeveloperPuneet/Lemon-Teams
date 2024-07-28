@@ -1,0 +1,22 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../public/components/color-lab.pug
+        link(rel="stylesheet", href="/css/OpenPalette.css")
+        title Lemon Teams: Palette
+    body#body 
+        include ../public/layouts/navigation.pug
+        .container
+            h1 Color Palette
+            .palette-container
+                each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
+                    if color
+                        .color-box(data-color=`${color}`, style=`background: ${color};`)= color
+            .palette-details
+                p Author: #{author.name}
+                p Publishing Date: #{palette.publishing_date}
+                p Views: #{palette.views}
+        include ../public/layouts/footer.pug
+        script(src="/js/OpenPalette.js")

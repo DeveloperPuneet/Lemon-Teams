@@ -1,0 +1,36 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../public/components/color-lab.pug
+        link(rel="stylesheet", href="/css/LemonColorLab.css")
+        title Lemon Teams: Color Lab
+    body
+        include ../public/layouts/navigation.pug
+        .app-menu 
+            a(href="/add-palette") Publish Palette
+        .container
+            h1 Lemon Color Lab
+            p This is a color lab where you can create, manage, and share your own color palette ideas.
+            .main 
+                h4 Color Palette 
+                .new 
+                    h5 New 
+                    .new-container 
+                        each palette in newPalettes
+                            a(href=`/open-palette?code=${palette.code}`) 
+                                .palette
+                                    each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
+                                        if color
+                                            .color(style=`background: ${color};`)
+                .trending 
+                    h5 Trending
+                    .container-trending
+                        each palette in trendingPalettes
+                            a(href=`/open-palette?code=${palette.code}`) 
+                                .palette
+                                    each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
+                                        if color
+                                            .color(style=`background: ${color};`)
+        include ../public/layouts/footer.pug

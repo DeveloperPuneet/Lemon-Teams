@@ -1,0 +1,201 @@
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+@import url(https://fonts.googleapis.com/css?family=Playwrite+HR+Lijeva:100,200,300,regular);
+
+:root {
+    --lemon-yellow: #FFD700;
+    --fresh-green: #32CD32;
+    --highlight-white: #FFFFFF;
+    --outline-black: #000000;
+
+    /* Theme colors */
+    --forest-night: #181818;
+    --cloud-mist: #E0E0E0;
+    --sunset-glow: #FFC107;
+    --lavender-bloom: #BB86FC;
+    --river-rock: #282828;
+    --mountain-shadow: #3C3C3C;
+
+    /* Color palette */
+    --moonlight-dark: #0D1B2A;
+    --star-dark: #1B263B;
+    --evening-star: #415A77;
+    --shining-star: #778DA9;
+    --star-bright: #E0E1DD;
+}
+
+.footer {
+    width: 100vw;
+    height: fit-content;
+    padding: 10px;
+    background: var(--river-rock);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.upper {
+    width: calc(100vw - 10px);
+    padding: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.sec {
+    width: fit-content;
+    margin-bottom: 15px;
+    margin: 0 10px;
+}
+
+.line-hr {
+    width: calc(100vw - 15px);
+    height: 1px;
+    max-width: 100%;
+    background-color: var(--outline-black);
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.footer-heading {
+    color: var(--highlight-white);
+    font-weight: 600;
+}
+
+.footer-opt {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-opt a {
+    color: var(--mountain-shadow);
+    text-decoration: none;
+    filter: brightness(3);
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.lower {
+    padding: 5px;
+    width: calc(100vw - 10px);
+}
+
+.footer-logo-head {
+    font-family: "Playwrite HR Lijeva";
+}
+
+.logo-copyrights {
+    width: 200px;
+    height: fit-content;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.foot-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-copyrights img {
+    width: 70%;
+    margin: auto;
+}
+
+.logo-copyrights .footer-logo-head {
+    text-align: center;
+    color: var(--sunset-glow);
+    font-size: 1.2rem;
+}
+
+.logo-copyrights p {
+    text-align: center;
+    color: var(--mountain-shadow);
+    font-size: 0.9rem;
+    filter: brightness(2);
+    margin-top: 15px;
+}
+
+.lower-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.lower-brand-description {
+    min-width: 300px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: fit-content;
+}
+
+.social-media {
+    display: flex;
+}
+
+.social-media a {
+    text-decoration: none;
+    margin-right: 8px;
+    color: var(--highlight-white);
+}
+
+.social-media p {
+    color: var(--cloud-mist);
+    font-size: 0.9rem;
+    margin-right: 10px;
+}
+
+.description-foot {
+    text-wrap: balance;
+    color: var(--highlight-white);
+    font-size: 0.8rem;
+    max-width: calc(100vw - 250px);
+    height: fit-content;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 595px) {
+    .logo-copyrights {
+        width: 70vw;
+        margin: auto;
+    }
+
+    .lower-brand-description {
+        width: 100vw;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0;
+    }
+
+    .description-foot {
+        max-width: 100vw;
+        margin-bottom: 15px;
+        font-size: 0.7rem;
+    }
+
+    .sec {
+        margin-bottom: 20px;
+        font-size: 0.8rem;
+    }
+
+    .sec a {
+        font-size: 0.7rem;
+    }
+
+    .lower-content {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}

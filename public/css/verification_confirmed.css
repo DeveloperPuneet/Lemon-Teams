@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic');
+@import url('https://fonts.googleapis.com/css?family=Playwrite+HR+Lijeva:100,200,300,regular');
+
+:root {
+    --lemon-yellow: #FFD700;
+    --fresh-green: #32CD32;
+    --highlight-white: #FFFFFF;
+    --outline-black: #000000;
+
+    /* Theme colors */
+    --forest-night: #181818;
+    --cloud-mist: #E0E0E0;
+    --sunset-glow: #FFC107;
+    --lavender-bloom: #BB86FC;
+    --river-rock: #282828;
+    --mountain-shadow: #3C3C3C;
+
+    /* Color palette */
+    --moonlight-dark: #0D1B2A;
+    --star-dark: #1B263B;
+    --evening-star: #415A77;
+    --shining-star: #778DA9;
+    --star-bright: #E0E1DD;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans";
+    user-select: none;
+    transition: all .3s linear;
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+html {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    background: var(--forest-night);
+    overflow-x: hidden;
+    position: relative;
+}
+
+.verification {
+    font-size: 2.7rem;
+    color: var(--sunset-glow);
+    text-align: center;
+    margin: 30px;
+    margin-top: 35px;
+    padding: 10px;
+}
+
+.login-container a {
+    color: var(--lemon-yellow);
+    background: var(--moonlight-dark);
+    padding: 5px 20px;
+    border-radius: 7px;
+    margin: auto;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.login-container {
+    width: 100vw;
+    margin: 20px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}

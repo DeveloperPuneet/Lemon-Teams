@@ -1,0 +1,20 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../public/components/header.pug
+        link(rel="stylesheet", href="/css/TestimonialLoad.css")
+        title Lemon Teams: Testimonial
+    body
+        include ../public/layouts/navigation.pug
+        .container
+            h1 Testimonial
+            - if(message !== undefined)
+                .message-box
+                    p= message
+            .form
+                form(method="post" action="")
+                    input(type="text" placeholder="write you Testimonial..." name="Testimonial" required)
+                    input(type="submit" value="Send Testimonial")
+        include ../public/layouts/footer.pug

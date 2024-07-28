@@ -1,0 +1,14 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="/css/verification_confirmed.css")
+        include ../public/components/header.pug
+        title Lemon Teams: Login 
+    body 
+        include ../public/layouts/navigation.pug
+        h1.verification Your account is activated. Now, you can login to your your account 
+        .login-container
+            a(href="/login") Login
+        include ../public/layouts/footer.pug

@@ -1,0 +1,31 @@
+link(rel="stylesheet", href="../css/navigation.css")
+link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0")
+.navigation 
+    .logo 
+        img(src="/Emblem/Emblem.jpeg")
+        p Lemon Teams
+    .lemons Lemon teams
+    .options 
+        a(href="/products") Products 
+        a(href="") Solutions
+        a(href="") Support 
+        a(href="/feedback") Feedback
+        -if (!user)
+            a(href="/account") <span class="material-symbols-outlined">person</span>
+        -else
+            a(href="/account" class="nav-profile-image") 
+                img(src=profile)
+    .menu-responsive 
+        | <span class="material-symbols-outlined menu-icon" id="menu">menu</span>
+.menu-options#options
+    .close <span class="lemons">Lemon teams</span> <span class="material-symbols-outlined" id="close">close</span>
+    .line
+    a(href="") <i class="fa-brands fa-uncharted"></i>&nbsp; Products 
+    .line 
+    a(href="") <i class="fa-solid fa-dna"></i>&nbsp; Solutions 
+    .line 
+    a(href="") <i class="fa-solid fa-message"></i> &nbsp;Feedback 
+    .line
+    a(href="/account") <i class="fa-solid fa-file-invoice"></i>&nbsp; Account 
+    .line
+script(src="../js/navigation.js") 
