@@ -13,9 +13,9 @@ html(lang="en")
             p You can add a maximum of 10 colors and a minimum of 3 colors. Select colors from the bar and submit.
             each color in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                 .colors
-                    input(type="color", name=`color${color}`)
-                    .background
-                    input(type="hidden", name=`color${color}Hex`, value="")
+                    input(type="color", name=`color${color}`, id=`colorInput${color}`, oninput=`updateColor(${color}, 'color')`)
+                    .background(id=`background${color}`)
+                    input(type="text", name=`color${color}Hex`, id=`colorHex${color}`, oninput=`updateColor(${color}, 'text')`, value="")
             input(type="submit", value="Publish Palette")
         include ../public/layouts/footer.pug
         script(src="/js/addPalette.js")

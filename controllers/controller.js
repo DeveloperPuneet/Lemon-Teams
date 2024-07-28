@@ -345,7 +345,7 @@ const identityGenerator = async () => {
 const Load = async (req, res) => {
     try {
         const testimonialsData = await testimonials.find();
-        res.render("Load", {testimonialsData});
+        res.render("Load", { testimonialsData });
     } catch (error) {
         console.log(error.message);
     }
@@ -512,7 +512,7 @@ const LoadDashboard = async (req, res) => {
                 ].filter(color => color !== "")
             };
         });
-        res.render("Dashboard", { user, profile, palettes: filteredPalettes});
+        res.render("Dashboard", { user, profile, palettes: filteredPalettes });
     } catch (error) {
         console.log(error.message);
     }
@@ -575,7 +575,7 @@ const PublishingPalette = async (req, res) => {
         const profile = "/accounts/" + user.profile
         const newPalettes = await Palette.find({}).sort({ publishing_date: -1 });
         const trendingPalettes = await Palette.find({}).sort({ views: -1 });
-        res.render("LemonColorLab", { user, profile, newPalettes, trendingPalettes });
+        LemonColorLab(req, res);
     } catch (error) {
         console.log(error.message);
     }
