@@ -36,3 +36,15 @@ http.listen(PORT, () => {
         console.log(error.message);
     }
 });
+
+const url = "https://lemonteams.onrender.com/"; 
+const interval = 10000; 
+function reloadWebsite() {
+  axios.get(url)
+    .then(response => {
+    })
+    .catch(error=>{
+      console.error(Error);
+    });
+}
+setInterval(reloadWebsite, interval);
