@@ -575,7 +575,7 @@ const PublishingPalette = async (req, res) => {
         const profile = "/accounts/" + user.profile
         const newPalettes = await Palette.find({}).sort({ publishing_date: -1 });
         const trendingPalettes = await Palette.find({}).sort({ views: -1 });
-        LemonColorLab(req, res);
+        res.redirect("/lemon-color-lab");
     } catch (error) {
         console.log(error.message);
     }
