@@ -16,6 +16,10 @@ const schema = new mongoose.Schema({
         required: true,
         default: Date()
     },
+    sorting_date:{
+        type: Number,
+        default: Date.now()
+    },
     identity: {
         type: String,
         require: true

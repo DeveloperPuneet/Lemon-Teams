@@ -532,9 +532,8 @@ const LemonColorLab = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile;
-        const newPalettes = await Palette.find({}).sort({ publishing_date: -1 });
+        const newPalettes = await Palette.find({}).sort({ sorting_date: -1 }).limit(30);
         const trendingPalettes = await Palette.find({}).sort({ views: -1 });
-
         res.render("LemonColorLab", { user, profile, newPalettes, trendingPalettes });
     } catch (error) {
         console.log(error.message);

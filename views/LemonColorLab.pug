@@ -41,23 +41,3 @@ html(lang="en")
                                             .color(style=`background: ${color};`)
         include ../public/layouts/footer.pug
         script(src="/js/LemonColorLab.js")
-        script.
-            document.getElementById('searching').addEventListener('input', function() {
-                const searchValue = this.value.toLowerCase();
-                const palettes = document.querySelectorAll('.palette');
-
-                palettes.forEach(palette => {
-                    const text = palette.innerText.toLowerCase();
-                    if (text.includes(searchValue)) {
-                        palette.style.display = '';
-                    } else {
-                        palette.style.display = 'none';
-                    }
-                });
-
-                if (searchValue === '') {
-                    palettes.forEach(palette => {
-                        palette.style.display = '';
-                    });
-                }
-            });
