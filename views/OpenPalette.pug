@@ -10,6 +10,8 @@ html(lang="en")
         include ../public/layouts/navigation.pug
         .container
             h1 Color Palette
+            h2= palette.name
+            h4= palette.description
             .palette-container
                 each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
                     if color

@@ -13,6 +13,8 @@ html(lang="en")
         .container
             h1 Lemon Color Lab
             p This is a color lab where you can create, manage, and share your own color palette ideas.
+            .search
+                input(class="searchInput", id="searching", placeholder="Search Palettes")
             .main 
                 h4 Color Palette 
                 .new 
@@ -21,6 +23,8 @@ html(lang="en")
                         each palette in newPalettes
                             a(href=`/open-palette?code=${palette.code}`) 
                                 .palette
+                                    .hide= palette.tags
+                                    .hide= palette.name
                                     each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
                                         if color
                                             .color(style=`background: ${color};`)
@@ -30,7 +34,30 @@ html(lang="en")
                         each palette in trendingPalettes
                             a(href=`/open-palette?code=${palette.code}`) 
                                 .palette
+                                    .hide= palette.tags
+                                    .hide= palette.name
                                     each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
                                         if color
                                             .color(style=`background: ${color};`)
         include ../public/layouts/footer.pug
+        script(src="/js/LemonColorLab.js")
+        script.
+            document.getElementById('searching').addEventListener('input', function() {
+                const searchValue = this.value.toLowerCase();
+                const palettes = document.querySelectorAll('.palette');
+
+                palettes.forEach(palette => {
+                    const text = palette.innerText.toLowerCase();
+                    if (text.includes(searchValue)) {
+                        palette.style.display = '';
+                    } else {
+                        palette.style.display = 'none';
+                    }
+                });
+
+                if (searchValue === '') {
+                    palettes.forEach(palette => {
+                        palette.style.display = '';
+                    });
+                }
+            });

@@ -186,3 +186,25 @@ body {
     background: var(--sunset-glow);
     border-radius: 8px;
 }
+
+.hide {
+    display: none;
+}
+
+.search {
+    width: 100vw;
+    margin: 10px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchInput {
+    width: 90vw;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    background: var(--star-dark);
+    color: var(--cloud-mist);
+}

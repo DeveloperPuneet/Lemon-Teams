@@ -77,6 +77,19 @@ body {
     margin: 20px;
 }
 
+.container h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--lemon-yellow);
+    margin: 20px;
+}
+
+.container h4 {
+    text-align: center;
+    color: var(--cloud-mist);
+    margin: 20px;
+}
+
 .palette-details {
     display: flex;
     flex-direction: column;

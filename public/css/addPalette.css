@@ -127,3 +127,43 @@ input[type="color"] {
     width: 50px;
     height: 50px;
 }
+
+.info {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.info input {
+    outline: none;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 10px;
+    background: var(--star-dark);
+    color: var(--cloud-mist);
+    font-size: 1.1rem;
+    margin: 8px;
+    width: 80%;
+}
+
+.colors input[type="text"] {
+    outline: none;
+    border: none;
+}
+
+@media (max-width: 500px) {
+    .info input {
+        outline: none;
+        border: none;
+        padding: 10px 10px;
+        border-radius: 10px;
+        background: var(--star-dark);
+        color: var(--cloud-mist);
+        font-size: 1.1rem;
+        margin: 8px;
+        width: 90%;
+    }
+}

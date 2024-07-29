@@ -555,7 +555,7 @@ const PublishingPalette = async (req, res) => {
     try {
         const identity = req.session.identity;
         const code = await identityGenerator();
-        const { color1Hex, color2Hex, color3Hex, color4Hex, color5Hex, color6Hex, color7Hex, color8Hex, color9Hex, color10Hex } = await req.body;
+        const { color1Hex, color2Hex, color3Hex, color4Hex, color5Hex, color6Hex, color7Hex, color8Hex, color9Hex, color10Hex, name, description, tags } = await req.body;
         const data = Palette({
             identity: identity,
             color1: color1Hex,
@@ -568,7 +568,10 @@ const PublishingPalette = async (req, res) => {
             color8: color8Hex,
             color9: color9Hex,
             color10: color10Hex,
-            code: code
+            code: code,
+            name: name,
+            description: description,
+            tags: tags
         });
         const saved = await data.save();
         const user = await accounts.findOne({ identity: req.session.identity });
