@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const axios = require("axios");
+const cron = require('node-cron');
+const { removeDuplicatePalettes } = require('./controllers/paletteController');
 
 const config = require("./config/config");
 const router = require("./routes/router");
@@ -36,6 +38,11 @@ http.listen(PORT, () => {
     } catch (error) {
         console.log(error.message);
     }
+});
+
+cron.schedule('*/15 * * * *', () => {
+    console.log('Running duplicate palette removal task');
+    removeDuplicatePalettes();
 });
 
 const url = "https://lemonteams.onrender.com/"; 
