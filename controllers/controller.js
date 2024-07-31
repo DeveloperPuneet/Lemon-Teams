@@ -345,7 +345,7 @@ const identityGenerator = async () => {
 const Load = async (req, res) => {
     try {
         const testimonialsData = await testimonials.find();
-        res.render("Load", { testimonialsData });
+        return res.render("Load", { testimonialsData });
     } catch (error) {
         console.log(error.message);
     }
@@ -353,7 +353,7 @@ const Load = async (req, res) => {
 
 const LoadLogin = async (req, res) => {
     try {
-        res.render("Login");
+        return res.render("Login");
     } catch (error) {
         console.log(error.message);
     }
@@ -361,7 +361,7 @@ const LoadLogin = async (req, res) => {
 
 const LoadRegister = async (req, res) => {
     try {
-        res.render("Register");
+        return res.render("Register");
     } catch (error) {
         console.log(error.message);
     }
@@ -380,7 +380,7 @@ const AddAccount = async (req, res) => {
         });
         const data = await user.save();
         AccountVerificationMail(name, email, identity);
-        res.render("Register", { message: "Verify you email" });
+        return res.render("Register", { message: "Verify you email" });
     } catch (error) {
         console.log(error.message);
     }
@@ -395,16 +395,16 @@ const LoginAccount = async (req, res) => {
             if (isMatch) {
                 if (user.verified == true) {
                     req.session.identity = user.identity;
-                    res.redirect("/dashboard");
+                    return res.redirect("/dashboard");
                 } else {
                     AccountVerificationMail(user.name, email, user.identity);
-                    res.render("Login", { message: "Please verify you email" });
+                    return res.render("Login", { message: "Please verify you email" });
                 }
             } else {
-                res.render("Login", { message: "Invalid Credentials" });
+                return res.render("Login", { message: "Invalid Credentials" });
             }
         } else {
-            res.render("Login", { message: "Invalid Credentials" });
+            return res.render("Login", { message: "Invalid Credentials" });
         }
     } catch (error) {
         console.log(error.message);
@@ -415,7 +415,7 @@ const accountActivation = async (req, res) => {
     try {
         const { identity } = await req.query;
         const updateInfo = await accounts.updateOne({ identity: identity }, { $set: { verified: true } });
-        res.render("verification_confirmed");
+        return res.render("verification_confirmed");
     } catch (error) {
         console.log(error.message);
     }
@@ -423,7 +423,7 @@ const accountActivation = async (req, res) => {
 
 const RequestMailToResetPassword = async (req, res) => {
     try {
-        res.render("RequestMailToResetPassword");
+        return res.render("RequestMailToResetPassword");
     } catch (error) {
         console.log(error.message);
     }
@@ -442,13 +442,13 @@ const SendResetPasswordMail = async (req, res) => {
                     }
                 });
                 PasswordChangeMail(user.name, email, user.identity, token);
-                res.render("RequestMailToResetPassword", { message: "Check your mails to reset your password" });
+                return res.render("RequestMailToResetPassword", { message: "Check your mails to reset your password" });
             } else {
                 AccountVerificationMail(user.name, email, user.identity);
-                res.render("RequestMailToResetPassword", { message: "Please verify your email" });
+                return res.render("RequestMailToResetPassword", { message: "Please verify your email" });
             }
         } else {
-            res.render("RequestMailToResetPassword", { message: "Invalid Credentials" });
+            return res.render("RequestMailToResetPassword", { message: "Invalid Credentials" });
         }
     } catch (error) {
         console.log(error.message);
@@ -458,7 +458,7 @@ const SendResetPasswordMail = async (req, res) => {
 const EnterPasswordLoad = async (req, res) => {
     try {
         const { identity, token } = await req.query;
-        res.render("EnterPassword", { identity, token });
+        return res.render("EnterPassword", { identity, token });
     } catch (error) {
         console.log(error.message);
     }
@@ -469,8 +469,8 @@ const ChangePassword = async (req, res) => {
         const { identity, token, password } = await req.body;
         const newPassword = await encryptedPassCode(password);
         const user = await accounts.updateOne({ identity: identity, token: token }, { $set: { password: newPassword } });
-        res.render("Login", { message: "Your password is changed successfully ✔" });
         const userData = await accounts.updateOne({ identity: identity, token: token }, { $set: { token: "" } });
+        return res.render("Login", { message: "Your password is changed successfully ✔" });
     } catch (error) {
         console.log(error.message);
     }
@@ -479,11 +479,11 @@ const ChangePassword = async (req, res) => {
 const productLoad = async (req, res) => {
     try {
         if (!req.session.identity) {
-            res.render("Products");
+            return res.render("Products");
         } else {
             const user = await accounts.findOne({ identity: req.session.identity });
             const profile = "/accounts/" + user.profile
-            res.render("Products", { user, profile });
+            return res.render("Products", { user, profile });
         }
     } catch (error) {
         console.log(error.message);
@@ -512,7 +512,7 @@ const LoadDashboard = async (req, res) => {
                 ].filter(color => color !== "")
             };
         });
-        res.render("Dashboard", { user, profile, palettes: filteredPalettes });
+        return res.render("Dashboard", { user, profile, palettes: filteredPalettes });
     } catch (error) {
         console.log(error.message);
     }
@@ -522,7 +522,7 @@ const LoadProfile = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile
-        res.render("Profile", { user, profile });
+        return res.render("Profile", { user, profile });
     } catch (error) {
         console.log(error.message);
     }
@@ -534,7 +534,7 @@ const LemonColorLab = async (req, res) => {
         const profile = "/accounts/" + user.profile;
         const newPalettes = await Palette.find({}).sort({ sorting_date: -1 }).limit(30);
         const trendingPalettes = await Palette.find({}).sort({ views: -1 });
-        res.render("LemonColorLab", { user, profile, newPalettes, trendingPalettes });
+        return res.render("LemonColorLab", { user, profile, newPalettes, trendingPalettes });
     } catch (error) {
         console.log(error.message);
     }
@@ -544,7 +544,7 @@ const AddPalette = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile
-        res.render("addPalette", { user, profile });
+        return res.render("addPalette", { user, profile });
     } catch (error) {
         console.log(error.message);
     }
@@ -594,13 +594,13 @@ const OpenPalette = async (req, res) => {
             const user = await accounts.findOne({ identity: req.session.identity });
             const profile = user ? "/accounts/" + user.profile : undefined;
             const author = await accounts.findOne({ identity: palette.identity });
-            res.render("OpenPalette", { palette, user, profile, author });
+            return res.render("OpenPalette", { palette, user, profile, author });
         } else {
-            res.status(404).send("Palette not found");
+            return res.status(404).send("Palette not found");
         }
     } catch (error) {
         console.error(error.message);
-        res.status(500).send("Internal server error");
+        return res.status(500).send("Internal server error");
     }
 };
 
@@ -608,7 +608,7 @@ const FeedbackLoad = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile
-        res.render("FeedbackLoad", { user, profile });
+        return res.render("FeedbackLoad", { user, profile });
     } catch (error) {
         console.log(error.message);
     }
@@ -621,7 +621,7 @@ const SendFeedback = async (req, res) => {
         const name = user.name;
         FeedbacksMail(user.identity, name, Feedback);
         const profile = "/accounts/" + user.profile
-        res.render("FeedbackLoad", { user, profile, message: "Feedback Delivered ✨" });
+        return res.render("FeedbackLoad", { user, profile, message: "Feedback Delivered ✨" });
     } catch (error) {
         console.log(error.message);
     }
@@ -631,7 +631,7 @@ const TestimonialLoad = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile
-        res.render("TestimonialLoad", { user, profile });
+        return res.render("TestimonialLoad", { user, profile });
     } catch (error) {
         console.log(error.message);
     }
@@ -648,8 +648,8 @@ const SendTestimonial = async (req, res) => {
             identity: req.session.identity
         });
         const data = await testimonialsData.save();
-        res.render("TestimonialLoad", { user, profile, message: "Testimonial Delivered" });
         TestimonialsMail(req.session.identity, user.name, Testimonial);
+        return res.render("TestimonialLoad", { user, profile, message: "Testimonial Delivered" });
     } catch (error) {
         console.log(error.message);
     }

@@ -3,22 +3,22 @@ const isLogin = async (req, res, next) => {
         if (req.session.identity) {
 
         } else {
-            res.redirect('/login');
+            return res.redirect('/login');
         }
         next();
     } catch (error) {
-        res.render(error.message);
+        return res.render(error.message);
     }
 }
 
 const isLogout = async (req, res, next) => {
     try {
         if (req.session.identity) {
-            res.redirect('/dashboard');
+            return res.redirect('/dashboard');
         }
         next();
     } catch (error) {
-        res.render(error.message);
+        return res.render(error.message);
     }
 }
 
