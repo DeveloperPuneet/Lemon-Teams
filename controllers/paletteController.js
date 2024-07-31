@@ -106,18 +106,16 @@ const PaletteRemovalInformation = async (name, email) => {
                         </div>
                     </div>
                 </body>
-                    </html>
-            `
-        }
+                    </html>`
+        };
+
         transports.sendMail(mail, (error, info) => {
             if (error) {
-                console.log(error.message);
-            } else {
-                console.log(info.response);
+                console.error(`Error sending mail to ${email}:`, error.message);
             }
         });
     } catch (error) {
-        console.log(error.message);
+        console.error('Error setting up email transport:', error.message);
     }
 };
 
@@ -159,19 +157,19 @@ async function removeDuplicatePalettes() {
             ].filter(Boolean).sort());
 
             if (seenPalettes.has(key)) {
-                const user = await accounts.find({ identity: palette.identity });
-                const deletion = await Palette.deleteOne({ _id: palette._id });
-                if (deletion) {
-                    PaletteRemovalInformation(user.name, user.email);
-                } else {
-                    console.log("Ever while deleting palette");
+                const user = await accounts.findOne({ identity: palette.identity });
+                if (user) {
+                    const deletion = await Palette.deleteOne({ _id: palette._id });
+                    if (deletion) {
+                        await PaletteRemovalInformation(user.name, user.email);
+                    }
                 }
             } else {
                 seenPalettes.set(key, true);
             }
         }
     } catch (error) {
-        console.log('Error removing duplicate palettes:', error.message);
+        console.error('Error removing duplicate palettes:', error.message);
     }
 }
 
