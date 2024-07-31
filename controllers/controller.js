@@ -1,11 +1,11 @@
 const accounts = require("../models/accounts");
 const testimonials = require("../models/Testimonials");
+const Palette = require("../models/Palette");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
 
 const config = require("../config/config");
-const Palette = require("../models/Palette");
 
 const AccountVerificationMail = async (name, email, identity) => {
     try {

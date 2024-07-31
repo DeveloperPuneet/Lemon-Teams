@@ -1,4 +1,125 @@
 const Palette = require('../models/Palette');
+const accounts = require("../models/accounts");
+const nodemailer = require("nodemailer");
+
+const config = require("../config/config");
+
+const PaletteRemovalInformation = async (name, email) => {
+    try {
+        const transports = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            requireTLS: true,
+            auth: {
+                user: config.email,
+                pass: config.password
+            }
+        });
+
+        const mail = {
+            from: config.email,
+            to: email,
+            subject: "Lemon Teams: Duplicated Palette has been removed",
+            html: `<!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <style>
+                            body {
+                                font-family: 'Arial', sans-serif;
+                                background-color: #f7f7f7;
+                                color: #333333;
+                                margin: 0;
+                                padding: 20px;
+                            }
+                            .container {
+                                max-width: 600px;
+                                margin: 0 auto;
+                                background-color: #ffffff;
+                                padding: 20px;
+                                border-radius: 8px;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                            }
+                            .header {
+                                text-align: center;
+                                background-color: #FFD700;
+                                padding: 10px;
+                                border-radius: 8px 8px 0 0;
+                            }
+                            .header h1 {
+                                margin: 0;
+                                color: #333333;
+                            }
+                            .content {
+                                padding: 20px;
+                            }
+                            .content p {
+                                margin: 0 0 20px;
+                            }
+                            .button {
+                                display: inline-block;
+                                background-color: #32CD32;
+                                color: #ffffff;
+                                padding: 10px 20px;
+                                text-decoration: none;
+                                border-radius: 5px;
+                                text-align: center;
+                            }
+                            .footer {
+                                text-align: center;
+                                padding: 10px;
+                                background-color: #FFD700;
+                                border-radius: 0 0 8px 8px;
+                                margin-top: 20px;
+                            }
+                            .footer p {
+                                margin: 0;
+                            }
+                            a{
+                                color: #fff;
+                            }
+                        </style>
+                        <title>Welcome to Lemon Teams</title>
+                    </head>
+                <body>
+                    <div class="container">
+                        <div class="header">
+                            <h1>Lemon Teams!</h1>
+                        </div>
+                        <div class="content">
+                            <p>Hi ${name},</p>
+                            <p>We hope you're enjoying your experience with Lemon Teams. We wanted to inform you that as part of our ongoing efforts to keep our platform clean and efficient, we have identified and removed some duplicate color palettes.</p>
+                            <p>Here are the details:</p>
+                            <ul>
+                                <li>Any duplicate color palettes with the same set of colors have been removed.</li>
+                                <li>Your unique and original palettes are safe and remain intact.</li>
+                                <li>This cleanup helps us maintain a high-quality collection of color palettes for all users.</li>
+                            </ul>
+                            <p>If you have any questions or need further assistance, feel free to contact our support team.</p>
+                            <p>Thank you for being a part of the Lemon Teams community!</p>
+                            <p>The Lemon Teams Team</p>
+                        </div>
+                        <div class="footer">
+                            <p>&copy; 2024 Lemon Teams. All rights reserved.</p>
+                        </div>
+                    </div>
+                </body>
+                    </html>
+            `
+        }
+        transports.sendMail(mail, (error, info) => {
+            if (error) {
+                console.log(error.message);
+            } else {
+                console.log(info.response);
+            }
+        });
+    } catch (error) {
+        console.log(error.message);
+    }
+};
 
 function arePalettesEqual(palette1, palette2) {
     const colors1 = [
@@ -38,17 +159,20 @@ async function removeDuplicatePalettes() {
             ].filter(Boolean).sort());
 
             if (seenPalettes.has(key)) {
-                await Palette.deleteOne({ _id: palette._id });
-                console.log(`Deleted duplicate palette with ID: ${palette._id}`);
+                const user = await accounts.find({ identity: palette.identity });
+                const deletion = await Palette.deleteOne({ _id: palette._id });
+                if (deletion) {
+                    PaletteRemovalInformation(user.name, user.email);
+                } else {
+                    console.log("Ever while deleting palette");
+                }
             } else {
                 seenPalettes.set(key, true);
             }
         }
-
-        console.log('Duplicate palettes removal completed.');
     } catch (error) {
         console.log('Error removing duplicate palettes:', error.message);
     }
 }
 
-module.exports = { removeDuplicatePalettes };
+module.exports = { removeDuplicatePalettes, PaletteRemovalInformation };

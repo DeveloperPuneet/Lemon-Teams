@@ -41,18 +41,17 @@ http.listen(PORT, () => {
 });
 
 cron.schedule('*/15 * * * *', () => {
-    console.log('Running duplicate palette removal task');
     removeDuplicatePalettes();
 });
 
-const url = "https://lemonteams.onrender.com/"; 
-const interval = 10000; 
+const url = "https://lemonteams.onrender.com/";
+const interval = 10000;
 function reloadWebsite() {
-  axios.get(url)
-    .then(response => {
-    })
-    .catch(error=>{
-      console.error(Error);
-    });
+    axios.get(url)
+        .then(response => {
+        })
+        .catch(error => {
+            console.error(Error);
+        });
 }
-setInterval(reloadWebsite, interval);
+setInterval(reloadWebsite, interval);
