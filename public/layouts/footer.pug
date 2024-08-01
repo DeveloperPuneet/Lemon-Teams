@@ -15,7 +15,10 @@ link(rel="stylesheet", href="../css/footer.css")
                 a(href="/products" title="") Product 
                 a(href="") Solutions 
                 a(href="/feedback") Feedback 
-                a(href="/account") Account
+                -if(!user)
+                    a(href=`/account/`) Account
+                -else
+                    a(href=`/account/${user.identity}`) Account
                 a(href="/testimonials") Testimonials
         .sec.sec4
             .footer-heading Teams

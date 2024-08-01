@@ -45,7 +45,8 @@ router.get("/reset-password", controller.RequestMailToResetPassword);
 router.post("/reset-password", controller.SendResetPasswordMail);
 router.get("/new-password", controller.EnterPasswordLoad);
 router.post("/new-password", controller.ChangePassword);
-router.get("/account", auth.isLogin, controller.LoadProfile);
+router.get("/account/:identity", auth.isLogin, controller.LoadProfile);
+router.get("/account", auth.isLogin, controller.LoadLogin);
 router.get("/dashboard", auth.isLogin, controller.LoadDashboard);
 router.get("/products", controller.productLoad);
 router.get("/lemon-color-lab", auth.isLogin, controller.LemonColorLab);
@@ -57,5 +58,8 @@ router.get("/feedback", auth.isLogin, controller.FeedbackLoad);
 router.post("/feedback", auth.isLogin, controller.SendFeedback);
 router.get("/testimonials", auth.isLogin, controller.TestimonialLoad);
 router.post("/testimonials", auth.isLogin, controller.SendTestimonial);
+router.get("/logout", auth.isLogin, controller.Logout);
+router.get("/delete-account", auth.isLogin, controller.DeleteAccount);
+router.post("/save-profile", auth.isLogin, controller.SaveProfile);
 
 module.exports = router;

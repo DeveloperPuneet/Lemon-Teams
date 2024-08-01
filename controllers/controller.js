@@ -6,6 +6,7 @@ const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
 
 const config = require("../config/config");
+const { listenerCount } = require("../routes/router");
 
 const AccountVerificationMail = async (name, email, identity) => {
     try {
@@ -518,16 +519,6 @@ const LoadDashboard = async (req, res) => {
     }
 };
 
-const LoadProfile = async (req, res) => {
-    try {
-        const user = await accounts.findOne({ identity: req.session.identity });
-        const profile = "/accounts/" + user.profile
-        return res.render("Profile", { user, profile });
-    } catch (error) {
-        console.log(error.message);
-    }
-}
-
 const LemonColorLab = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
@@ -655,6 +646,65 @@ const SendTestimonial = async (req, res) => {
     }
 }
 
+const Logout = async (req, res) => {
+    try {
+        req.session.destroy();
+        return res.redirect("/");
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const DeleteAccount = async (req, res) => {
+    try {
+        const identity = req.session.identity;
+        if (identity) {
+            const data = await Palette.deleteMany({ identity: req.session.identity });
+            const user = await accounts.deleteOne({ identity: req.session.identity });
+        } else {
+            return res.send("Account Deletion Failed");
+        }
+        req.session.destroy();
+        return res.redirect("/");
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const SaveProfile = async (req, res) => {
+    try {
+        const identity = await req.session.identity;
+        const { pronounce, description } = await req.body;
+        const updateInfo = await accounts.updateOne({ identity: identity }, {
+            $set: {
+                pronounce: pronounce,
+                description: description
+            }
+        });
+        return res.redirect("/dashboard");
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const LoadProfile = async (req, res) => {
+    try {
+        let isOurProfile = true;
+        let user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile;
+        const identity = await req.params.identity;
+        if (identity == req.session.identity) {
+            isOurProfile = true
+        } else {
+            isOurProfile = false
+            user = await accounts.findOne({ identity: identity });
+        }
+        return res.render("Profile", { user, profile, isOurProfile });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 module.exports = {
     Load,
     LoadProfile,
@@ -676,5 +726,8 @@ module.exports = {
     FeedbackLoad,
     SendFeedback,
     TestimonialLoad,
-    SendTestimonial
+    SendTestimonial,
+    Logout,
+    DeleteAccount,
+    SaveProfile
 };

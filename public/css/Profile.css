@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic');
+@import url('https://fonts.googleapis.com/css?family=Playwrite+HR+Lijeva:100,200,300,regular');
+
+:root {
+    --lemon-yellow: #FFD700;
+    --fresh-green: #32CD32;
+    --highlight-white: #FFFFFF;
+    --outline-black: #000000;
+
+    /* Theme colors */
+    --forest-night: #181818;
+    --cloud-mist: #E0E0E0;
+    --sunset-glow: #FFC107;
+    --lavender-bloom: #BB86FC;
+    --river-rock: #282828;
+    --mountain-shadow: #3C3C3C;
+
+    /* Color palette */
+    --moonlight-dark: #0D1B2A;
+    --star-dark: #1B263B;
+    --evening-star: #415A77;
+    --shining-star: #778DA9;
+    --star-bright: #E0E1DD;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans";
+    user-select: none;
+    transition: all .3s linear;
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+html {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    background: var(--forest-night);
+    overflow-x: hidden;
+    position: relative;
+}
+
+.container {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top {
+    height: 40%;
+    width: 100%;
+    background-color: var(--river-rock);
+    display: flex;
+    justify-content: center;
+}
+
+.top img {
+    width: 150px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 5px solid var(--river-rock);
+    position: relative;
+    top: 60%;
+    height: 150px;
+}
+
+.bottom {
+    padding: 10px;
+    padding-top: 90px;
+}
+
+.bottom .name {
+    color: var(--highlight-white);
+    text-align: center;
+}
+
+.email {
+    color: var(--star-bright);
+    margin-top: 20px;
+    text-align: center;
+}
+
+.links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.links a {
+    color: var(--cloud-mist);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.left {
+    height: 100vh;
+    width: 40%;
+    background: var(--mountain-shadow);
+}
+
+.right {
+    height: 100vh;
+    width: 60%;
+    padding: 15px;
+    color: var(--cloud-mist);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    width: 100%;
+    height: fit-content;
+}
+
+.pronounce {
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 15px;
+}
+
+.pronounce p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.pronounce input {
+    width: 95%;
+    background: var(--moonlight-dark);
+    outline: none;
+    border: none;
+    padding: 10px;
+    font-size: 0.9rem;
+    color: var(--cloud-mist);
+    border-radius: 7px;
+}
+
+.pronounce input:focus {
+    outline: 2px solid var(--lemon-yellow);
+}
+
+.description {
+    width: 100%;
+    height: fit-content;
+}
+
+.description textarea {
+    min-width: 50%;
+    max-width: 90%;
+    min-height: 200px;
+    max-height: 350px;
+}
+
+.description p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.description textarea {
+    background: var(--moonlight-dark);
+    outline: none;
+    border: none;
+    padding: 10px;
+    font-size: 0.9rem;
+    color: var(--cloud-mist);
+    border-radius: 7px;
+}
+
+.description textarea:focus {
+    outline: 2px solid var(--lemon-yellow);
+}
+
+.submit {
+    width: 90%;
+    margin: auto;
+    background: var(--star-dark);
+    margin-top: 15px;
+    border-radius: 7px;
+    padding: 7px;
+    color: var(--cloud-mist);
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    outline: none;
+}
+
+.submit:hover {
+    outline: 2px solid var(--lemon-yellow);
+    cursor: pointer;
+}
+
+.account-actions {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.account-actions a {
+    background: var(--lavender-bloom);
+    color: var(--cloud-mist);
+    text-decoration: none;
+    padding: 8px 15px;
+    min-width: 100px;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.description .highlighted{
+    font-size: 1.2rem;
+    color: var(--highlight-white);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.pronounce .highlighted{
+    font-size: 1.2rem;
+    color: var(--highlight-white);
+    margin-bottom: 8px;
+    font-weight: 700;
+}

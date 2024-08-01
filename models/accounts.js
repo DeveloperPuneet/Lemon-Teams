@@ -29,6 +29,46 @@ const schema = new mongoose.Schema({
     token: {
         type: String,
         default: ""
+    },
+    description: {
+        type: String,
+        default: "I love lemons"
+    },
+    link1: {
+        type: String,
+        default: ""
+    },
+    linkTitle1: {
+        type: String,
+        default: ""
+    },
+    link2: {
+        type: String,
+        default: ""
+    },
+    linkTitle2: {
+        type: String,
+        default: ""
+    },
+    link3: {
+        type: String,
+        default: ""
+    },
+    linkTitle3: {
+        type: String,
+        default: ""
+    },
+    link4:{
+        type:String,
+        default: ""
+    },
+    linkTitle4:{
+        type:String,
+        default: ""
+    },
+    pronounce:{
+        type:String,
+        default: "he/she"
     }
 });
 
