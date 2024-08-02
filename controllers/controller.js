@@ -747,9 +747,11 @@ const LoadProfile = async (req, res) => {
             isOurProfile = false
         }
         const profileUser = await accounts.findOne({ identity: identity });
-        const userProfile = "/accounts/" + user.profile;
-        const showProfile = "/accounts/" + user.profileUser;
-        return res.render("Profile", { showProfile, profileUser, user, profile, isOurProfile, userProfile });
+        let showProfile;
+        if(profileUser){
+            showProfile = await "/accounts/" + user.profileUser;
+        }
+        return res.render("Profile", { showProfile, profileUser, user, profile, isOurProfile });
     } catch (error) {
         console.log(error.message);
     }
