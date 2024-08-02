@@ -739,15 +739,16 @@ const LoadProfile = async (req, res) => {
     try {
         let isOurProfile = true;
         let user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile;
         const identity = await req.params.identity;
         if (identity == req.session.identity) {
             isOurProfile = true
         } else {
             isOurProfile = false
-            user = await accounts.findOne({ identity: identity });
         }
-        const profile = "/accounts/" + user.profile;
-        return res.render("Profile", { user, profile, isOurProfile });
+        const profileUser = await accounts.findOne({ identity: identity });
+        const userProfile = "/accounts/" + user.profile;
+        return res.render("Profile", {profileUser, user, profile, isOurProfile, userProfile });
     } catch (error) {
         console.log(error.message);
     }

@@ -5,29 +5,29 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     include ../public/components/header.pug
     link(rel="stylesheet", href="/css/Profile.css")
-    title Lemon Teams: #{user.name}
+    title Lemon Teams: #{profileUser.name}
   body#body 
     include ../public/layouts/navigation.pug
     .container 
       .left 
         .top 
-          img#ChangeProfile(src=profile, alt="")
+          img#ChangeProfile(src=profileUserProfile, alt="")
         .bottom 
-          h2.name #{user.name}
-          h4.email #{user.email}
+          h2.name #{profileUser.name}
+          h4.email #{profileUser.email}
           .links 
-            - if (user.link1 !== "" && user.linkTitle1 !== "")
-              a(href=user.link1 target="_blank")
-                i.fa-solid.fa-link &nbsp; #{user.linkTitle1}
-            - if (user.link2 !== "" && user.linkTitle2 !== "")
-              a(href=user.link2 target="_blank")
-                i.fa-solid.fa-link &nbsp; #{user.linkTitle2}
-            - if (user.link3 !== "" && user.linkTitle3 !== "")
-              a(href=user.link3 target="_blank")
-                i.fa-solid.fa-link &nbsp; #{user.linkTitle3}
-            - if (user.link4 !== "" && user.linkTitle4 !== "")
-              a(href=user.link4 target="_blank")
-                i.fa-solid.fa-link &nbsp; #{user.linkTitle4}
+            - if (profileUser.link1 !== "" && profileUser.linkTitle1 !== "")
+              a(href=profileUser.link1 target="_blank")
+                i.fa-solid.fa-link &nbsp; #{profileUser.linkTitle1}
+            - if (profileUser.link2 !== "" && profileUser.linkTitle2 !== "")
+              a(href=profileUser.link2 target="_blank")
+                i.fa-solid.fa-link &nbsp; #{profileUser.linkTitle2}
+            - if (profileUser.link3 !== "" && profileUser.linkTitle3 !== "")
+              a(href=profileUser.link3 target="_blank")
+                i.fa-solid.fa-link &nbsp; #{profileUser.linkTitle3}
+            - if (profileUser.link4 !== "" && profileUser.linkTitle4 !== "")
+              a(href=profileUser.link4 target="_blank")
+                i.fa-solid.fa-link &nbsp; #{profileUser.linkTitle4}
       .right
         - if (isOurProfile == true)
           a.RestoreProfile(href="/restore-profile-to-default") Restore Profile
@@ -35,24 +35,24 @@ html(lang="en")
             input.hide(type="file", name="profileImage", accept="image/*" id="FileInput")
             .pronounce 
               p Pronounce
-              input(type="text", placeholder="Pronounce" required value=user.pronounce name="pronounce")
+              input(type="text", placeholder="Pronounce" required value=profileUser.pronounce name="pronounce")
             .description 
               p Description
-              textarea(name="description" placeholder="Description" required)= user.description
+              textarea(name="description" placeholder="Description" required)= profileUser.description
             .add-links
               p Links
               .adding-link
-                input#title1(type="text", placeholder="Title of Link1" name="titleLink1" value=user.linkTitle1)
-                input#link1(type="text", placeholder="Link1" name="link1" value=user.link1)
+                input#title1(type="text", placeholder="Title of Link1" name="titleLink1" value=profileUser.linkTitle1)
+                input#link1(type="text", placeholder="Link1" name="link1" value=profileUser.link1)
               .adding-link
-                input#title2(type="text", placeholder="Title of Link2" name="titleLink2" value=user.linkTitle2)
-                input#link2(type="text", placeholder="Link2" name="link2" value=user.link2)
+                input#title2(type="text", placeholder="Title of Link2" name="titleLink2" value=profileUser.linkTitle2)
+                input#link2(type="text", placeholder="Link2" name="link2" value=profileUser.link2)
               .adding-link
-                input#title3(type="text", placeholder="Title of Link3" name="titleLink3" value=user.linkTitle3)
-                input#link3(type="text", placeholder="Link3" name="link3" value=user.link3)
+                input#title3(type="text", placeholder="Title of Link3" name="titleLink3" value=profileUser.linkTitle3)
+                input#link3(type="text", placeholder="Link3" name="link3" value=profileUser.link3)
               .adding-link
-                input#title4(type="text", placeholder="Title of Link4" name="titleLink4" value=user.linkTitle4)
-                input#link4(type="text", placeholder="Link4" name="link4" value=user.link4)
+                input#title4(type="text", placeholder="Title of Link4" name="titleLink4" value=profileUser.linkTitle4)
+                input#link4(type="text", placeholder="Link4" name="link4" value=profileUser.link4)
             input.submit(type="submit" value="Save Changes")
           .account-actions
             a(href="/logout") Logout
@@ -60,9 +60,9 @@ html(lang="en")
         - else
           .pronounce
             p.highlighted Pronounce
-            p #{user.pronounce}
+            p #{profileUser.pronounce}
           .description 
             p.highlighted Description
-            p #{user.description}
+            p #{profileUser.description}
     include ../public/layouts/footer.pug
     script(src="/js/Profile.js")
