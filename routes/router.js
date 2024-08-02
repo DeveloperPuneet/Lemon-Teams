@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
         cb(null, path.join(__dirname, '../public/accounts'));
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + randomIdentity());
+        cb(null, Date.now() + '-' + randomIdentity() + path.extname(file.originalname));
     }
 });
 const upload = multer({ storage: storage });
@@ -60,6 +60,7 @@ router.get("/testimonials", auth.isLogin, controller.TestimonialLoad);
 router.post("/testimonials", auth.isLogin, controller.SendTestimonial);
 router.get("/logout", auth.isLogin, controller.Logout);
 router.get("/delete-account", auth.isLogin, controller.DeleteAccount);
-router.post("/save-profile", auth.isLogin, controller.SaveProfile);
+router.post("/save-profile", auth.isLogin, upload.single("profileImage"), controller.SaveProfile);
+router.get("/restore-profile-to-default", auth.isLogin, controller.RestoreProfileToDefault);
 
 module.exports = router;

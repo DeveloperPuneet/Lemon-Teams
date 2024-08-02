@@ -58,16 +58,16 @@ const schema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    link4:{
-        type:String,
+    link4: {
+        type: String,
         default: ""
     },
-    linkTitle4:{
-        type:String,
+    linkTitle4: {
+        type: String,
         default: ""
     },
-    pronounce:{
-        type:String,
+    pronounce: {
+        type: String,
         default: "he/she"
     }
 });

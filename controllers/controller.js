@@ -4,9 +4,10 @@ const Palette = require("../models/Palette");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
+const fs = require('fs');
+const path = require('path');
 
 const config = require("../config/config");
-const { listenerCount } = require("../routes/router");
 
 const AccountVerificationMail = async (name, email, identity) => {
     try {
@@ -673,14 +674,61 @@ const DeleteAccount = async (req, res) => {
 
 const SaveProfile = async (req, res) => {
     try {
-        const identity = await req.session.identity;
-        const { pronounce, description } = await req.body;
-        const updateInfo = await accounts.updateOne({ identity: identity }, {
-            $set: {
-                pronounce: pronounce,
-                description: description
+        const identity = req.session.identity;
+        const {
+            pronounce = '',
+            description = '',
+            titleLink1 = '',
+            titleLink2 = '',
+            titleLink3 = '',
+            titleLink4 = '',
+            link1 = '',
+            link2 = '',
+            link3 = '',
+            link4 = ''
+        } = req.body;
+
+        const trimmedPronounce = pronounce.trim();
+        const trimmedDescription = description.trim();
+        const trimmedTitleLink1 = titleLink1.trim();
+        const trimmedTitleLink2 = titleLink2.trim();
+        const trimmedTitleLink3 = titleLink3.trim();
+        const trimmedTitleLink4 = titleLink4.trim();
+        const trimmedLink1 = link1.trim();
+        const trimmedLink2 = link2.trim();
+        const trimmedLink3 = link3.trim();
+        const trimmedLink4 = link4.trim();
+
+        const updateFields = {
+            pronounce: trimmedPronounce,
+            description: trimmedDescription,
+            linkTitle1: trimmedTitleLink1,
+            linkTitle2: trimmedTitleLink2,
+            linkTitle3: trimmedTitleLink3,
+            linkTitle4: trimmedTitleLink4,
+            link1: trimmedLink1,
+            link2: trimmedLink2,
+            link3: trimmedLink3,
+            link4: trimmedLink4
+        };
+
+        const user = await accounts.findOne({ identity: identity });
+
+        if (req.file) {
+            if (user.profile && user.profile !== 'default.png') {
+                const oldImagePath = path.join(__dirname, '../public/accounts', user.profile);
+                fs.unlink(oldImagePath, (err) => {
+                    if (err) {
+                        console.error("Failed to delete old profile image:", err);
+                    }
+                });
             }
-        });
+
+            updateFields.profile = req.file.filename;
+        }
+
+        await accounts.updateOne({ identity: identity }, { $set: updateFields });
+
         return res.redirect("/dashboard");
     } catch (error) {
         console.log(error.message);
@@ -700,6 +748,27 @@ const LoadProfile = async (req, res) => {
             user = await accounts.findOne({ identity: identity });
         }
         return res.render("Profile", { user, profile, isOurProfile });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const RestoreProfileToDefault = async (req, res) => {
+    try {
+        const identity = req.session.identity;
+        const user = await accounts.findOne({ identity: identity });
+        if (user.profile && user.profile !== 'default.png') {
+            const oldImagePath = path.join(__dirname, '../public/accounts', user.profile);
+            fs.unlink(oldImagePath, (err) => {
+                if (err) {
+                    console.error("Failed to delete old profile image:", err);
+                }
+            });
+        }
+        const updateUser = await accounts.updateOne({ identity: identity }, { $set: { profile: "default.png" } });
+        if (updateUser) {
+            return res.redirect("/dashboard");
+        }
     } catch (error) {
         console.log(error.message);
     }
@@ -729,5 +798,6 @@ module.exports = {
     SendTestimonial,
     Logout,
     DeleteAccount,
-    SaveProfile
+    SaveProfile,
+    RestoreProfileToDefault
 };

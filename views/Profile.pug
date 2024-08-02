@@ -1,51 +1,68 @@
 doctype html
 html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        include ../public/components/header.pug
-        link(rel="stylesheet", href="/css/Profile.css")
-        title Lemon Teams: #{user.name}
-    body#body 
-        include ../public/layouts/navigation.pug
-        .container 
-            .left 
-                .top 
-                    img(src=profile, alt="")
-                .bottom 
-                    h2.name #{user.name}
-                    h4.email #{user.email}
-                    .links 
-                        - if (user.link1 !== "" && user.linkTitle1 !== "")
-                            a(href=user.link1 target="_blank")
-                                i.fa-solid.fa-link &nbsp; #{user.linkTitle1}
-                        - if (user.link2 !== "" && user.linkTitle2 !== "")
-                            a(href=user.link2 target="_blank")
-                                i.fa-solid.fa-link &nbsp; #{user.linkTitle2}
-                        - if (user.link3 !== "" && user.linkTitle3 !== "")
-                            a(href=user.link3 target="_blank")
-                                i.fa-solid.fa-link &nbsp; #{user.linkTitle3}
-                        - if (user.link4 !== "" && user.linkTitle4 !== "")
-                            a(href=user.link4 target="_blank")
-                                i.fa-solid.fa-link &nbsp; #{user.linkTitle4}
-            .right
-                - if (isOurProfile == true)
-                    form(action="/save-profile", method="post") 
-                        .pronounce 
-                            p Pronounce
-                            input(type="text", placeholder="Pronounce" required value=user.pronounce name="pronounce")
-                        .description 
-                            p Description
-                            textarea(name="description" placeholder="Description" required)= user.description
-                        input.submit(type="submit" value="Save Changes")
-                    .account-actions
-                        a(href="/logout") Logout
-                        a(href="/delete-account") Delete Account
-                - else
-                    .pronounce
-                        p.highlighted Pronounce
-                        p #{user.pronounce}
-                    .description 
-                        p.highlighted Description
-                        p #{user.description}
-        include ../public/layouts/footer.pug
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    include ../public/components/header.pug
+    link(rel="stylesheet", href="/css/Profile.css")
+    title Lemon Teams: #{user.name}
+  body#body 
+    include ../public/layouts/navigation.pug
+    .container 
+      .left 
+        .top 
+          img#ChangeProfile(src=profile, alt="")
+        .bottom 
+          h2.name #{user.name}
+          h4.email #{user.email}
+          .links 
+            - if (user.link1 !== "" && user.linkTitle1 !== "")
+              a(href=user.link1 target="_blank")
+                i.fa-solid.fa-link &nbsp; #{user.linkTitle1}
+            - if (user.link2 !== "" && user.linkTitle2 !== "")
+              a(href=user.link2 target="_blank")
+                i.fa-solid.fa-link &nbsp; #{user.linkTitle2}
+            - if (user.link3 !== "" && user.linkTitle3 !== "")
+              a(href=user.link3 target="_blank")
+                i.fa-solid.fa-link &nbsp; #{user.linkTitle3}
+            - if (user.link4 !== "" && user.linkTitle4 !== "")
+              a(href=user.link4 target="_blank")
+                i.fa-solid.fa-link &nbsp; #{user.linkTitle4}
+      .right
+        - if (isOurProfile == true)
+          a.RestoreProfile(href="/restore-profile-to-default") Restore Profile
+          form(action="/save-profile", method="post", enctype="multipart/form-data", id="profile-form") 
+            input.hide(type="file", name="profileImage", accept="image/*" id="FileInput")
+            .pronounce 
+              p Pronounce
+              input(type="text", placeholder="Pronounce" required value=user.pronounce name="pronounce")
+            .description 
+              p Description
+              textarea(name="description" placeholder="Description" required)= user.description
+            .add-links
+              p Links
+              .adding-link
+                input#title1(type="text", placeholder="Title of Link1" name="titleLink1" value=user.linkTitle1)
+                input#link1(type="text", placeholder="Link1" name="link1" value=user.link1)
+              .adding-link
+                input#title2(type="text", placeholder="Title of Link2" name="titleLink2" value=user.linkTitle2)
+                input#link2(type="text", placeholder="Link2" name="link2" value=user.link2)
+              .adding-link
+                input#title3(type="text", placeholder="Title of Link3" name="titleLink3" value=user.linkTitle3)
+                input#link3(type="text", placeholder="Link3" name="link3" value=user.link3)
+              .adding-link
+                input#title4(type="text", placeholder="Title of Link4" name="titleLink4" value=user.linkTitle4)
+                input#link4(type="text", placeholder="Link4" name="link4" value=user.link4)
+            input.submit(type="submit" value="Save Changes")
+          .account-actions
+            a(href="/logout") Logout
+            a(href="/delete-account") Delete Account
+        - else
+          .pronounce
+            p.highlighted Pronounce
+            p #{user.pronounce}
+          .description 
+            p.highlighted Description
+            p #{user.description}
+    include ../public/layouts/footer.pug
+    script(src="/js/Profile.js")
