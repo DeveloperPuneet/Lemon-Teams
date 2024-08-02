@@ -17,7 +17,9 @@ html(lang="en")
                     if color
                         .color-box(data-color=`${color}`, style=`background: ${color};`)= color
             .palette-details
-                p Author: #{author.name}
+                p 
+                    | Author: 
+                    a.authorProfile(href=`/account/`+author.identity) #{author.name}
                 p Publishing Date: #{palette.publishing_date}
                 p Views: #{palette.views}
         include ../public/layouts/footer.pug
