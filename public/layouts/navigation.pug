@@ -26,9 +26,9 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
     .line 
     a(href="") <i class="fa-solid fa-message"></i> &nbsp;Feedback 
     .line
-        -if (!user)
-            a(href="/account") <i class="fa-solid fa-file-invoice"></i>&nbsp; Account 
-        -else
-            a(href=`/account/${user.identity}` class="nav-profile-image") <i class="fa-solid fa-file-invoice"></i>&nbsp; Account 
+    -if (!user)
+        a(href="/account") <i class="fa-solid fa-file-invoice"></i>&nbsp; Account 
+    -else
+        a(href=`/account/${user.identity}`) <i class="fa-solid fa-file-invoice"></i>&nbsp; Account 
     .line
 script(src="../js/navigation.js") 

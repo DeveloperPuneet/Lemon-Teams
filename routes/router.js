@@ -53,7 +53,7 @@ router.get("/lemon-color-lab", auth.isLogin, controller.LemonColorLab);
 router.get("/lemon-color-lab-preview", auth.isLogin, controller.LemonColorLab);
 router.get("/add-palette", auth.isLogin, controller.AddPalette);
 router.post("/add-palette", auth.isLogin, controller.PublishingPalette);
-router.get("/open-palette", controller.OpenPalette);
+router.get("/open-palette", auth.isLogin, controller.OpenPalette);
 router.get("/feedback", auth.isLogin, controller.FeedbackLoad);
 router.post("/feedback", auth.isLogin, controller.SendFeedback);
 router.get("/testimonials", auth.isLogin, controller.TestimonialLoad);

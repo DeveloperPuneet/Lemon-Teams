@@ -2,10 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const axios = require("axios");
 const cron = require('node-cron');
-const { removeDuplicatePalettes } = require('./controllers/paletteController');
 
+const { removeDuplicatePalettes } = require('./controllers/paletteController');
 const config = require("./config/config");
 const router = require("./routes/router");
+const Palette = require("./models/Palette");
 
 const app = express();
 const PORT = config.port;
@@ -25,10 +26,37 @@ database();
 
 app.use("/", router);
 
-io.on("connection", (socket) => {
+io.on('connection', (socket) => {
+    socket.on('toggle-like', async (data) => {
+        const { userId, paletteIdentity } = data;
+        const palette = await Palette.findOne({ code: paletteIdentity });
+        if (palette.liked.includes(userId)) {
+            palette.liked = palette.liked.filter(id => id !== userId);
+        } else {
+            palette.liked.push(userId);
+        }
+        await palette.save();
+        io.emit('like-updated', {
+            paletteIdentity,
+            likes: palette.liked.length
+        });
+    });
 
-    socket.on("disconnect", () => {
-
+    socket.on('add-comment', async ({ name, comment, paletteIdentity }) => {
+        try {
+            const palette = await Palette.findOne({ code: paletteIdentity });
+            if (!palette) return;
+            palette.comments.push({ name, comment });
+            await palette.save();
+            io.emit('comment-updated', {
+                paletteIdentity,
+                comments: palette.comments
+            });
+        } catch (error) {
+            console.error('Error adding comment:', error);
+        }
+    });
+    socket.on('disconnect', () => {
     });
 });
 

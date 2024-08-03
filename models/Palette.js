@@ -61,6 +61,14 @@ const schema = new mongoose.Schema({
     code: {
         type: String,
         required: true
+    },
+    liked: {
+        type: Array,
+        default: []
+    },
+    comments: {
+        type: Array,
+        default: []
     }
 });
 
