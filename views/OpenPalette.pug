@@ -66,7 +66,7 @@ html(lang="en")
                     commentTextArea.value = '';
                 }
             });
-
+            commentList.innerHTML = '';
             socket.on('comment-updated', (data) => {
                 if (data.paletteIdentity === paletteIdentity) {
 
