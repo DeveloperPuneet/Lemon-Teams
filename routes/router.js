@@ -62,5 +62,11 @@ router.get("/logout", auth.isLogin, controller.Logout);
 router.get("/delete-account", auth.isLogin, controller.DeleteAccount);
 router.post("/save-profile", auth.isLogin, upload.single("profileImage"), controller.SaveProfile);
 router.get("/restore-profile-to-default", auth.isLogin, controller.RestoreProfileToDefault);
+router.get("/solutions", auth.isLogin, controller.Solutions);
+router.get("/privacy-and-policies", auth.isLogin, controller.PrivacyAndPolicies);
+router.get("/donate", auth.isLogin, controller.Donate);
+router.get("/join-lemon-teams", auth.isLogin, controller.JoinLemonTeams);
+router.get("/support", auth.isLogin, controller.Support);
+router.post("/support", auth.isLogin, controller.GetHelp);
 
 module.exports = router;

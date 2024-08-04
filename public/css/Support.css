@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic');
+@import url('https://fonts.googleapis.com/css?family=Playwrite+HR+Lijeva:100,200,300,regular');
+
+:root {
+    --lemon-yellow: #FFD700;
+    --fresh-green: #32CD32;
+    --highlight-white: #FFFFFF;
+    --outline-black: #000000;
+
+    /* Theme colors */
+    --forest-night: #181818;
+    --cloud-mist: #E0E0E0;
+    --sunset-glow: #FFC107;
+    --lavender-bloom: #BB86FC;
+    --river-rock: #282828;
+    --mountain-shadow: #3C3C3C;
+
+    /* Color palette */
+    --moonlight-dark: #0D1B2A;
+    --star-dark: #1B263B;
+    --evening-star: #415A77;
+    --shining-star: #778DA9;
+    --star-bright: #E0E1DD;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans";
+    user-select: none;
+    transition: all .3s linear;
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+html {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    background: var(--forest-night);
+    overflow-x: hidden;
+    position: relative;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container h1 {
+    font-size: 2.5rem;
+    color: var(--sunset-glow);
+    margin: 10px;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+textarea {
+    min-width: 80vw;
+    max-width: 90vw;
+    font-size: 0.9rem;
+    background: var(--moonlight-dark);
+    color: var(--cloud-mist);
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+input {
+    min-width: 80vw;
+    max-width: 90vw;
+    font-size: 0.9rem;
+    background: var(--moonlight-dark);
+    color: var(--cloud-mist);
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+input:hover,
+textarea:hover {
+    outline: 2px solid var(--sunset-glow);
+}

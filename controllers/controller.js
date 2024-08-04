@@ -497,6 +497,7 @@ const LoadDashboard = async (req, res) => {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile;
         const palettes = await Palette.find({ identity: req.session.identity });
+        const likedPalettes = await Palette.find({ liked: req.session.identity });
         const filteredPalettes = palettes.map(palette => {
             return {
                 ...palette._doc,
@@ -514,7 +515,24 @@ const LoadDashboard = async (req, res) => {
                 ].filter(color => color !== "")
             };
         });
-        return res.render("Dashboard", { user, profile, palettes: filteredPalettes });
+        const LikedFilteredPalettes = likedPalettes.map(palette => {
+            return {
+                ...palette._doc,
+                colors: [
+                    palette.color1,
+                    palette.color2,
+                    palette.color3,
+                    palette.color4,
+                    palette.color5,
+                    palette.color6,
+                    palette.color7,
+                    palette.color8,
+                    palette.color9,
+                    palette.color10
+                ].filter(color => color !== "")
+            };
+        });
+        return res.render("Dashboard", { user, profile, palettes: filteredPalettes, likedPalettes: LikedFilteredPalettes });
     } catch (error) {
         console.log(error.message);
     }
@@ -748,7 +766,7 @@ const LoadProfile = async (req, res) => {
         }
         const profileUser = await accounts.findOne({ identity: identity });
         let showProfile;
-        if(profileUser){
+        if (profileUser) {
             showProfile = await "/accounts/" + profileUser.profile;
         }
         return res.render("Profile", { showProfile, profileUser, user, profile, isOurProfile });
@@ -778,6 +796,67 @@ const RestoreProfileToDefault = async (req, res) => {
     }
 }
 
+const PrivacyAndPolicies = async (req, res) => {
+    try {
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile
+        return res.render("PrivacyAndPolicies", { user, profile });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const Solutions = async (req, res) => {
+    try {
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile
+        return res.render("Solutions", { user, profile });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const Donate = async (req, res) => {
+    try {
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile
+        return res.render("Donate", { user, profile });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const JoinLemonTeams = async (req, res) => {
+    try {
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile
+        return res.render("JoinLemonTeams", { user, profile });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const Support = async (req, res) => {
+    try {
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile
+        return res.render("Support", { user, profile });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const GetHelp = async (req, res) => {
+    try {
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const help = req.body.help;
+        FeedbacksMail(user.identity, user.name, help);
+        return res.redirect("/dashboard");
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports = {
     Load,
     LoadProfile,
@@ -803,5 +882,11 @@ module.exports = {
     Logout,
     DeleteAccount,
     SaveProfile,
-    RestoreProfileToDefault
+    RestoreProfileToDefault,
+    PrivacyAndPolicies,
+    Solutions,
+    JoinLemonTeams,
+    Donate,
+    Support,
+    GetHelp
 };

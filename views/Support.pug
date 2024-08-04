@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../public/components/header.pug
+        link(rel="stylesheet", href="/css/Support.css")
+        title Lemon Teams: Support
+    body#body 
+        include ../public/layouts/navigation.pug
+        .container
+            h1 Need a Help?
+            form(action="", method="post")
+                textarea(name="help" placeholder="How can we help you?")
+                input(type="submit" value="Get Help!")
+        include ../public/layouts/footer.pug

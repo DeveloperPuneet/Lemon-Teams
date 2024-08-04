@@ -187,3 +187,10 @@ body {
     overflow: auto;
     margin: 10px 10px;
 }
+
+.sub-headings{
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--cloud-mist);
+    margin: 5px;
+}

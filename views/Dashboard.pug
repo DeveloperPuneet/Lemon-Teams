@@ -18,8 +18,17 @@ html(lang="en")
                 h4 Your Activities 
                 .lemon-color-lab 
                     h5 Lemon Color Lab
+                    p.sub-headings Your Palettes
                     .palettes
                         each palette in palettes
+                            a.goto(href=`/open-palette?code=${palette.code}`) 
+                                .palette
+                                    each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
+                                        if color
+                                            .color(data-color=`${color}`, style=`background: ${color};`)
+                    p.sub-headings Liked Palettes
+                    .palettes
+                        each palette in likedPalettes
                             a.goto(href=`/open-palette?code=${palette.code}`) 
                                 .palette
                                     each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]

@@ -107,7 +107,6 @@ body {
 
 .card-img {
     width: 30%;
-    background: var(--lavender-bloom);
     height: 100%;
     display: flex;
     justify-content: center;
@@ -139,7 +138,7 @@ body {
 }
 
 .card-img img {
-    width: 100%;
+    width: 90%;
     object-fit: cover;
     display: flex;
     justify-content: center;

@@ -7,8 +7,8 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
     .lemons Lemon teams
     .options 
         a(href="/products") Products 
-        a(href="") Solutions
-        a(href="") Support 
+        a(href="/solutions") Solutions
+        a(href="/support") Support 
         a(href="/feedback") Feedback
         -if (!user)
             a(href="/account") <span class="material-symbols-outlined">person</span>
@@ -20,11 +20,11 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
 .menu-options#options
     .close <span class="lemons">Lemon teams</span> <span class="material-symbols-outlined" id="close">close</span>
     .line
-    a(href="") <i class="fa-brands fa-uncharted"></i>&nbsp; Products 
+    a(href="/products") <i class="fa-brands fa-uncharted"></i>&nbsp; Products 
     .line 
-    a(href="") <i class="fa-solid fa-dna"></i>&nbsp; Solutions 
+    a(href="/solutions") <i class="fa-solid fa-dna"></i>&nbsp; Solutions 
     .line 
-    a(href="") <i class="fa-solid fa-message"></i> &nbsp;Feedback 
+    a(href="/feedback") <i class="fa-solid fa-message"></i> &nbsp;Feedback 
     .line
     -if (!user)
         a(href="/account") <i class="fa-solid fa-file-invoice"></i>&nbsp; Account 
