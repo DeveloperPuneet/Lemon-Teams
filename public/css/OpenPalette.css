@@ -238,3 +238,20 @@ body {
     border-radius: 10px;
     margin-bottom: 10px;
 }
+
+.btn-actions {
+    padding: 10px 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.btn {
+    padding: 10px 15px;
+    color: var(--cloud-mist);
+    border-radius: 10px;
+    background-color: var(--lavender-bloom);
+    outline: none;
+    border: none;
+}

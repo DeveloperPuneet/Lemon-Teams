@@ -68,5 +68,6 @@ router.get("/donate", auth.isLogin, controller.Donate);
 router.get("/join-lemon-teams", auth.isLogin, controller.JoinLemonTeams);
 router.get("/support", auth.isLogin, controller.Support);
 router.post("/support", auth.isLogin, controller.GetHelp);
+router.post("/delete-palette", auth.isLogin, controller.DeletePalette);
 
 module.exports = router;

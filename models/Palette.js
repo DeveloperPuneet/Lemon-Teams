@@ -69,6 +69,10 @@ const schema = new mongoose.Schema({
     comments: {
         type: Array,
         default: []
+    },
+    Report:{
+        type: Array,
+        default: []
     }
 });
 

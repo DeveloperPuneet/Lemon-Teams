@@ -597,14 +597,17 @@ const OpenPalette = async (req, res) => {
     try {
         const code = req.query.code;
         const palette = await Palette.findOne({ code: code });
-
+        let isPaletteOurs = false;
         if (palette) {
             const views = palette.views + 1;
             await Palette.updateOne({ code: code }, { $set: { views: views } });
             const user = await accounts.findOne({ identity: req.session.identity });
             const profile = user ? "/accounts/" + user.profile : undefined;
             const author = await accounts.findOne({ identity: palette.identity });
-            return res.render("OpenPalette", { palette, user, profile, author });
+            if (author.identity == req.session.identity) {
+                isPaletteOurs = true;
+            }
+            return res.render("OpenPalette", { isPaletteOurs, palette, user, profile, author });
         } else {
             return res.status(404).send("Palette not found");
         }
@@ -613,6 +616,25 @@ const OpenPalette = async (req, res) => {
         return res.status(500).send("Internal server error");
     }
 };
+
+const DeletePalette = async (req, res) => {
+    try {
+        const code = req.body.code;
+        if (!code) {
+            throw new Error("Palette code is required");
+        }
+        const result = await Palette.deleteOne({ code: code });
+        if (result.deletedCount > 0) {
+        } else {
+            console.log(`No palette found with code ${code}.`);
+        }
+        return res.redirect("/lemon-color-lab");
+    } catch (error) {
+        console.log(error.message);
+        return res.redirect("/lemon-color-lab");
+    }
+};
+
 
 const FeedbackLoad = async (req, res) => {
     try {
@@ -888,5 +910,6 @@ module.exports = {
     JoinLemonTeams,
     Donate,
     Support,
-    GetHelp
+    GetHelp,
+    DeletePalette
 };

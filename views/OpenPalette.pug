@@ -10,6 +10,17 @@ html(lang="en")
         include ../public/layouts/navigation.pug
         .container
             h1.hide Color Palette
+            -if(isPaletteOurs == true)
+                form(action="/delete-palette", method="post") 
+                    input(type="hidden", value=palette.code, name="code")
+                    .btn-actions 
+                        input(type="submit" value="Delete" class="btn") 
+            -else
+                -if (palette.Report.includes(user.identity))
+                    .btn-actions#report-btn Reported
+                -else
+                    .btn-actions#report-btn 
+                        .btn Report
             h2#headingLogic #{palette.name}
             h4#descriptionLogic #{palette.description}
             .palette-container
@@ -44,6 +55,7 @@ html(lang="en")
             const socket = io();
             document.addEventListener('DOMContentLoaded', (event) => {
             const likeBtn = document.getElementById('like-btn');
+            const reportBtn = document.getElementById('report-btn');
             const commentForm = document.getElementById('comment-form');
             const commentNameInput = document.getElementById('comment-name');
             const commentTextArea = document.getElementById('comment-text');
@@ -53,6 +65,10 @@ html(lang="en")
 
             likeBtn.addEventListener('click', () => {
                 socket.emit('toggle-like', { userId, paletteIdentity });
+            });
+
+            reportBtn.addEventListener('click', () => {
+                socket.emit('toggle-report', { userId, paletteIdentity });
             });
 
             commentForm.addEventListener('submit', (event) => {
@@ -66,10 +82,10 @@ html(lang="en")
                     commentTextArea.value = '';
                 }
             });
+
             socket.on('comment-updated', (data) => {
                 commentList.innerHTML = '';
                 if (data.paletteIdentity === paletteIdentity) {
-
                     data.comments.forEach(comment => {
                         const commentElement = document.createElement('div');
                         commentElement.classList.add('comment');
@@ -90,6 +106,13 @@ html(lang="en")
                         likeIcon.classList.add('fa-regular');
                     }
                     document.querySelector('.number').textContent = data.likes;
+                }
+            });
+
+            socket.on('report-updated', (data) => {
+                if (data.paletteIdentity === paletteIdentity) {
+                    const reportBtn = document.getElementById('report-btn');
+                    reportBtn.innerHTML = data.reported ? '<div class="btn">Reported</div>' : '<div class="btn">Report</div>';
                 }
             });
             });
