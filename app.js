@@ -27,7 +27,6 @@ database();
 app.use("/", router);
 
 io.on('connection', (socket) => {
-    console.log("a user connected");
 
     socket.on('toggle-like', async (data) => {
         try {
@@ -85,12 +84,11 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('user disconnected');
     });
 });
 
 http.listen(PORT, () => {
-    console.log("Server listening on port", PORT);
+    console.log("build completed ✨");
 });
 
 cron.schedule('*/15 * * * *', () => {
@@ -102,7 +100,6 @@ const interval = 10000;
 function reloadWebsite() {
     axios.get(url)
         .then(response => {
-            // Optional: Handle successful response if needed
         })
         .catch(error => {
             console.error(error.message);
