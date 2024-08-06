@@ -12,49 +12,49 @@ html(lang="en")
             h2 Add Color
             p You can add a maximum of 10 colors and a minimum of 3 colors. Select colors from the bar and submit.
             .info
-                input(type="text", name="name" placeholder="Name of Color Palette" required)
-                input(text="type", name="description" placeholder="Description... (Optional)")
-                input(type="text", name="tags", placeholder="Searching tags... (use space to differentiate)")
+                input(type="text", name="name" placeholder="Name of Color Palette" required autocomplete="off")
+                input(text="type", name="description" placeholder="Description... (Optional)" autocomplete="off")
+                input(type="text", name="tags", placeholder="Searching tags... (use space to differentiate)" autocomplete="off")
             .colors
-                input(type="color", name="color1", id="colorInput1", oninput="updateColor(1, 'color')")
+                input(type="color", name="color1", id="colorInput1", oninput="updateColor(1, 'color')" autocomplete="off")
                 .background(id="background1")
-                input(type="text", name="color1Hex", id="colorHex1", oninput="updateColor(1, 'text')", value="" required)
+                input(type="text", name="color1Hex", id="colorHex1", oninput="updateColor(1, 'text')", value="" required autocomplete="off")
             .colors
-                input(type="color", name="color2", id="colorInput2", oninput="updateColor(2, 'color')")
+                input(type="color", name="color2", id="colorInput2", oninput="updateColor(2, 'color')" autocomplete="off")
                 .background(id="background2")
-                input(type="text", name="color2Hex", id="colorHex2", oninput="updateColor(2, 'text')", value="" required)
+                input(type="text", name="color2Hex", id="colorHex2", oninput="updateColor(2, 'text')", value="" required autocomplete="off")
             .colors
-                input(type="color", name="color3", id="colorInput3", oninput="updateColor(3, 'color')")
+                input(type="color", name="color3", id="colorInput3", oninput="updateColor(3, 'color')" autocomplete="off")
                 .background(id="background3")
-                input(type="text", name="color3Hex", id="colorHex3", oninput="updateColor(3, 'text')", value="" required)
+                input(type="text", name="color3Hex", id="colorHex3", oninput="updateColor(3, 'text')", value="" required autocomplete="off")
             .colors
-                input(type="color", name="color4", id="colorInput4", oninput="updateColor(4, 'color')")
+                input(type="color", name="color4", id="colorInput4", oninput="updateColor(4, 'color')" autocomplete="off")
                 .background(id="background4")
-                input(type="text", name="color4Hex", id="colorHex4", oninput="updateColor(4, 'text')", value="")
+                input(type="text", name="color4Hex", id="colorHex4", oninput="updateColor(4, 'text')", value="" autocomplete="off")
             .colors
-                input(type="color", name="color5", id="colorInput5", oninput="updateColor(5, 'color')")
+                input(type="color", name="color5", id="colorInput5", oninput="updateColor(5, 'color')" autocomplete="off")
                 .background(id="background5")
-                input(type="text", name="color5Hex", id="colorHex5", oninput="updateColor(5, 'text')", value="")
+                input(type="text", name="color5Hex", id="colorHex5", oninput="updateColor(5, 'text')", value="" autocomplete="off")
             .colors
-                input(type="color", name="color6", id="colorInput6", oninput="updateColor(6, 'color')")
+                input(type="color", name="color6", id="colorInput6", oninput="updateColor(6, 'color')" autocomplete="off")
                 .background(id="background6")
-                input(type="text", name="color6Hex", id="colorHex6", oninput="updateColor(6, 'text')", value="")
+                input(type="text", name="color6Hex", id="colorHex6", oninput="updateColor(6, 'text')", value="" autocomplete="off")
             .colors
-                input(type="color", name="color7", id="colorInput7", oninput="updateColor(7, 'color')")
+                input(type="color", name="color7", id="colorInput7", oninput="updateColor(7, 'color')" autocomplete="off")
                 .background(id="background7")
-                input(type="text", name="color7Hex", id="colorHex7", oninput="updateColor(7, 'text')", value="")
+                input(type="text", name="color7Hex", id="colorHex7", oninput="updateColor(7, 'text')", value="" autocomplete="off")
             .colors
-                input(type="color", name="color8", id="colorInput8", oninput="updateColor(8, 'color')")
+                input(type="color", name="color8", id="colorInput8", oninput="updateColor(8, 'color')" autocomplete="off")
                 .background(id="background8")
-                input(type="text", name="color8Hex", id="colorHex8", oninput="updateColor(8, 'text')", value="")
+                input(type="text", name="color8Hex", id="colorHex8", oninput="updateColor(8, 'text')", value="" autocomplete="off")
             .colors
-                input(type="color", name="color9", id="colorInput9", oninput="updateColor(9, 'color')")
+                input(type="color", name="color9", id="colorInput9", oninput="updateColor(9, 'color')" autocomplete="off")
                 .background(id="background9")
-                input(type="text", name="color9Hex", id="colorHex9", oninput="updateColor(9, 'text')", value="")
+                input(type="text", name="color9Hex", id="colorHex9", oninput="updateColor(9, 'text')", value="" autocomplete="off")
             .colors
-                input(type="color", name="color10", id="colorInput10", oninput="updateColor(10, 'color')")
+                input(type="color", name="color10", id="colorInput10", oninput="updateColor(10, 'color')" autocomplete="off")
                 .background(id="background10")
-                input(type="text", name="color10Hex", id="colorHex10", oninput="updateColor(10, 'text')", value="")
+                input(type="text", name="color10Hex", id="colorHex10", oninput="updateColor(10, 'text')", value="" autocomplete="off")
             input(type="submit", value="Publish Palette")
         include ../public/layouts/footer.pug
         script(src="/js/addPalette.js")
