@@ -67,10 +67,6 @@ html(lang="en")
                 socket.emit('toggle-like', { userId, paletteIdentity });
             });
 
-            reportBtn.addEventListener('click', () => {
-                socket.emit('toggle-report', { userId, paletteIdentity });
-            });
-
             commentForm.addEventListener('submit', (event) => {
                 event.preventDefault();
                 const name = commentNameInput.value.trim();
@@ -115,4 +111,9 @@ html(lang="en")
                     reportBtn.innerHTML = data.reported ? '<div class="btn">Reported</div>' : '<div class="btn">Report</div>';
                 }
             });
+            if(reportBtn){
+            reportBtn.addEventListener('click', () => {
+                socket.emit('toggle-report', { userId, paletteIdentity });
+            });
+            }
             });
