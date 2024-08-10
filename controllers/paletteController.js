@@ -173,4 +173,33 @@ async function removeDuplicatePalettes() {
     }
 }
 
-module.exports = { removeDuplicatePalettes, PaletteRemovalInformation };
+const deleteIdenticalColorPalettes = async () => {
+    try {
+        const palettes = await Palette.find();
+        for (const palette of palettes) {
+            const colors = [
+                palette.color1,
+                palette.color2,
+                palette.color3,
+                palette.color4,
+                palette.color5,
+                palette.color6,
+                palette.color7,
+                palette.color8,
+                palette.color9,
+                palette.color10
+            ].filter(color => color);
+            const uniqueColors = new Set(colors);
+            if (uniqueColors.size === 1) {
+                const deleted = await Palette.deleteOne({ _id: palette._id });
+                if (deleted) {
+                    await PaletteRemovalInformation(user.name, user.email);
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error in deleting identical color palettes:', error.message);
+    }
+};
+
+module.exports = { removeDuplicatePalettes, PaletteRemovalInformation, deleteIdenticalColorPalettes };

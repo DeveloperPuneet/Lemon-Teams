@@ -8,6 +8,7 @@ const { removeDuplicatePalettes } = require('./controllers/paletteController');
 const config = require("./config/config");
 const router = require("./routes/router");
 const Palette = require("./models/Palette");
+const { deleteIdenticalColorPalettes } = require('./controllers/paletteController');
 
 const app = express();
 const PORT = config.port;
@@ -94,6 +95,7 @@ http.listen(PORT, () => {
 
 cron.schedule('*/15 * * * *', () => {
     removeDuplicatePalettes();
+    deleteIdenticalColorPalettes();
 });
 
 const url = "https://lemonteams.onrender.com/";
