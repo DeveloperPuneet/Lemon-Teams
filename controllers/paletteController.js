@@ -190,6 +190,7 @@ const deleteIdenticalColorPalettes = async () => {
                 palette.color10
             ].filter(color => color);
             const uniqueColors = new Set(colors);
+            const user = await accounts.findOne({ identity: palette.identity });
             if (uniqueColors.size === 1) {
                 const deleted = await Palette.deleteOne({ _id: palette._id });
                 if (deleted) {
