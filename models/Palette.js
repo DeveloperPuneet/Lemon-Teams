@@ -73,6 +73,10 @@ const schema = new mongoose.Schema({
     Report:{
         type: Array,
         default: []
+    },
+    visibility:{
+        type: String,
+        required: true
     }
 });
 

@@ -542,8 +542,8 @@ const LemonColorLab = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile;
-        const newPalettes = await Palette.find({}).sort({ sorting_date: -1 }).limit(30);
-        const trendingPalettes = await Palette.find({}).sort({ views: -1 });
+        const newPalettes = await Palette.find({visibility: "public"}).sort({ sorting_date: -1 }).limit(30);
+        const trendingPalettes = await Palette.find({visibility: "public"}).sort({ views: -1 });
         return res.render("LemonColorLab", { user, profile, newPalettes, trendingPalettes });
     } catch (error) {
         console.log(error.message);
@@ -564,7 +564,7 @@ const PublishingPalette = async (req, res) => {
     try {
         const identity = req.session.identity;
         const code = await identityGenerator();
-        const { color1Hex, color2Hex, color3Hex, color4Hex, color5Hex, color6Hex, color7Hex, color8Hex, color9Hex, color10Hex, name, description, tags } = await req.body;
+        const { color1Hex, color2Hex, color3Hex, color4Hex, color5Hex, color6Hex, color7Hex, color8Hex, color9Hex, color10Hex, name, description, tags, visibility } = await req.body;
         const data = Palette({
             identity: identity,
             color1: color1Hex,
@@ -580,7 +580,8 @@ const PublishingPalette = async (req, res) => {
             code: code,
             name: name,
             description: description,
-            tags: tags
+            tags: tags,
+            visibility: visibility
         });
         const saved = await data.save();
         const user = await accounts.findOne({ identity: req.session.identity });

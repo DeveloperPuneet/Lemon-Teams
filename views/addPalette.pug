@@ -15,6 +15,9 @@ html(lang="en")
                 input(type="text", name="name" placeholder="Name of Color Palette" required autocomplete="off")
                 input(text="type", name="description" placeholder="Description... (Optional)" autocomplete="off")
                 input(type="text", name="tags", placeholder="Searching tags... (use space to differentiate)" autocomplete="off")
+                select(name="visibility")
+                    option(value="public") Public 
+                    option(value="private") Private
             .colors
                 input(type="color", name="color1", id="colorInput1", oninput="updateColor(1, 'color')" autocomplete="off")
                 .background(id="background1")

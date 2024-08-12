@@ -255,3 +255,18 @@ body {
     outline: none;
     border: none;
 }
+
+.privatePalette {
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.Private {
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--lavender-bloom);
+}
