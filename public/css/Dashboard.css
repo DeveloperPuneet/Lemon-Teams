@@ -174,7 +174,7 @@ body {
     overflow: auto;
 }
 
-.goto{
+.goto {
     max-width: 340px;
     min-width: 320px;
     height: 180px;
@@ -188,9 +188,20 @@ body {
     margin: 10px 10px;
 }
 
-.sub-headings{
+.sub-headings {
     font-size: 0.8rem;
     font-weight: 600;
     color: var(--cloud-mist);
     margin: 5px;
+}
+
+.lemon-library {
+    margin-top: 30px;
+    color: var(--lemon-yellow);
+    width: 100vw;
+    padding: 10px;
+}
+
+.lemon-library h5 {
+    text-align: start;
 }

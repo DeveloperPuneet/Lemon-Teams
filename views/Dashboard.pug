@@ -14,6 +14,10 @@ html(lang="en")
                     a(href="/lemon-color-lab") 
                         img(src="/ecosystem/lemon-color-lab.png", alt="Loading")
                         | Lemon Color Lab
+                .app
+                    a(href="/library") 
+                        img(src="/ecosystem/lemon-library.png", alt="Loading")
+                        | Lemon Library
             .activities 
                 h4 Your Activities 
                 .lemon-color-lab 
@@ -34,5 +38,9 @@ html(lang="en")
                                     each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
                                         if color
                                             .color(data-color=`${color}`, style=`background: ${color};`)
+                .lemon-library 
+                    h5 Lemon Library
+                    p.sub-headings Your Libraries 
+                    p.sub-headings Saved Libraries 
         include ../public/layouts/footer.pug
         script(src="/js/OpenPalette.js")

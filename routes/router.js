@@ -69,5 +69,9 @@ router.get("/join-lemon-teams", auth.isLogin, controller.JoinLemonTeams);
 router.get("/support", auth.isLogin, controller.Support);
 router.post("/support", auth.isLogin, controller.GetHelp);
 router.post("/delete-palette", auth.isLogin, controller.DeletePalette);
+router.get("/library", auth.isLogin, controller.LibraryLoad);
+router.get("/create-library", auth.isLogin, controller.CreateLibraryLoad);
+router.post("/create-library", auth.isLogin, controller.CreatingLibrary);
+router.get("/library/:code", auth.isLogin, controller.LoadLibrary);
 
 module.exports = router;

@@ -1,0 +1,27 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../public/components/Library.pug
+        link(rel="stylesheet", href="/css/Library.css")
+        title Lemon Library
+    body
+        include ../public/layouts/navigation.pug
+        .container 
+            .search-options 
+                .create 
+                    a(href="/create-library") Create Library
+                .Emblem 
+                    img(src="../ecosystem/lemon-library.png", alt="Loading")
+                .heading Lemon Library 
+                .search-bar
+                    input(id="search" type="text" placeholder="Search Library...")
+            .libs 
+                .lib-new 
+                    h5 New
+                .lib-trending 
+                    h5 Trending
+                .lib-all 
+                    h5 All
+        include ../public/layouts/footer.pug

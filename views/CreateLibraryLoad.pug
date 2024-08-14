@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../public/components/Library.pug
+        link(rel="stylesheet", href="/css/CreateLibrary.css")
+        title Lemon Library: Create Library
+    body
+        include ../public/layouts/navigation.pug
+        .container 
+            h2 Create Library 
+            form(action="", method="post")
+                input(type="text" name="name" placeholder="Library Name" required autocomplete="off")
+                textarea(name="description", placeholder="Describe your Library...", autocomplete="off") 
+                input(type="text" name="tags" placeholder="Searching Tags..." autocomplete="off")
+                input(type="submit" value="Create Library")
+        include ../public/layouts/footer.pug

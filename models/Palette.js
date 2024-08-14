@@ -60,7 +60,8 @@ const schema = new mongoose.Schema({
     },
     code: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     liked: {
         type: Array,

@@ -1,6 +1,8 @@
 const accounts = require("../models/accounts");
 const testimonials = require("../models/Testimonials");
 const Palette = require("../models/Palette");
+const Library = require("../models/Library");
+const Code = require("../models/Code");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
@@ -542,8 +544,8 @@ const LemonColorLab = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile;
-        const newPalettes = await Palette.find({visibility: "public"}).sort({ sorting_date: -1 }).limit(30);
-        const trendingPalettes = await Palette.find({visibility: "public"}).sort({ views: -1 });
+        const newPalettes = await Palette.find({ visibility: "public" }).sort({ sorting_date: -1 }).limit(30);
+        const trendingPalettes = await Palette.find({ visibility: "public" }).sort({ views: -1 });
         return res.render("LemonColorLab", { user, profile, newPalettes, trendingPalettes });
     } catch (error) {
         console.log(error.message);
@@ -880,6 +882,63 @@ const GetHelp = async (req, res) => {
     }
 }
 
+const LibraryLoad = async (req, res) => {
+    try {
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile;
+        const NewLibs = await Library.find({}).sort({ sorting_date: -1 }).limit(50);
+        const TrendingLibs = await Library.find({}).sort({ views: -1 }).limit(50);
+        const allLibs = await Library.find({});
+        return res.render("Library", { user, profile, NewLibs, TrendingLibs, allLibs });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const CreateLibraryLoad = async (req, res) => {
+    try {
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile;
+        res.render("CreateLibraryLoad", { profile, user });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const CreatingLibrary = async (req, res) => {
+    try {
+        const { name, description, tags } = await req.body;
+        const code = await identityGenerator();
+        const LibraryPublishing = await Library({
+            name: name,
+            description: description,
+            tags: tags,
+            code: code,
+            identity: req.session.identity
+        });
+        const created = await LibraryPublishing.save();
+        if (created) {
+            res.redirect(`/library/${created.code}`);
+        } else {
+            console.log("error in creating library");
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const LoadLibrary = async (req, res) => {
+    try {
+        const code = req.params.code;
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile;
+        const library = await Library.findOne({ code: code });
+        res.render("LibraryCollection", { user, profile, library });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 module.exports = {
     Load,
     LoadProfile,
@@ -912,5 +971,9 @@ module.exports = {
     Donate,
     Support,
     GetHelp,
-    DeletePalette
+    DeletePalette,
+    LibraryLoad,
+    CreateLibraryLoad,
+    CreatingLibrary,
+    LoadLibrary
 };
