@@ -25,6 +25,7 @@ html(lang="en")
                             each lib in NewLibs
                                 a(href=`/${lib.code}`) 
                                     .lib-card 
+                                        .hide #{lib.tags} #{lib.name}
                                         .heading-lib-card #{lib.name}
                                         .heading-lib-para #{lib.description}
                                         .version #{lib.version}
@@ -35,6 +36,7 @@ html(lang="en")
                             each lib in TrendingLibs
                                 a(href=`/${lib.code}`) 
                                     .lib-card 
+                                        .hide #{lib.tags} #{lib.name}
                                         .heading-lib-card #{lib.name}
                                         .heading-lib-para #{lib.description}
                                         .version #{lib.version}
@@ -42,11 +44,12 @@ html(lang="en")
                     h5.category-lib All
                     .container-libs 
                         .lib-cards 
-                            .lib-cards 
-                                each lib in allLibs
-                                    a(href=`/${lib.code}`) 
-                                        .lib-card 
-                                            .heading-lib-card #{lib.name}
-                                            .heading-lib-para #{lib.description}
-                                            .version #{lib.version}
+                            each lib in allLibs
+                                a(href=`/${lib.code}`) 
+                                    .lib-card 
+                                        .hide #{lib.tags} #{lib.name}
+                                        .heading-lib-card #{lib.name}
+                                        .heading-lib-para #{lib.description}
+                                        .version #{lib.version}
         include ../public/layouts/footer.pug
+        script(src="/js/Library.js") 
