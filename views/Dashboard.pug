@@ -41,6 +41,24 @@ html(lang="en")
                 .lemon-library 
                     h5 Lemon Library
                     p.sub-headings Your Libraries 
+                    .container-libs 
+                        .lib-cards 
+                            each lib in ourLibs
+                                a(href=`/library/${lib.code}`) 
+                                    .lib-card 
+                                        .hide #{lib.tags} #{lib.name}
+                                        .heading-lib-card #{lib.name}
+                                        .heading-lib-para #{lib.description}
+                                        .version #{lib.version}
                     p.sub-headings Saved Libraries 
+                    .container-libs 
+                        .lib-cards 
+                            each lib in savedLibs
+                                a(href=`/library/${lib.code}`) 
+                                    .lib-card 
+                                        .hide #{lib.tags} #{lib.name}
+                                        .heading-lib-card #{lib.name}
+                                        .heading-lib-para #{lib.description}
+                                        .version #{lib.version}
         include ../public/layouts/footer.pug
         script(src="/js/OpenPalette.js")

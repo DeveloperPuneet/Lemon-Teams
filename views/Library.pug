@@ -23,7 +23,7 @@ html(lang="en")
                     .container-libs 
                         .lib-cards 
                             each lib in NewLibs
-                                a(href=`/${lib.code}`) 
+                                a(href=`/library/${lib.code}`) 
                                     .lib-card 
                                         .hide #{lib.tags} #{lib.name}
                                         .heading-lib-card #{lib.name}
@@ -34,7 +34,7 @@ html(lang="en")
                     .container-libs 
                         .lib-cards 
                             each lib in TrendingLibs
-                                a(href=`/${lib.code}`) 
+                                a(href=`/library/${lib.code}`) 
                                     .lib-card 
                                         .hide #{lib.tags} #{lib.name}
                                         .heading-lib-card #{lib.name}
@@ -45,7 +45,7 @@ html(lang="en")
                     .container-libs 
                         .lib-cards 
                             each lib in allLibs
-                                a(href=`/${lib.code}`) 
+                                a(href=`/library/${lib.code}`) 
                                     .lib-card 
                                         .hide #{lib.tags} #{lib.name}
                                         .heading-lib-card #{lib.name}

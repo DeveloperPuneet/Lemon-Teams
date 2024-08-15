@@ -205,3 +205,58 @@ body {
 .lemon-library h5 {
     text-align: start;
 }
+
+.container-libs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: fit-content;
+}
+
+.lib-cards {
+    width: 97vw;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+}
+
+.lib-cards a {
+    text-decoration: none;
+    margin: 10px;
+    min-width: 350px;
+    max-width: 750px;
+    scroll-snap-align: start;
+}
+
+.lib-cards a .lib-card {
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--star-dark);
+}
+
+.heading-lib-card {
+    color: var(--lemon-yellow);
+    margin: 10px;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.heading-lib-para {
+    text-wrap: balance;
+    color: var(--cloud-mist);
+    text-align: center;
+}
+
+.version {
+    color: var(--evening-star);
+    margin: 15px 5px;
+}
+
+.hide{
+    display: none;
+}

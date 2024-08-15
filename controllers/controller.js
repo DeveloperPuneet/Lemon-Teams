@@ -534,7 +534,9 @@ const LoadDashboard = async (req, res) => {
                 ].filter(color => color !== "")
             };
         });
-        return res.render("Dashboard", { user, profile, palettes: filteredPalettes, likedPalettes: LikedFilteredPalettes });
+        const ourLibs = await Library.find({ identity: req.session.identity });
+        const savedLibs = await Library.find({ saved: req.session.identity });
+        return res.render("Dashboard", { user, profile, palettes: filteredPalettes, likedPalettes: LikedFilteredPalettes, ourLibs, savedLibs });
     } catch (error) {
         console.log(error.message);
     }
@@ -939,6 +941,14 @@ const LoadLibrary = async (req, res) => {
     }
 }
 
+const AddCodeLoad = async(req,res)=>{
+    try{
+
+    } catch(error){
+        console.log(error.message);
+    }
+}
+
 module.exports = {
     Load,
     LoadProfile,
@@ -975,5 +985,6 @@ module.exports = {
     LibraryLoad,
     CreateLibraryLoad,
     CreatingLibrary,
-    LoadLibrary
+    LoadLibrary,
+    AddCodeLoad
 };
