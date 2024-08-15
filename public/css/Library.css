@@ -137,3 +137,133 @@ body {
     background: var(--star-dark);
     color: var(--cloud-mist);
 }
+
+.container-libs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: fit-content;
+}
+
+.lib-cards {
+    width: 97vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.lib-cards a {
+    text-decoration: none;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.lib-cards a .lib-card {
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--star-dark);
+}
+
+.heading-lib-card {
+    color: var(--lemon-yellow);
+    margin: 10px;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.heading-lib-para {
+    text-wrap: balance;
+    color: var(--cloud-mist);
+    text-align: center;
+}
+
+.version {
+    color: var(--evening-star);
+    margin: 15px 5px;
+}
+
+.lib-all .container-libs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.category-lib {
+    color: var(--sunset-glow);
+}
+
+.lib-new .container-libs {
+    width: 100%;
+    overflow: hidden;
+}
+
+.lib-new .container-libs .lib-cards {
+    overflow: scroll;
+    scroll-snap-type: x mandatory;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    overflow: auto;
+}
+
+.lib-new .container-libs .lib-cards a .lib-card {
+    max-width: 600px;
+    min-width: 350px;
+    margin: 10px;
+}
+
+.lib-new .container-libs .lib-cards a {
+    scroll-snap-align: start;
+    margin: 10px;
+}
+
+.lib-new .container-libs .lib-cards .lib-card {
+    max-width: 600px;
+    min-width: 350px;
+}
+
+.lib-new {
+    width: 98vw;
+    margin: 20px 0px;
+}
+
+.lib-trending .container-libs {
+    width: 100%;
+    overflow: hidden;
+}
+
+.lib-trending .container-libs .lib-cards {
+    overflow: scroll;
+    scroll-snap-type: x mandatory;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    overflow: auto;
+}
+
+.lib-trending .container-libs .lib-cards a .lib-card {
+    max-width: 600px;
+    min-width: 350px;
+    margin: 10px;
+}
+
+.lib-trending .container-libs .lib-cards a {
+    scroll-snap-align: start;
+    margin: 10px;
+}
+
+.lib-trending .container-libs .lib-cards .lib-card {
+    max-width: 600px;
+    min-width: 350px;
+}
+
+.lib-trending {
+    width: 98vw;
+    margin: 20px 0px;
+}

@@ -63,3 +63,106 @@ body {
     overflow-x: hidden;
     position: relative;
 }
+
+.container {
+    padding: 10px;
+    margin: 10px 0px;
+}
+
+.add-btn {
+    margin: 10px 0px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.add-btn a {
+    background: var(--lavender-bloom);
+    padding: 10px;
+    color: var(--cloud-mist);
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.lib-head {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.lib-heading {
+    color: var(--sunset-glow);
+    font-size: 2rem;
+    text-align: center;
+}
+
+.lib-search {
+    width: 90vw;
+    height: fit-content;
+    margin: 15px 0px;
+}
+
+.lib-search input {
+    margin: 10px 0;
+    width: 90vw;
+    outline: none;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 7px;
+    color: var(--star-bright);
+    background: var(--moonlight-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.libs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: fit-content;
+}
+
+.lib-cards {
+    width: 90vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.lib-cards a{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.lib-card {
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--star-dark);
+}
+
+.heading-lib-card {
+    color: var(--lemon-yellow);
+    margin: 10px;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.heading-lib-para {
+    text-wrap: balance;
+    color: var(--cloud-mist);
+}
+
+.version{
+    color: var(--evening-star);
+    margin: 15px 5px;
+}

@@ -8,4 +8,18 @@ html(lang="en")
         title Lemon Library: #{library.name}
     body
         include ../public/layouts/navigation.pug
+        .container 
+            .add-btn
+                a(href="/add-code") Add Code
+            .lib-head 
+                .lib-heading #{library.name}
+                .lib-search 
+                    input(type="text" placeholder="Search version..." id="versionSearch")
+            .libs 
+                .lib-cards 
+                    a(href="") 
+                        .lib-card 
+                            .heading-lib-card Heading 
+                            .heading-lib-para Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis corporis quae quas cupiditate iusto aliquid eligendi explicabo maiores accusantium aliquam. Quae excepturi totam minus voluptatem sapiente fuga temporibus nulla quia.
+                            .version 1
         include ../public/layouts/footer.pug

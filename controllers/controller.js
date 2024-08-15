@@ -908,7 +908,7 @@ const CreateLibraryLoad = async (req, res) => {
 const CreatingLibrary = async (req, res) => {
     try {
         const { name, description, tags } = await req.body;
-        const code = await identityGenerator();
+        let code = await identityGenerator();
         const LibraryPublishing = await Library({
             name: name,
             description: description,

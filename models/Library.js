@@ -39,10 +39,6 @@ const schema = new mongoose.Schema({
     LTS_version: {
         type: Number,
         default: 0
-    },
-    receiver_token: {
-        type: String,
-        sparse: true 
     }
 });
 
