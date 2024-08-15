@@ -19,9 +19,34 @@ html(lang="en")
                     input(id="search" type="text" placeholder="Search Library...")
             .libs 
                 .lib-new 
-                    h5 New
+                    h5.category-lib New
+                    .container-libs 
+                        .lib-cards 
+                            each lib in NewLibs
+                                a(href=`/${lib.code}`) 
+                                    .lib-card 
+                                        .heading-lib-card #{lib.name}
+                                        .heading-lib-para #{lib.description}
+                                        .version #{lib.version}
                 .lib-trending 
-                    h5 Trending
+                    h5.category-lib Trending
+                    .container-libs 
+                        .lib-cards 
+                            each lib in TrendingLibs
+                                a(href=`/${lib.code}`) 
+                                    .lib-card 
+                                        .heading-lib-card #{lib.name}
+                                        .heading-lib-para #{lib.description}
+                                        .version #{lib.version}
                 .lib-all 
-                    h5 All
+                    h5.category-lib All
+                    .container-libs 
+                        .lib-cards 
+                            .lib-cards 
+                                each lib in allLibs
+                                    a(href=`/${lib.code}`) 
+                                        .lib-card 
+                                            .heading-lib-card #{lib.name}
+                                            .heading-lib-para #{lib.description}
+                                            .version #{lib.version}
         include ../public/layouts/footer.pug
