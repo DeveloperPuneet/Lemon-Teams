@@ -74,7 +74,7 @@ body {
     width: 100vw;
     padding: 10px 10px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     scroll-snap-type: x mandatory;
     overflow-x: auto;
