@@ -932,8 +932,10 @@ const CreatingLibrary = async (req, res) => {
 const deleteLibrary = async (req, res) => {
     try {
         const code = req.params.code;
+        const lib = await Library.findOne({ code: code });
+        const libraryCodes = await Code.deleteMany({ token: { $in: lib.library } });
         const deletion = await Library.deleteOne({ code: code });
-        if (deletion) {
+        if (deletion && libraryCodes) {
             return res.redirect('/library');
         } else {
             console.log("Failed to delete the library");
