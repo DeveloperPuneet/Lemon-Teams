@@ -74,7 +74,6 @@ body {
     width: 100vw;
     padding: 10px 10px;
     display: flex;
-    justify-content: center;
     align-items: center;
     scroll-snap-type: x mandatory;
     overflow-x: auto;
@@ -150,7 +149,6 @@ body {
     width: 100%;
     padding: 15px 0;
     display: flex;
-    justify-content: center;
 }
 
 .palette .color {
@@ -257,6 +255,6 @@ body {
     margin: 15px 5px;
 }
 
-.hide{
+.hide {
     display: none;
 }
