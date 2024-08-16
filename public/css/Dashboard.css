@@ -150,7 +150,7 @@ body {
     width: 100%;
     padding: 15px 0;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 .palette .color {
