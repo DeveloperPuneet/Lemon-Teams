@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../public/components/Library.pug
+        link(rel="stylesheet", href="/css/AddCodeLibrary.css")
+        title Lemon Library: Adding Code
+    body
+        include ../public/layouts/navigation.pug
+        h1.add-code-heading Add Code 
+        form(action=`/add-code/${code}`, method="post") 
+            input(type="text" name="name" placeholder="Name of Code" required)
+            textarea(name="description" placeholder="Describe your Code...") 
+            textarea(name="code" placeholder="Write your Code..." required) 
+            input(type="submit" value="Add Code")
+        include ../public/layouts/footer.pug

@@ -73,6 +73,10 @@ router.get("/library", auth.isLogin, controller.LibraryLoad);
 router.get("/create-library", auth.isLogin, controller.CreateLibraryLoad);
 router.post("/create-library", auth.isLogin, controller.CreatingLibrary);
 router.get("/library/:code", auth.isLogin, controller.LoadLibrary);
-router.get("/add-code", auth.isLogin, controller.AddCodeLoad);
+router.get("/add-code/:code", auth.isLogin, controller.AddCodeLoad);
+router.get("/delete-library/:code", auth.isLogin, controller.deleteLibrary);
+router.post("/add-code/:code", auth.isLogin, controller.AddingCodeToLibrary);
+router.get("/code/:token", auth.isLogin, controller.LoadCodeDetails);
+router.get("/import/:token", controller.ImportedLinks);
 
 module.exports = router;

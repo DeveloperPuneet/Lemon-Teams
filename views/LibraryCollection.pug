@@ -10,16 +10,22 @@ html(lang="en")
         include ../public/layouts/navigation.pug
         .container 
             .add-btn
-                a(href="/add-code") Add Code
+                -if(isLibOurs == true)
+                    a(href=`/add-code/${library.code}`) Add Code
+                    a(href=`/delete-library/${library.code}`) Delete Library
+                -else
+                    button#save-library.save-lib Save Library
             .lib-head 
                 .lib-heading #{library.name}
                 .lib-search 
                     input(type="text" placeholder="Search version..." id="versionSearch")
             .libs 
                 .lib-cards 
-                    a(href="") 
-                        .lib-card 
-                            .heading-lib-card Heading 
-                            .heading-lib-para Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis corporis quae quas cupiditate iusto aliquid eligendi explicabo maiores accusantium aliquam. Quae excepturi totam minus voluptatem sapiente fuga temporibus nulla quia.
-                            .version 1
+                    each lib in libraryCodes
+                        a(href=`/code/${lib.token}`) 
+                            .lib-card 
+                                .heading-lib-card #{lib.name} 
+                                .heading-lib-para #{lib.description}
+                                .version #{lib.version}
         include ../public/layouts/footer.pug
+        script(src="/js/LibraryCollection.js") 

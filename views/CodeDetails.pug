@@ -1,0 +1,20 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../public/components/Library.pug
+        link(rel="stylesheet", href="/css/CodeDetails.css")
+        title Lemon Library: Code 
+    body
+        include ../public/layouts/navigation.pug
+        .container 
+            .name Name of Code
+            input(type="text" value=`${code.name}` readonly)
+            .name Description 
+            textarea(name="" readonly)=`${code.description}`
+            .name Library Code 
+            textarea(name="" readonly)=`${code.code}`
+            .name Import Link
+            input(type="text" value=`https://lemonteams.onrender.com/import/${code.token}`)
+        include ../public/layouts/footer.pug

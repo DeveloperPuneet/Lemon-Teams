@@ -82,6 +82,18 @@ body {
     color: var(--cloud-mist);
     border-radius: 10px;
     text-decoration: none;
+    margin: 0px 10px;
+}
+
+.add-btn button {
+    background: var(--lavender-bloom);
+    padding: 10px;
+    color: var(--cloud-mist);
+    border-radius: 10px;
+    text-decoration: none;
+    margin: 0px 10px;
+    outline: none;
+    border: none;
 }
 
 .lib-head {
@@ -137,10 +149,11 @@ body {
     flex-wrap: wrap;
 }
 
-.lib-cards a{
+.lib-cards a {
     margin-bottom: 10px;
     margin-top: 10px;
     text-decoration: none;
+    width: 100%;
 }
 
 .lib-card {
@@ -162,7 +175,7 @@ body {
     color: var(--cloud-mist);
 }
 
-.version{
+.version {
     color: var(--evening-star);
     margin: 15px 5px;
 }

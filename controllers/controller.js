@@ -901,7 +901,7 @@ const CreateLibraryLoad = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile;
-        res.render("CreateLibraryLoad", { profile, user });
+        return res.render("CreateLibraryLoad", { profile, user });
     } catch (error) {
         console.log(error.message);
     }
@@ -920,7 +920,7 @@ const CreatingLibrary = async (req, res) => {
         });
         const created = await LibraryPublishing.save();
         if (created) {
-            res.redirect(`/library/${created.code}`);
+            return res.redirect(`/library/${created.code}`);
         } else {
             console.log("error in creating library");
         }
@@ -929,22 +929,112 @@ const CreatingLibrary = async (req, res) => {
     }
 }
 
-const LoadLibrary = async (req, res) => {
+const deleteLibrary = async (req, res) => {
     try {
         const code = req.params.code;
-        const user = await accounts.findOne({ identity: req.session.identity });
-        const profile = "/accounts/" + user.profile;
-        const library = await Library.findOne({ code: code });
-        res.render("LibraryCollection", { user, profile, library });
+        const deletion = await Library.deleteOne({ code: code });
+        if (deletion) {
+            return res.redirect('/library');
+        } else {
+            console.log("Failed to delete the library");
+        }
     } catch (error) {
         console.log(error.message);
     }
 }
 
-const AddCodeLoad = async(req,res)=>{
-    try{
+const AddCodeLoad = async (req, res) => {
+    try {
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile;
+        const code = req.params.code;
+        return res.render("AddCodeLibrary", { user, profile, code });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
-    } catch(error){
+const AddingCodeToLibrary = async (req, res) => {
+    try {
+        const { name, description, code } = req.body;
+        const libCode = req.params.code;
+        const Lib = await Library.findOne({ code: libCode });
+        let version = Lib.LTS_version + 1;
+        const token = await identityGenerator();
+        if (Lib) {
+            const Add = await Code({
+                name: name,
+                code: code,
+                description: description,
+                version: version,
+                token: token
+            });
+            const saveCode = await Add.save();
+            if (saveCode) {
+                const updateLibTokens = await Library.updateOne({ code: libCode }, { $push: { library: token } });
+                if (updateLibTokens) {
+                    const updateVersion = await Library.updateOne({ code: libCode }, { $set: { LTS_version: version } });
+                    if (updateVersion) {
+                        return res.redirect(`/library/${libCode}`);
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const LoadLibrary = async (req, res) => {
+    try {
+        let isLibOurs = false;
+        const code = req.params.code;
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile;
+        const library = await Library.findOne({ code: code });
+        if (!library) {
+            return res.status(404).send("Library not found");
+        }
+        if (library.identity === user.identity) {
+            isLibOurs = true;
+        }
+        const libraryCodes = await Code.find({ token: { $in: library.library } });
+        return res.render("LibraryCollection", {
+            user,
+            profile,
+            library,
+            isLibOurs,
+            libraryCodes
+        });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Server Error");
+    }
+};
+
+const LoadCodeDetails = async (req, res) => {
+    try {
+        const { token } = req.params;
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile;
+        const code = await Code.findOne({ token: token });
+        return res.render("CodeDetails", { code, profile, user, token });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const ImportedLinks = async (req, res) => {
+    try {
+        const token = req.params.token;
+        const code = await Code.findOne({ token: token });
+        const updateFields = await Library.findOne({ library: token });
+        if (updateFields) {
+            const views = parseInt(updateFields.views) + 1;
+            const libraryViews = await Library.updateOne({ library: token }, { $set: { views: views } });
+        }
+        return res.send(code.code);
+    } catch (error) {
         console.log(error.message);
     }
 }
@@ -986,5 +1076,9 @@ module.exports = {
     CreateLibraryLoad,
     CreatingLibrary,
     LoadLibrary,
-    AddCodeLoad
+    AddCodeLoad,
+    deleteLibrary,
+    AddingCodeToLibrary,
+    LoadCodeDetails,
+    ImportedLinks
 };
