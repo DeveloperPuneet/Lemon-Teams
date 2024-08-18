@@ -80,7 +80,7 @@ form {
     align-items: center;
 }
 
-form input{
+form input {
     outline: none;
     border: none;
     padding: 10px 10px;
@@ -92,11 +92,11 @@ form input{
     width: 90%;
 }
 
-form input[type="submit"]{
+form input[type="submit"] {
     width: 60%;
 }
 
-form textarea[name="description"]{
+form textarea[name="description"] {
     outline: none;
     border: none;
     padding: 10px 10px;
@@ -111,7 +111,7 @@ form textarea[name="description"]{
     min-height: 100px;
 }
 
-form textarea[name="code"]{
+form textarea[name="code"] {
     outline: none;
     border: none;
     padding: 10px 10px;

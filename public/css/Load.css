@@ -247,7 +247,7 @@ body {
     text-align: center;
 }
 
-.testimonials-container  {
+.testimonials-container {
     display: flex;
     justify-content: space-evenly;
     overflow-x: auto;

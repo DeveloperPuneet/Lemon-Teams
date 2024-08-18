@@ -6,6 +6,6 @@ menu.addEventListener("click", () => {
 close.addEventListener("click", () => {
     document.getElementById("options").style.right = "-400px"
 });
-document.addEventListener("scroll", ()=>{
+document.addEventListener("scroll", () => {
     document.getElementById("options").style.right = "-400px"
 });

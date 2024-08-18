@@ -1034,7 +1034,7 @@ const ImportedLinks = async (req, res) => {
         if (updateFields) {
             const views = parseInt(updateFields.views) + 1;
             const libraryViews = await Library.updateOne({ library: token }, { $set: { views: views } });
-        }
+        };
         return res.send(code.code);
     } catch (error) {
         console.log(error.message);

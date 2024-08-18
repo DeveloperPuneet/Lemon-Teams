@@ -112,7 +112,7 @@ body {
     margin: 10px;
 }
 
-.container form textarea{
+.container form textarea {
     max-width: 90vw;
     min-width: 89vw;
     max-height: 250px;
@@ -120,16 +120,16 @@ body {
     padding: 10px;
     border: none;
     border-radius: 10px;
-    outline:none;
+    outline: none;
     background-color: var(--star-dark);
     color: var(--cloud-mist);
 }
 
-.container form input:focus{
+.container form input:focus {
     outline: 2px solid var(--lemon-yellow);
 }
 
-.container form textarea:focus{
+.container form textarea:focus {
     outline: 2px solid var(--lemon-yellow);
 }
 
@@ -147,6 +147,6 @@ body {
     margin: 10px;
 }
 
-.container form input[type="submit"]:hover{
+.container form input[type="submit"]:hover {
     outline: 2px solid var(--lemon-yellow);
 }

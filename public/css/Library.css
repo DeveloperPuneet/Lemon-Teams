@@ -269,15 +269,15 @@ body {
     margin: 20px 0px;
 }
 
-.hide{
+.hide {
     display: none;
 }
 
-.lib-all a{
+.lib-all a {
     width: 98vw;
 }
 
-.lib-all .lib-cards{
+.lib-all .lib-cards {
     width: 98vw;
     flex-wrap: nowrap;
     display: flex;

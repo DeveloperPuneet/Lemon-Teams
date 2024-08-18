@@ -1,4 +1,4 @@
-document.getElementById('searching').addEventListener('input', function() {
+document.getElementById('searching').addEventListener('input', function () {
     const searchValue = this.value.toLowerCase();
     const palettes = document.querySelectorAll('.palette');
 

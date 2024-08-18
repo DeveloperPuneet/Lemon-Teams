@@ -71,7 +71,8 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
+h1,
+h2 {
     color: var(--lemon-yellow);
 }
 
@@ -90,7 +91,8 @@ ul {
     margin-left: 20px;
 }
 
-p, li {
+p,
+li {
     margin-bottom: 10px;
     color: var(--highlight-white);
 }
