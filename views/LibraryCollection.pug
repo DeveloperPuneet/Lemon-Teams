@@ -14,7 +14,7 @@ html(lang="en")
                     a(href=`/add-code/${library.code}`) Add Code
                     a(href=`/delete-library/${library.code}`) Delete Library
                 -else
-                    button#save-library.save-lib Save Library
+                    button#save-library.save-lib #{library.saved.includes(user.identity) ? 'Saved Library' : 'Save Library'}
             .lib-head 
                 .lib-heading #{library.name}
                 .lib-search 
@@ -34,11 +34,13 @@ html(lang="en")
             const socket = io();
             document.addEventListener("DOMContentLoaded", () => {
             const saveButton = document.getElementById("save-library");
-            const libraryCode = "#{library.code}";
+            const libraryCode = "#{library.code}"; 
             const userId = "#{user.identity}"; 
+            if(saveButton){
             saveButton.addEventListener("click", () => {
                 socket.emit('toggle-save', { userId, libraryCode });
             });
+            }
             socket.on('save-updated', ({ libraryCode: updatedCode, saved }) => {
                 if (libraryCode === updatedCode) {
                     saveButton.innerHTML = saved ? "Saved" : "Save Library";
