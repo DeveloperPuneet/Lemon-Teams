@@ -116,7 +116,6 @@ body {
 .new-container {
     display: flex;
     scroll-snap-type: x mandatory;
-    justify-content: space-around;
     align-items: center;
     width: 100vw;
     height: fit-content;
