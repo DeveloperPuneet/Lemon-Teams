@@ -8,6 +8,7 @@ const { removeDuplicatePalettes } = require('./controllers/paletteController');
 const config = require("./config/config");
 const router = require("./routes/router");
 const Palette = require("./models/Palette");
+const Library = require("./models/Library");
 const { deleteIdenticalColorPalettes } = require('./controllers/paletteController');
 
 const app = express();
@@ -82,6 +83,27 @@ io.on('connection', (socket) => {
             }
         } catch (error) {
             console.error(error.message);
+        }
+    });
+
+    socket.on('toggle-save', async ({ userId, libraryCode }) => {
+        try {
+            const library = await Library.findOne({ code: libraryCode });
+            if (library) {
+                const userIndex = library.saved.indexOf(userId);
+                if (userIndex === -1) {
+                    library.saved.push(userId);
+                    io.emit('save-updated', { libraryCode, saved: true });
+                } else {
+                    library.saved.splice(userIndex, 1);
+                    io.emit('save-updated', { libraryCode, saved: false });
+                }
+                await library.save();
+            } else {
+                console.log('Library not found');
+            }
+        } catch (error) {
+            console.error('Error in saving library:', error.message);
         }
     });
 
