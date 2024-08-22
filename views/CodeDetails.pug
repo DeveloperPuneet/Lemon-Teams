@@ -12,9 +12,9 @@ html(lang="en")
             .name Name of Code
             input(type="text" value=`${code.name}` readonly)
             .name Description 
-            textarea(name="" readonly)=`${code.description}`
+            p #{code.description}
             .name Library Code 
-            textarea(name="" readonly)=`${code.code}`
+            textarea(name="" readonly style="min-width: 500px;")=`${code.code}`
             .name Import Link
             input(type="text" value=`https://lemonteams.onrender.com/import/${code.token}`)
         include ../public/layouts/footer.pug
