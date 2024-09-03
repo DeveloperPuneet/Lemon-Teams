@@ -11,8 +11,5 @@
       "src": "/(.*)",
       "dest": "app.js"
     }
-  ],
-  "env": {
-    "YOUR_ENV_VARIABLE": "value"
-  }
+  ]
 }
