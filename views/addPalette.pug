@@ -19,39 +19,43 @@ html(lang="en")
           option(value="public") Public 
           option(value="private") Private
       each i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        .colors
-          input(type="color", name=`color${i}`, id=`colorInput${i}`, oninput=`updateColor(${i}, 'color'); showNextInput(${i})`, autocomplete="off")
+        .colors(style=`display: ${i === 1 ? 'block' : 'none'}`) // Initially show only the first color input
+          input(type="color", name=`color${i}`, id=`colorInput${i}`, oninput=`updateColor(${i}, 'color'); checkAndShowNext(${i})`, autocomplete="off")
           .background(id=`background${i}`)
-          input(type="text", name=`color${i}Hex`, id=`colorHex${i}`, oninput=`updateColor(${i}, 'text')`, value="" required autocomplete="off")
+          input(type="text", name=`color${i}Hex`, id=`colorHex${i}`, oninput=`updateColor(${i}, 'text'); checkAndShowNext(${i})`, value="" required autocomplete="off")
       input(type="submit", value="Publish Palette")
     include ../public/layouts/footer.pug
     script(src="/js/addPalette.js")
     script.
-        function updateColor(index, type) {
-          const colorInput = document.getElementById(`colorInput${index}`);
-          const colorHex = document.getElementById(`colorHex${index}`);
-          const background = document.getElementById(`background${index}`);
+      function updateColor(index, type) {
+        const colorInput = document.getElementById(`colorInput${index}`);
+        const colorHex = document.getElementById(`colorHex${index}`);
+        const background = document.getElementById(`background${index}`);
 
-          if (type === 'color') {
-            const colorValue = colorInput.value;
-            background.style.backgroundColor = colorValue;
-            colorHex.value = colorValue;
-          } else if (type === 'text') {
-            const colorValue = colorHex.value;
-            background.style.backgroundColor = colorValue;
-            colorInput.value = colorValue;
-          }
+        if (type === 'color') {
+          const colorValue = colorInput.value;
+          background.style.backgroundColor = colorValue;
+          colorHex.value = colorValue;
+        } else if (type === 'text') {
+          const colorValue = colorHex.value;
+          background.style.backgroundColor = colorValue;
+          colorInput.value = colorValue;
         }
+      }
 
-        function showNextInput(currentIndex) {
-          const nextInputIndex = currentIndex + 1;
-          const nextColorInput = document.getElementById(`colorInput${nextInputIndex}`);
-          if (nextColorInput && !nextColorInput.classList.contains('visible')) {
-            nextColorInput.parentElement.style.display = 'block';
-            nextColorInput.classList.add('visible');
-          }
+      function checkAndShowNext(currentIndex) {
+        const colorInput = document.getElementById(`colorInput${currentIndex}`);
+        const colorHex = document.getElementById(`colorHex${currentIndex}`);
+        const nextInputIndex = currentIndex + 1;
+        const nextColorInput = document.getElementById(`colorInput${nextInputIndex}`);
+
+        // Check if both color input and text input have values
+        if (colorInput.value && colorHex.value && nextColorInput && nextColorInput.parentElement.style.display === 'none') {
+          nextColorInput.parentElement.style.display = 'block'; // Show the next color input
         }
-        
-        for (let i = 2; i <= 10; i++) {
-          document.getElementById(`colorInput${i}`).parentElement.style.display = 'none'; // Hide all except the first input initially
-        }
+      }
+
+      // Initialize by hiding all except the first input
+      for (let i = 2; i <= 10; i++) {
+        document.getElementById(`colorInput${i}`).parentElement.style.display = 'none';
+      }
