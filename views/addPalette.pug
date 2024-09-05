@@ -1,96 +1,60 @@
 doctype html
 html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        include ../public/components/color-lab.pug
-        link(rel="stylesheet", href="/css/addPalette.css")
-        title Lemon Teams: Dashboard
-    body#body 
-        include ../public/layouts/navigation.pug
-        form(action="", method="post") 
-            h2 Add Color
-            p You can add a maximum of 10 colors and a minimum of 3 colors. Select colors from the bar and submit.
-            .info
-                input(type="text", name="name" placeholder="Name of Color Palette" required autocomplete="off")
-                input(type="text", name="description" placeholder="Description... (Optional)" autocomplete="off")
-                input(type="text", name="tags", placeholder="Searching tags... (use space to differentiate)" autocomplete="off")
-                select(name="visibility")
-                    option(value="public") Public 
-                    option(value="private") Private
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    include ../public/components/color-lab.pug
+    link(rel="stylesheet", href="/css/addPalette.css")
+    title Lemon Teams: Dashboard
+  body#body 
+    include ../public/layouts/navigation.pug
+    form(action="", method="post") 
+      h2 Add Color
+      p You can add a maximum of 10 colors and a minimum of 3 colors. Select colors from the bar and submit.
+      .info
+        input(type="text", name="name" placeholder="Name of Color Palette" required autocomplete="off")
+        input(type="text", name="description" placeholder="Description... (Optional)" autocomplete="off")
+        input(type="text", name="tags", placeholder="Searching tags... (use space to differentiate)" autocomplete="off")
+        select(name="visibility")
+          option(value="public") Public 
+          option(value="private") Private
+      each i in [1..10]
+        .colors
+          input(type="color", name=`color${i}`, id=`colorInput${i}`, oninput=`updateColor(${i}, 'color'); showNextInput(${i})`, autocomplete="off")
+          .background(id=`background${i}`)
+          input(type="text", name=`color${i}Hex`, id=`colorHex${i}`, oninput=`updateColor(${i}, 'text')`, value="" required autocomplete="off")
+      input(type="submit", value="Publish Palette")
+    include ../public/layouts/footer.pug
+    
+    // Add JavaScript in script tag
+    script.
+      document.addEventListener('DOMContentLoaded', () => {
+        function updateColor(index, type) {
+          const colorInput = document.getElementById(`colorInput${index}`);
+          const colorHex = document.getElementById(`colorHex${index}`);
+          const background = document.getElementById(`background${index}`);
 
-            each i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                .colors
-                    input(type="color", name="color" + i, id="colorInput" + i, oninput="updateColor(" + i + ", 'color'); showNextInput(" + i + ")", autocomplete="off")
-                    .background(id="background" + i)
-                    input(type="text", name="color" + i + "Hex", id="colorHex" + i, oninput="updateColor(" + i + ", 'text'); showNextInput(" + i + ")", value="" required=(i <= 3) autocomplete="off")
-            
-            input(type="submit", value="Publish Palette")
+          if (type === 'color') {
+            const colorValue = colorInput.value;
+            background.style.backgroundColor = colorValue;
+            colorHex.value = colorValue;
+          } else if (type === 'text') {
+            const colorValue = colorHex.value;
+            background.style.backgroundColor = colorValue;
+            colorInput.value = colorValue;
+          }
+        }
 
-        include ../public/layouts/footer.pug
-
-        script(src="/js/addPalette.js")
-        script.
-            document.addEventListener('DOMContentLoaded', () => {
-                // Hide all input fields except the first one
-                for (let i = 2; i <= 10; i++) {
-                    document.getElementById(`colorInput${i}`).parentElement.style.display = 'none';
-                }
-
-                // Show next input when the current one is filled
-                function showNextInput(currentIndex) {
-                    const currentColorInput = document.getElementById(`colorInput${currentIndex}`);
-                    const currentColorHexInput = document.getElementById(`colorHex${currentIndex}`);
-                    
-                    if (currentColorInput.value && currentColorHexInput.value) {
-                        const nextInput = document.getElementById(`colorInput${currentIndex + 1}`);
-                        if (nextInput) {
-                            nextInput.parentElement.style.display = 'block';
-                        }
-                    }
-                }
-
-                // Change background color and sync color input with text input
-                const colorInputs = document.querySelectorAll('.colors input[type="color"]');
-                colorInputs.forEach(input => {
-                    input.addEventListener('input', (event) => {
-                        const colorValue = event.target.value;
-                        const backgroundElement = event.target.nextElementSibling;
-                        if (backgroundElement && backgroundElement.classList.contains('background')) {
-                            backgroundElement.style.backgroundColor = colorValue;
-                        } else {
-                            alert("Background element not found");
-                        }
-                    });
-                });
-
-                // Sync color picker input with corresponding text input
-                const colorInput = document.querySelectorAll('.colors input[type="color"]');
-                colorInput.forEach(input => {
-                    input.addEventListener('input', (event) => {
-                        const color = event.target.value;
-                        const hiddenInput = document.querySelector(`input[name="${event.target.name}Hex"]`);
-                        if (hiddenInput) {
-                            hiddenInput.value = color;
-                        }
-                    });
-                });
-
-                // Update color and sync inputs between color and text
-                for (let i = 1; i <= 10; i++) {
-                    const colorInput = document.getElementById(`colorInput${i}`);
-                    const colorHex = document.getElementById(`colorHex${i}`);
-
-                    colorInput.addEventListener('input', (event) => {
-                        const colorValue = event.target.value;
-                        document.getElementById(`background${i}`).style.backgroundColor = colorValue;
-                        colorHex.value = colorValue;
-                    });
-
-                    colorHex.addEventListener('input', (event) => {
-                        const colorValue = event.target.value;
-                        document.getElementById(`background${i}`).style.backgroundColor = colorValue;
-                        colorInput.value = colorValue;
-                    });
-                }
-            });
+        function showNextInput(currentIndex) {
+          const nextInputIndex = currentIndex + 1;
+          const nextColorInput = document.getElementById(`colorInput${nextInputIndex}`);
+          if (nextColorInput && !nextColorInput.classList.contains('visible')) {
+            nextColorInput.parentElement.style.display = 'block';
+            nextColorInput.classList.add('visible');
+          }
+        }
+        
+        for (let i = 2; i <= 10; i++) {
+          document.getElementById(`colorInput${i}`).parentElement.style.display = 'none'; // Hide all except the first input initially
+        }
+      });
