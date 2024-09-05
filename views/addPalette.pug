@@ -19,7 +19,6 @@ html(lang="en")
                     option(value="public") Public 
                     option(value="private") Private
 
-            //- Corrected each loop
             each i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                 .colors
                     input(type="color", name="color" + i, id="colorInput" + i, oninput="updateColor(" + i + ", 'color'); showNextInput(" + i + ")", autocomplete="off")
@@ -29,6 +28,7 @@ html(lang="en")
             input(type="submit", value="Publish Palette")
 
         include ../public/layouts/footer.pug
+
         script(src="/js/addPalette.js")
         script.
             document.addEventListener('DOMContentLoaded', () => {
@@ -36,18 +36,61 @@ html(lang="en")
                 for (let i = 2; i <= 10; i++) {
                     document.getElementById(`colorInput${i}`).parentElement.style.display = 'none';
                 }
-            });
 
-            function showNextInput(currentIndex) {
-                // Check if the current color input is filled
-                const currentColorInput = document.getElementById(`colorInput${currentIndex}`);
-                const currentColorHexInput = document.getElementById(`colorHex${currentIndex}`);
-                
-                if (currentColorInput.value && currentColorHexInput.value) {
-                    // Show the next color input field
-                    const nextInput = document.getElementById(`colorInput${currentIndex + 1}`);
-                    if (nextInput) {
-                        nextInput.parentElement.style.display = 'block';
+                // Show next input when the current one is filled
+                function showNextInput(currentIndex) {
+                    const currentColorInput = document.getElementById(`colorInput${currentIndex}`);
+                    const currentColorHexInput = document.getElementById(`colorHex${currentIndex}`);
+                    
+                    if (currentColorInput.value && currentColorHexInput.value) {
+                        const nextInput = document.getElementById(`colorInput${currentIndex + 1}`);
+                        if (nextInput) {
+                            nextInput.parentElement.style.display = 'block';
+                        }
                     }
                 }
-            }
+
+                // Change background color and sync color input with text input
+                const colorInputs = document.querySelectorAll('.colors input[type="color"]');
+                colorInputs.forEach(input => {
+                    input.addEventListener('input', (event) => {
+                        const colorValue = event.target.value;
+                        const backgroundElement = event.target.nextElementSibling;
+                        if (backgroundElement && backgroundElement.classList.contains('background')) {
+                            backgroundElement.style.backgroundColor = colorValue;
+                        } else {
+                            alert("Background element not found");
+                        }
+                    });
+                });
+
+                // Sync color picker input with corresponding text input
+                const colorInput = document.querySelectorAll('.colors input[type="color"]');
+                colorInput.forEach(input => {
+                    input.addEventListener('input', (event) => {
+                        const color = event.target.value;
+                        const hiddenInput = document.querySelector(`input[name="${event.target.name}Hex"]`);
+                        if (hiddenInput) {
+                            hiddenInput.value = color;
+                        }
+                    });
+                });
+
+                // Update color and sync inputs between color and text
+                for (let i = 1; i <= 10; i++) {
+                    const colorInput = document.getElementById(`colorInput${i}`);
+                    const colorHex = document.getElementById(`colorHex${i}`);
+
+                    colorInput.addEventListener('input', (event) => {
+                        const colorValue = event.target.value;
+                        document.getElementById(`background${i}`).style.backgroundColor = colorValue;
+                        colorHex.value = colorValue;
+                    });
+
+                    colorHex.addEventListener('input', (event) => {
+                        const colorValue = event.target.value;
+                        document.getElementById(`background${i}`).style.backgroundColor = colorValue;
+                        colorInput.value = colorValue;
+                    });
+                }
+            });
