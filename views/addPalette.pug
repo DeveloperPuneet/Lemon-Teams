@@ -25,8 +25,7 @@ html(lang="en")
           input(type="text", name=`color${i}Hex`, id=`colorHex${i}`, oninput=`updateColor(${i}, 'text')`, value="" required autocomplete="off")
       input(type="submit", value="Publish Palette")
     include ../public/layouts/footer.pug
-    
-    // Add JavaScript in script tag
+    script(src="/js/addPalette.js")
     script.
       document.addEventListener('DOMContentLoaded', () => {
         function updateColor(index, type) {
