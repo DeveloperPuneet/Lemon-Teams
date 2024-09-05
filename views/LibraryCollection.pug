@@ -18,7 +18,7 @@ html(lang="en")
             .lib-head 
                 .lib-heading #{library.name}
                 .lib-search 
-                    input(type="text" placeholder="Search version..." id="versionSearch")
+                    input(type="text" placeholder="Search version/name..." id="versionSearch")
             .libs 
                 .lib-cards 
                     each lib in libraryCodes
@@ -27,6 +27,7 @@ html(lang="en")
                                 .heading-lib-card #{lib.name} 
                                 .heading-lib-para #{lib.description}
                                 .version #{lib.version}
+                                .hide #{lib.version} #{lib.name}
         include ../public/layouts/footer.pug
         script(src="/js/LibraryCollection.js") 
         script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js' integrity='sha512-11t8Q+vY9JlCrr+PveZKTYJq8n7O09Y5X/pk/aMd3vJugSvu4xOunGEUzaADqL3I8cZKE/pBwwCfXzDkRJh2sQ==' crossorigin='anonymous')

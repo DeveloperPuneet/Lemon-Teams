@@ -179,3 +179,7 @@ body {
     color: var(--evening-star);
     margin: 15px 5px;
 }
+
+.hide{
+    display: none;
+}

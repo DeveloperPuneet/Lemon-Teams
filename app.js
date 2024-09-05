@@ -120,8 +120,13 @@ cron.schedule('*/15 * * * *', () => {
     deleteIdenticalColorPalettes();
 });
 
+<<<<<<< HEAD
 const url = "https://lemonteams.onrender.com";
 const interval = 10000;
+=======
+const url = "https://lemonteams.onrender.com/";
+const interval = 65000;
+>>>>>>> 9ed4e167931328a8a909562ac07c25c1f7dfdb77
 function reloadWebsite() {
     axios.get(url)
         .then(response => {

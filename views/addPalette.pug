@@ -1,63 +1,60 @@
 doctype html
 html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        include ../public/components/color-lab.pug
-        link(rel="stylesheet", href="/css/addPalette.css")
-        title Lemon Teams: Dashboard
-    body#body 
-        include ../public/layouts/navigation.pug
-        form(action="", method="post") 
-            h2 Add Color
-            p You can add a maximum of 10 colors and a minimum of 3 colors. Select colors from the bar and submit.
-            .info
-                input(type="text", name="name" placeholder="Name of Color Palette" required autocomplete="off")
-                input(text="type", name="description" placeholder="Description... (Optional)" autocomplete="off")
-                input(type="text", name="tags", placeholder="Searching tags... (use space to differentiate)" autocomplete="off")
-                select(name="visibility")
-                    option(value="public") Public 
-                    option(value="private") Private
-            .colors
-                input(type="color", name="color1", id="colorInput1", oninput="updateColor(1, 'color')" autocomplete="off")
-                .background(id="background1")
-                input(type="text", name="color1Hex", id="colorHex1", oninput="updateColor(1, 'text')", value="" required autocomplete="off")
-            .colors
-                input(type="color", name="color2", id="colorInput2", oninput="updateColor(2, 'color')" autocomplete="off")
-                .background(id="background2")
-                input(type="text", name="color2Hex", id="colorHex2", oninput="updateColor(2, 'text')", value="" required autocomplete="off")
-            .colors
-                input(type="color", name="color3", id="colorInput3", oninput="updateColor(3, 'color')" autocomplete="off")
-                .background(id="background3")
-                input(type="text", name="color3Hex", id="colorHex3", oninput="updateColor(3, 'text')", value="" required autocomplete="off")
-            .colors
-                input(type="color", name="color4", id="colorInput4", oninput="updateColor(4, 'color')" autocomplete="off")
-                .background(id="background4")
-                input(type="text", name="color4Hex", id="colorHex4", oninput="updateColor(4, 'text')", value="" autocomplete="off")
-            .colors
-                input(type="color", name="color5", id="colorInput5", oninput="updateColor(5, 'color')" autocomplete="off")
-                .background(id="background5")
-                input(type="text", name="color5Hex", id="colorHex5", oninput="updateColor(5, 'text')", value="" autocomplete="off")
-            .colors
-                input(type="color", name="color6", id="colorInput6", oninput="updateColor(6, 'color')" autocomplete="off")
-                .background(id="background6")
-                input(type="text", name="color6Hex", id="colorHex6", oninput="updateColor(6, 'text')", value="" autocomplete="off")
-            .colors
-                input(type="color", name="color7", id="colorInput7", oninput="updateColor(7, 'color')" autocomplete="off")
-                .background(id="background7")
-                input(type="text", name="color7Hex", id="colorHex7", oninput="updateColor(7, 'text')", value="" autocomplete="off")
-            .colors
-                input(type="color", name="color8", id="colorInput8", oninput="updateColor(8, 'color')" autocomplete="off")
-                .background(id="background8")
-                input(type="text", name="color8Hex", id="colorHex8", oninput="updateColor(8, 'text')", value="" autocomplete="off")
-            .colors
-                input(type="color", name="color9", id="colorInput9", oninput="updateColor(9, 'color')" autocomplete="off")
-                .background(id="background9")
-                input(type="text", name="color9Hex", id="colorHex9", oninput="updateColor(9, 'text')", value="" autocomplete="off")
-            .colors
-                input(type="color", name="color10", id="colorInput10", oninput="updateColor(10, 'color')" autocomplete="off")
-                .background(id="background10")
-                input(type="text", name="color10Hex", id="colorHex10", oninput="updateColor(10, 'text')", value="" autocomplete="off")
-            input(type="submit", value="Publish Palette")
-        include ../public/layouts/footer.pug
-        script(src="/js/addPalette.js")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    include ../public/components/color-lab.pug
+    link(rel="stylesheet", href="/css/addPalette.css")
+    title Lemon Teams: Dashboard
+  body#body 
+    include ../public/layouts/navigation.pug
+    form(action="", method="post") 
+      h2 Add Color
+      p You can add a maximum of 10 colors and a minimum of 3 colors. Select colors from the bar and submit.
+      .info
+        input(type="text", name="name" placeholder="Name of Color Palette" required autocomplete="off")
+        input(type="text", name="description" placeholder="Description... (Optional)" autocomplete="off")
+        input(type="text", name="tags", placeholder="Searching tags... (use space to differentiate)" autocomplete="off")
+        select(name="visibility")
+          option(value="public") Public 
+          option(value="private") Private
+      each i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        .colors(style=`display: ${i === 1 ? 'flex' : 'none'}`)
+          input(type="color", name=`color${i}`, id=`colorInput${i}`, oninput=`updateColor(${i}, 'color'); checkAndShowNext(${i})`, autocomplete="off")
+          .background(id=`background${i}`)
+          input(type="text", name=`color${i}Hex`, id=`colorHex${i}`, oninput=`updateColor(${i}, 'text'); checkAndShowNext(${i})`, value="" required autocomplete="off")
+      input(type="submit", value="Publish Palette")
+    include ../public/layouts/footer.pug
+    script(src="/js/addPalette.js")
+    script.
+      for (let i = 2; i <= 10; i++) {
+        document.getElementById(`colorInput${i}`).parentElement.style.display = 'none';
+      }
+      function updateColor(index, type) {
+        const colorInput = document.getElementById(`colorInput${index}`);
+        const colorHex = document.getElementById(`colorHex${index}`);
+        const background = document.getElementById(`background${index}`);
+
+        if (type === 'color') {
+          const colorValue = colorInput.value;
+          background.style.backgroundColor = colorValue;
+          colorHex.value = colorValue;
+        } else if (type === 'text') {
+          const colorValue = colorHex.value;
+          background.style.backgroundColor = colorValue;
+          colorInput.value = colorValue;
+        }
+      }
+
+      function checkAndShowNext(currentIndex) {
+        const colorInput = document.getElementById(`colorInput${currentIndex}`);
+        const colorHex = document.getElementById(`colorHex${currentIndex}`);
+        const nextInputIndex = currentIndex + 1;
+        const nextColorInput = document.getElementById(`colorInput${nextInputIndex}`);
+
+        // Check if both color input and text input have values
+        if (colorInput.value && colorHex.value && nextColorInput && nextColorInput.parentElement.style.display === 'none') {
+          nextColorInput.parentElement.style.display = 'flex'; // Show the next color input
+        }
+      }
+    
