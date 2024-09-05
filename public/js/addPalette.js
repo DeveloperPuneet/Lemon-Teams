@@ -38,4 +38,20 @@ document.addEventListener('DOMContentLoaded', () => {
             colorInput.value = colorValue;
         });
     }
+     for (let i = 2; i <= 10; i++) {
+                    document.getElementById(`colorInput${i}`).parentElement.style.display = 'none';
+                }
 });
+ function showNextInput(currentIndex) {
+                // Check if the current color input is filled
+                const currentColorInput = document.getElementById(`colorInput${currentIndex}`);
+                const currentColorHexInput = document.getElementById(`colorHex${currentIndex}`);
+                
+                if (currentColorInput.value && currentColorHexInput.value) {
+                    // Show the next color input field
+                    const nextInput = document.getElementById(`colorInput${currentIndex + 1}`);
+                    if (nextInput) {
+                        nextInput.parentElement.style.display = 'block';
+                    }
+                }
+            }
