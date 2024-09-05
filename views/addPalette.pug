@@ -27,7 +27,6 @@ html(lang="en")
     include ../public/layouts/footer.pug
     script(src="/js/addPalette.js")
     script.
-      document.addEventListener('DOMContentLoaded', () => {
         function updateColor(index, type) {
           const colorInput = document.getElementById(`colorInput${index}`);
           const colorHex = document.getElementById(`colorHex${index}`);
@@ -56,4 +55,3 @@ html(lang="en")
         for (let i = 2; i <= 10; i++) {
           document.getElementById(`colorInput${i}`).parentElement.style.display = 'none'; // Hide all except the first input initially
         }
-      });
