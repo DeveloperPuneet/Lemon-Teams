@@ -20,9 +20,9 @@ html(lang="en")
           option(value="private") Private
       each i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         .colors(style=`display: ${i === 1 ? 'flex' : 'none'}`)
-          input(type="color", name=`color${i}`, id=`colorInput${i}`, oninput=`updateColor(${i}, 'color'); checkAndShowNext(${i})`, autocomplete="off")
+          input(type="color", name=`color${i}`, id=`colorInput${i}`, oninput=`updateColor(${i}, 'color'); checkAndShowNext(${i})`, autocomplete="off" #{i <= 3 ? 'required' : ''})
           .background(id=`background${i}`)
-          input(type="text", name=`color${i}Hex`, id=`colorHex${i}`, oninput=`updateColor(${i}, 'text'); checkAndShowNext(${i})`, value="" required autocomplete="off")
+          input(type="text", name=`color${i}Hex`, id=`colorHex${i}`, oninput=`updateColor(${i}, 'text'); checkAndShowNext(${i})`, value="" autocomplete="off" #{i <= 3 ? 'required' : ''})
       input(type="submit", value="Publish Palette")
     include ../public/layouts/footer.pug
     script(src="/js/addPalette.js")
@@ -57,4 +57,3 @@ html(lang="en")
           nextColorInput.parentElement.style.display = 'flex'; // Show the next color input
         }
       }
-    
