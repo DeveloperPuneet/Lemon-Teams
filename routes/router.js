@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 const multer = require('multer');
 const path = require('path');
 const randomstring = require("randomstring");
@@ -10,31 +11,58 @@ const auth = require("../middlewares/auth");
 const controller = require("../controllers/controller");
 
 const router = express();
-router.use(session({ secret: config.key }));
+
+// Configure MongoDB session store
+const store = new MongoDBStore({
+  uri: config.database, // Ensure your MongoDB URI is correct
+  collection: 'sessions',
+});
+
+store.on('error', function (error) {
+  console.log('Session Store Error: ', error);
+});
+
+// Use session middleware with MongoDBStore
+router.use(session({
+  secret: config.key,  // Ensure your secret key is strong and unique
+  resave: false,
+  saveUninitialized: false,
+  store: store, // Using MongoDBStore here
+  cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 } // 30 days
+}));
+
+// Body Parser Middleware
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
+
+// Static Files Middleware
 router.use(express.static('public'));
+
+// View Engine Setup
 router.set('view engine', 'pug');
 router.set('views', './views');
 
+// Utility function to generate random file names
 const randomIdentity = () => {
-    try {
-        return randomstring.generate(10);
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+  try {
+    return randomstring.generate(10);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
+// Multer Storage Configuration
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../public/accounts'));
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + randomIdentity() + path.extname(file.originalname));
-    }
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '../public/accounts'));
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + randomIdentity() + path.extname(file.originalname));
+  }
 });
 const upload = multer({ storage: storage });
 
+// Define Routes
 router.get("/", auth.isLogout, controller.Load);
 router.get("/login", auth.isLogout, controller.LoadLogin);
 router.get("/register", auth.isLogout, controller.LoadRegister);
