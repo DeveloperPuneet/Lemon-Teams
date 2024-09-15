@@ -19,7 +19,7 @@ document.getElementById('searching').addEventListener('input', function () {
 });
 
 let currentPage = 1; // Keep track of the current page
-const limit = 50; // Number of palettes to load per request
+let limit = 50; // Number of palettes to load per request
 
 // Function to load palettes from the server
 const loadPalettes = async (section, containerClass) => {
@@ -35,8 +35,9 @@ const loadPalettes = async (section, containerClass) => {
 // Function to render palettes on the page
 function renderPalettes(palettes) {
     const paletteContainer = document.querySelector('.main .container-trending');
-    paletteContainer.innerHTML = '';  // Clear previous palettes
-
+    
+    // Do not clear previous palettes, just append new ones
+    
     // Check if palettes is an array and has items
     if (!Array.isArray(palettes) || palettes.length === 0) {
         console.error('Palettes data is invalid or empty');
@@ -72,7 +73,7 @@ function renderPalettes(palettes) {
             console.warn(`No valid colors found for palette: ${palette.code}`);
         }
 
-        paletteContainer.appendChild(paletteElement);
+        paletteContainer.appendChild(paletteElement); // Append the new palettes to the container
     });
 }
 
@@ -86,4 +87,4 @@ window.addEventListener('scroll', () => {
     }
 });
 
-loadPalettes("trending", "container-trending"); // Load trending palettes
+loadPalettes("trending", "container-trending"); // Load trending palettes initially
