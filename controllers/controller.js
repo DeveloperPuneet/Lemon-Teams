@@ -1047,7 +1047,7 @@ const GetPalettes = async (req, res) => {
 
     try {
         // Fetch palettes from database (with pagination)
-        const palettes = await PaletteModel.find({})
+        const palettes = await Palette.find({})
             .skip((page - 1) * limit)
             .limit(limit);
 
