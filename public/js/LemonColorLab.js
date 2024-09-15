@@ -20,9 +20,14 @@ document.getElementById('searching').addEventListener('input', function () {
 
 let currentPage = 1; // Keep track of the current page
 let limit = 50; // Number of palettes to load per request
+let loading = false; // Prevent multiple simultaneous requests
+const loadedPalettes = new Set(); // Keep track of already loaded palettes to avoid duplicates
 
 // Function to load palettes from the server
 const loadPalettes = async (section, containerClass) => {
+    if (loading) return; // Prevent loading if already in progress
+    loading = true; // Set loading flag
+
     const response = await fetch(`https://lemonteams.onrender.com/get-palettes?page=${currentPage}&limit=${limit}`);
     const data = await response.json();
 
@@ -30,14 +35,14 @@ const loadPalettes = async (section, containerClass) => {
         renderPalettes(data.palettes, section, containerClass);
         currentPage++; // Increment the page for the next load
     }
+
+    loading = false; // Reset loading flag
 };
 
 // Function to render palettes on the page
 function renderPalettes(palettes) {
     const paletteContainer = document.querySelector('.main .container-trending');
-    
-    // Do not clear previous palettes, just append new ones
-    
+
     // Check if palettes is an array and has items
     if (!Array.isArray(palettes) || palettes.length === 0) {
         console.error('Palettes data is invalid or empty');
@@ -45,11 +50,13 @@ function renderPalettes(palettes) {
     }
 
     palettes.forEach(palette => {
-        // Ensure that the palette object is valid and colors are present
-        if (!palette) {
-            console.warn('Palette data is undefined');
-            return;
+        // Ensure the palette is not already loaded to avoid duplicates
+        if (loadedPalettes.has(palette.code)) {
+            return; // Skip if already loaded
         }
+
+        // Mark this palette as loaded
+        loadedPalettes.add(palette.code);
 
         const colors = [
             palette.color1, palette.color2, palette.color3, palette.color4, 
@@ -81,10 +88,11 @@ function renderPalettes(palettes) {
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-    if (scrollTop + clientHeight >= scrollHeight - 400) {
+    if (scrollTop + clientHeight >= scrollHeight - 400 && !loading) {
         // Load more palettes as user reaches near bottom of the page
         loadPalettes("trending", "container-trending"); // Load trending palettes
     }
 });
 
-loadPalettes("trending", "container-trending"); // Load trending palettes initially
+// Load the initial set of palettes
+loadPalettes("trending", "container-trending");
