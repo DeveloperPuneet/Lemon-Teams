@@ -1041,6 +1041,21 @@ const ImportedLinks = async (req, res) => {
     }
 }
 
+const GetPalettes = async (req, res) => {
+    const page = parseInt(req.query.page) || 1; // Current page
+    const limit = parseInt(req.query.limit) || 50; // Number of palettes to load
+
+    try {
+        // Fetch palettes from database (with pagination)
+        const palettes = await PaletteModel.find({})
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        res.json({ palettes });
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching palettes" });
+    }
+}
 module.exports = {
     Load,
     LoadProfile,
@@ -1082,5 +1097,6 @@ module.exports = {
     deleteLibrary,
     AddingCodeToLibrary,
     LoadCodeDetails,
-    ImportedLinks
+    ImportedLinks,
+    GetPalettes
 };
