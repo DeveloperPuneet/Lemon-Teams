@@ -34,7 +34,7 @@ const loadPalettes = async (section, containerClass) => {
 
 // Function to render palettes on the page
 function renderPalettes(palettes) {
-    const paletteContainer = document.querySelector('.main ..container-trending');
+    const paletteContainer = document.querySelector('.main .container-trending');
     paletteContainer.innerHTML = '';  // Clear previous palettes
 
     // Check if palettes is an array and has items
