@@ -34,27 +34,43 @@ const loadPalettes = async (section, containerClass) => {
 
 // Function to render palettes on the page
 function renderPalettes(palettes) {
-    const paletteContainer = document.querySelector('.main .container-trending');
+    const paletteContainer = document.querySelector('.main ..container-trending');
     paletteContainer.innerHTML = '';  // Clear previous palettes
 
+    // Check if palettes is an array and has items
+    if (!Array.isArray(palettes) || palettes.length === 0) {
+        console.error('Palettes data is invalid or empty');
+        return;
+    }
+
     palettes.forEach(palette => {
+        // Ensure that the palette object is valid and colors are present
+        if (!palette) {
+            console.warn('Palette data is undefined');
+            return;
+        }
+
         const colors = [
             palette.color1, palette.color2, palette.color3, palette.color4, 
             palette.color5, palette.color6, palette.color7, palette.color8, 
             palette.color9, palette.color10
-        ].filter(Boolean); // This filters out empty strings
+        ].filter(Boolean); // Filter out empty or undefined color values
 
         const paletteElement = document.createElement('a');
-        paletteElement.href = `https:lemonteams.onrender.com/open-palette?code=${palette.code}`;
+        paletteElement.href = `/open-palette?code=${palette.code}`;
         paletteElement.classList.add('palette');
 
-        // Iterate over the colors and create elements
-        colors.forEach(color => {
-            const colorDiv = document.createElement('div');
-            colorDiv.classList.add('color');
-            colorDiv.style.background = color;
-            paletteElement.appendChild(colorDiv);
-        });
+        // Check if there are any colors to display
+        if (colors.length > 0) {
+            colors.forEach(color => {
+                const colorDiv = document.createElement('div');
+                colorDiv.classList.add('color');
+                colorDiv.style.background = color;
+                paletteElement.appendChild(colorDiv);
+            });
+        } else {
+            console.warn(`No valid colors found for palette: ${palette.code}`);
+        }
 
         paletteContainer.appendChild(paletteElement);
     });
