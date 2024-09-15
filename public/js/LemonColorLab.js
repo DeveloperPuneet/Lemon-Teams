@@ -88,7 +88,7 @@ function renderPalettes(palettes) {
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-    if (scrollTop + clientHeight >= scrollHeight - 700 && !loading) {
+    if (scrollTop + clientHeight >= scrollHeight - 900 && !loading) {
         // Load more palettes as user reaches near bottom of the page
         loadPalettes("trending", "container-trending"); // Load trending palettes
     }
