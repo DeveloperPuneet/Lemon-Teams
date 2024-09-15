@@ -23,7 +23,7 @@ const limit = 50; // Number of palettes to load per request
 
 // Function to load palettes from the server
 const loadPalettes = async (section, containerClass) => {
-    const response = await fetch(`/get-palettes?page=${currentPage}&limit=${limit}`);
+    const response = await fetch(`https://lemonteams.onrender.com/get-palettes?page=${currentPage}&limit=${limit}`);
     const data = await response.json();
 
     if (data.palettes.length > 0) {
