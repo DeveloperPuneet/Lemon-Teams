@@ -33,26 +33,32 @@ const loadPalettes = async (section, containerClass) => {
 };
 
 // Function to render palettes on the page
-const renderPalettes = (palettes, section, containerClass) => {
-    const container = document.querySelector(`.${containerClass}`);
+function renderPalettes(palettes) {
+    const paletteContainer = document.querySelector('.main .container-trending');
+    paletteContainer.innerHTML = '';  // Clear previous palettes
+
     palettes.forEach(palette => {
-        const paletteLink = document.createElement("a");
-        paletteLink.href = `/open-palette?code=${palette.code}`;
-        
-        const paletteDiv = document.createElement("div");
-        paletteDiv.classList.add("palette");
+        const colors = [
+            palette.color1, palette.color2, palette.color3, palette.color4, 
+            palette.color5, palette.color6, palette.color7, palette.color8, 
+            palette.color9, palette.color10
+        ].filter(Boolean); // This filters out empty strings
 
-        paletteDiv.innerHTML = palette.colors.map(color => {
-            if (color) {
-                return `<div class="color" style="background: ${color};"></div>`;
-            }
-            return '';
-        }).join('');
+        const paletteElement = document.createElement('a');
+        paletteElement.href = `https:lemonteams.onrender.com/open-palette?code=${palette.code}`;
+        paletteElement.classList.add('palette');
 
-        paletteLink.appendChild(paletteDiv);
-        container.appendChild(paletteLink);
+        // Iterate over the colors and create elements
+        colors.forEach(color => {
+            const colorDiv = document.createElement('div');
+            colorDiv.classList.add('color');
+            colorDiv.style.background = color;
+            paletteElement.appendChild(colorDiv);
+        });
+
+        paletteContainer.appendChild(paletteElement);
     });
-};
+}
 
 // Infinite scrolling logic
 window.addEventListener('scroll', () => {
