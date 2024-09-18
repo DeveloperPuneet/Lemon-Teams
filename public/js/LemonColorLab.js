@@ -3,9 +3,8 @@ document.getElementById('searching').addEventListener('input', function () {
     const palettes = document.querySelectorAll('.palette');
 
     palettes.forEach(palette => {
-        const text = Array.from(palette.querySelectorAll('.hide')).map(element => element.innerText.toLowerCase()).join(' ');
+        const text = Array.from(palette.querySelectorAll('.hide')).map(element => element.innerText.toLowerCase());
         if (text.includes(searchValue)) {
-            palette.style.display = '';
         } else {
             palette.style.display = 'none';
         }
