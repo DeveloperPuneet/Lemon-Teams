@@ -7,6 +7,7 @@ document.getElementById('searching').addEventListener('input', function () {
         if (text.includes(searchValue)) {
         } else {
             palette.style.display = 'none';
+            console.log(text)
         }
     });
 
