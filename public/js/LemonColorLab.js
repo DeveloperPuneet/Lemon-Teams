@@ -3,7 +3,7 @@ document.getElementById('searching').addEventListener('input', function () {
     const palettes = document.querySelectorAll('.palette');
 
     palettes.forEach(palette => {
-        const text = Array.from(palette.querySelectorAll('.hide')).map(element => element.innerText.toLowerCase());
+        const text = Array.from(palette.querySelectorAll('.hide')).map(element => element.innerText.toLowerCase()).join("");
         if (text.includes(searchValue)) {
         } else {
             palette.style.display = 'none';
