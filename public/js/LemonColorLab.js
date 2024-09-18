@@ -80,7 +80,7 @@ function renderPalettes(palettes) {
         } else {
             console.warn(`No valid colors found for palette: ${palette.code}`);
         }
-        paletteContainer.appendChild(searchInstallation);
+        paletteElement.appendChild(searchInstallation);
         paletteContainer.appendChild(paletteElement); // Append the new palettes to the container
     });
 }
