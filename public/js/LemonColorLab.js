@@ -7,7 +7,6 @@ document.getElementById('searching').addEventListener('input', function () {
         if (text.includes(searchValue)) {
         } else {
             palette.style.display = 'none';
-            console.log(text)
         }
     });
 
@@ -67,7 +66,9 @@ function renderPalettes(palettes) {
         const paletteElement = document.createElement('a');
         paletteElement.href = `/open-palette?code=${palette.code}`;
         paletteElement.classList.add('palette');
-
+        const searchInstallation = document.createElement("div");
+        searchInstallation.classList.add("hide");
+        searchInstallation.innerHTML = palette.tags + " " + palette.name
         // Check if there are any colors to display
         if (colors.length > 0) {
             colors.forEach(color => {
@@ -79,7 +80,7 @@ function renderPalettes(palettes) {
         } else {
             console.warn(`No valid colors found for palette: ${palette.code}`);
         }
-
+        paletteContainer.appendChild(searchInstallation);
         paletteContainer.appendChild(paletteElement); // Append the new palettes to the container
     });
 }
