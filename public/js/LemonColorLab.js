@@ -1,9 +1,9 @@
 document.getElementById('searching').addEventListener('input', function () {
-    const searchValue = this.value.toLowerCase();
-    const palettes = document.querySelectorAll('.palette');
+    let searchValue = this.value.toLowerCase();
+    let palettes = document.querySelectorAll('.palette');
 
     palettes.forEach(palette => {
-        const text = Array.from(palette.querySelectorAll('.hide')).map(element => element.innerText.toLowerCase()).join("");
+        let text = Array.from(palette.querySelectorAll('.hide')).map(element => element.innerText.toLowerCase()).join("");
         if (text.includes(searchValue)) {
         } else {
             palette.style.display = 'none';
@@ -20,15 +20,15 @@ document.getElementById('searching').addEventListener('input', function () {
 let currentPage = 1; // Keep track of the current page
 let limit = 50; // Number of palettes to load per request
 let loading = false; // Prevent multiple simultaneous requests
-const loadedPalettes = new Set(); // Keep track of already loaded palettes to avoid duplicates
+let loadedPalettes = new Set(); // Keep track of already loaded palettes to avoid duplicates
 
 // Function to load palettes from the server
-const loadPalettes = async (section, containerClass) => {
+let loadPalettes = async (section, containerClass) => {
     if (loading) return; // Prevent loading if already in progress
     loading = true; // Set loading flag
 
-    const response = await fetch(`https://lemonteams.onrender.com/get-palettes?page=${currentPage}&limit=${limit}`);
-    const data = await response.json();
+    let response = await fetch(`https://lemonteams.onrender.com/get-palettes?page=${currentPage}&limit=${limit}`);
+    let data = await response.json();
 
     if (data.palettes.length > 0) {
         renderPalettes(data.palettes, section, containerClass);
@@ -40,7 +40,7 @@ const loadPalettes = async (section, containerClass) => {
 
 // Function to render palettes on the page
 function renderPalettes(palettes) {
-    const paletteContainer = document.querySelector('.main .container-trending');
+    let paletteContainer = document.querySelector('.main .container-trending');
 
     // Check if palettes is an array and has items
     if (!Array.isArray(palettes) || palettes.length === 0) {
@@ -57,16 +57,16 @@ function renderPalettes(palettes) {
         // Mark this palette as loaded
         loadedPalettes.add(palette.code);
 
-        const colors = [
+        let colors = [
             palette.color1, palette.color2, palette.color3, palette.color4, 
             palette.color5, palette.color6, palette.color7, palette.color8, 
             palette.color9, palette.color10
         ].filter(Boolean); // Filter out empty or undefined color values
 
-        const paletteElement = document.createElement('a');
+        let paletteElement = document.createElement('a');
         paletteElement.href = `/open-palette?code=${palette.code}`;
         paletteElement.classList.add('palette');
-        const searchInstallation = document.createElement("div");
+        let searchInstallation = document.createElement("div");
         searchInstallation.classList.add("hide");
         searchInstallation.innerHTML = palette.tags + " " + palette.name
         // Check if there are any colors to display
@@ -87,7 +87,7 @@ function renderPalettes(palettes) {
 
 // Infinite scrolling logic
 window.addEventListener('scroll', () => {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    let { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
     if (scrollTop + clientHeight >= scrollHeight - 900 && !loading) {
         // Load more palettes as user reaches near bottom of the page
