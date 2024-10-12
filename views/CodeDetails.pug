@@ -9,6 +9,7 @@ html(lang="en")
     body
         include ../public/layouts/navigation.pug
         .container 
+            .hide#file=`${code.file}`
             .name Name of Code
             input(type="text" value=`${code.name}` readonly)
             .name Description 
@@ -36,7 +37,7 @@ html(lang="en")
             const link = document.createElement("a");
 
             // Set the download attribute with a filename
-            link.download = `${code.file}`;
+            link.download = document.getElementById("file").innerHTML;
 
             // Create a URL for the Blob and set it as the href for the link
             link.href = window.URL.createObjectURL(blob);
