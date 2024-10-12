@@ -5,6 +5,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const multer = require('multer');
 const path = require('path');
 const randomstring = require("randomstring");
+const mongoose = require('mongoose');
 
 const config = require("../config/config");
 const auth = require("../middlewares/auth");
@@ -12,24 +13,47 @@ const controller = require("../controllers/controller");
 
 const router = express();
 
+// MongoDB connection
+mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: true });
+
 // Configure MongoDB session store
 const store = new MongoDBStore({
-  uri: config.database, // Ensure your MongoDB URI is correct
-  collection: 'sessions',
+  uri: config.database,  // Your MongoDB URI
+  collection: 'sessions', // Store sessions in this collection
 });
 
+// Handle errors from session store
 store.on('error', function (error) {
   console.log('Session Store Error: ', error);
 });
 
+// Define session expiration time (30 days in milliseconds)
+const sessionExpiration = 1000 * 60 * 60 * 24 * 30;
+
 // Use session middleware with MongoDBStore
 router.use(session({
-  secret: config.key,  // Ensure your secret key is strong and unique
+  secret: config.key,  // Strong, unique secret key
   resave: false,
   saveUninitialized: false,
-  store: store, // Using MongoDBStore here
-  cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 } // 30 days
+  store: store,        // Using MongoDBStore here
+  cookie: { maxAge: sessionExpiration },  // Set cookie expiration time
+  rolling: true        // Reset session expiration on each request
 }));
+
+// Add an 'expiresAt' field when the session is created
+store.on('create', function (sessionId, sessionData) {
+  const expiresAt = new Date(Date.now() + sessionExpiration);
+  mongoose.connection.collection('sessions').updateOne(
+    { _id: sessionId },
+    { $set: { expiresAt: expiresAt } }
+  );
+});
+
+// Ensure TTL index is created on the 'expiresAt' field
+mongoose.connection.collection('sessions').createIndex(
+  { "expiresAt": 1 }, 
+  { expireAfterSeconds: 0 }
+);
 
 // Body Parser Middleware
 router.use(bodyParser.json());
