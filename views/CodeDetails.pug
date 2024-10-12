@@ -14,7 +14,33 @@ html(lang="en")
             .name Description 
             textarea(name="" readonly style="min-height: 500px;")=`${code.description}`
             .name Library Code 
-            textarea(name="" readonly style="min-height: 500px;")=`${code.code}`
+            textarea(name="Code" id="codeTextarea" readonly style="min-height: 500px;")=`${code.code}`
+            // New section for download button
+            .name Download Code
+            button#downloadBtn Download Code
             .name Import Link
             input(type="text" value=`https://lemonteams.onrender.com/import/${code.token}`)
         include ../public/layouts/footer.pug
+
+    // JavaScript section
+    script.
+        // JavaScript function to download the code
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // Get the text from the 'Code' textarea
+            const codeContent = document.getElementById('codeTextarea').value;
+            
+            // Create a Blob from the code content
+            const blob = new Blob([codeContent], { type: 'text/plain' });
+
+            // Create a link element for downloading the file
+            const link = document.createElement("a");
+
+            // Set the download attribute with a filename
+            link.download = `${code.file}`;
+
+            // Create a URL for the Blob and set it as the href for the link
+            link.href = window.URL.createObjectURL(blob);
+
+            // Programmatically click the link to trigger the download
+            link.click();
+        });

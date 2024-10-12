@@ -97,3 +97,11 @@ textarea {
     margin: 10px 5px;
     text-align: start;
 }
+
+#downloadBtn{
+    padding: 10px;
+    background-color: var(--lemon-yellow);
+    color: var(--cloud-mist);
+    border-radius: 4px;
+    margin: auto;
+}

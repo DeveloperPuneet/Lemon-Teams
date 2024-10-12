@@ -961,7 +961,7 @@ const AddCodeLoad = async (req, res) => {
 
 const AddingCodeToLibrary = async (req, res) => {
     try {
-        const { name, description, code } = req.body;
+        const { name, description, code, file } = req.body;
         const libCode = req.params.code;
         const Lib = await Library.findOne({ code: libCode });
         let version = Lib.LTS_version + 1;
@@ -972,7 +972,8 @@ const AddingCodeToLibrary = async (req, res) => {
                 code: code,
                 description: description,
                 version: version,
-                token: token
+                token: token,
+                file: file
             });
             const saveCode = await Add.save();
             if (saveCode) {

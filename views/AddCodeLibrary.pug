@@ -11,7 +11,8 @@ html(lang="en")
         h1.add-code-heading Add Code 
         form(action=`/add-code/${code}`, method="post") 
             input(type="text" name="name" placeholder="Name of Code" required)
-            textarea(name="description" placeholder="Describe your Code...") 
-            textarea(name="code" placeholder="Write your Code..." required) 
+            textarea(name="description" placeholder="Describe your Code..." value="") 
+            textarea(name="code" placeholder="Write your Code..." required value="") 
+            input(type="text" name="file" placeholder="File name for downloading code..." required)
             input(type="submit" value="Add Code")
         include ../public/layouts/footer.pug

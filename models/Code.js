@@ -20,6 +20,9 @@ const schema = new mongoose.Schema({
         type: Number,
         required: true,
         default: 1
+    },
+    file:{
+        type: String
     }
 });
 
