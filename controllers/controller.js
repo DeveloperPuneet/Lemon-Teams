@@ -1061,8 +1061,13 @@ const GetPalettes = async (req, res) => {
     }
 }
 const AI = async (req, res) => {
-    const apiKey = config.api;
-    const { colors } = req.body;   
+    const apiKey = config.api; // Ensure config.api holds your API key
+    const { colors } = req.body;
+  
+    if (!colors || colors.length === 0) {
+      return res.status(400).json({ error: 'No colors provided' });
+    }
+  
     const prompt = `Generate a concise description (15-30 words) for the color palette using these colors: ${colors.join(", ")}. Do not mention any company or model names. Simply say you're Lemon AI, developed by Puneet Kumar, if needed. Focus only on the color description.`;
   
     try {
@@ -1081,15 +1086,13 @@ const AI = async (req, res) => {
         }
       );
   
-      const description = response.data.candidates[0].text;
+      const description = response.data.candidates[0].text; // Adjust based on the actual response structure
       res.json({ description });
-      console.log(response.data+ " "+ apiKey)
-      return response.data;
     } catch (error) {
-      console.error('Error generating description:', error);
+      console.error('Error generating description:', error.response ? error.response.data : error.message);
       res.status(500).json({ error: 'Failed to generate description' });
     }
-  }
+  };
 
 module.exports = {
     Load,

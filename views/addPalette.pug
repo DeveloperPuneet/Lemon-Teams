@@ -92,6 +92,10 @@ html(lang="en")
             body: JSON.stringify({ colors }) // Send the colors array to the backend
           });
 
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+
           const data = await response.json();
           document.getElementById("description").value = data.description;
         } catch (error) {
