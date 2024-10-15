@@ -1060,6 +1060,35 @@ const GetPalettes = async (req, res) => {
         res.status(500).json({ message: "Error fetching palettes" });
     }
 }
+const AI = async (req, res) => {
+    const apiKey = config.api;
+    const { colors } = req.body;   
+    const prompt = `Generate a concise description (15-30 words) for the color palette using these colors: ${colors.join(", ")}. Do not mention any company or model names. Simply say you're Lemon AI, developed by Puneet Kumar, if needed. Focus only on the color description.`;
+  
+    try {
+      const response = await axios.post(
+        'https://generativelanguage.googleapis.com/v1beta2/models/gemini-1.5-flash:generateText',
+        {
+          prompt: {
+            text: prompt,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+          },
+        }
+      );
+  
+      const description = response.data.candidates[0].text;
+      res.json({ description });
+    } catch (error) {
+      console.error('Error generating description:', error);
+      res.status(500).json({ error: 'Failed to generate description' });
+    }
+  }
+
 module.exports = {
     Load,
     LoadProfile,
@@ -1102,5 +1131,6 @@ module.exports = {
     AddingCodeToLibrary,
     LoadCodeDetails,
     ImportedLinks,
-    GetPalettes
+    GetPalettes,
+    AI
 };

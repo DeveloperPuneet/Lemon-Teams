@@ -3,7 +3,6 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    include ../public/components/color-lab.pug
     link(rel="stylesheet", href="/css/addPalette.css")
     title Lemon Teams: Dashboard
   body#body 
@@ -14,13 +13,13 @@ html(lang="en")
       .info
         input(type="text", name="name" placeholder="Name of Color Palette" required autocomplete="off")
         input(type="text", name="description" placeholder="Description... (Optional)" autocomplete="off" id="description")
-        button(id="descriptionGenerate" type="button" style="color: black; background: yellow; padding: 7px; border-radius: 6px;") Generate Description 
+        button(type="button", id="descriptionGenerate", style="color: black; background: yellow; padding: 7px; border-radius: 6px;") Generate Description 
         input(type="text", name="tags", placeholder="Searching tags... (use space to differentiate)" autocomplete="off")
         select(name="visibility")
           option(value="public") Public 
           option(value="private") Private
       each i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        .colors(style=`display: ${i === 1 ? 'flex' : 'none'}`) 
+        .colors(style=`display: ${i === 1 ? 'flex' : 'none'}`)
           input(
             type="color" 
             name=`color${i}` 
@@ -41,16 +40,14 @@ html(lang="en")
           )
       input(type="submit", value="Publish Palette")
     include ../public/layouts/footer.pug
+
     script(src="/js/addPalette.js")
     script.
-      // Initial setup to hide color inputs except the first
-      document.addEventListener("DOMContentLoaded", () => {
-        for (let i = 2; i <= 10; i++) {
-          document.getElementById(`colorInput${i}`).parentElement.style.display = 'none';
-        }
-      });
+      // Hide additional color inputs initially
+      for (let i = 2; i <= 10; i++) {
+        document.getElementById(`colorInput${i}`).parentElement.style.display = 'none';
+      }
 
-      // Function to update the color value in both input fields (color picker and hex text)
       function updateColor(index, type) {
         const colorInput = document.getElementById(`colorInput${index}`);
         const colorHex = document.getElementById(`colorHex${index}`);
@@ -67,19 +64,18 @@ html(lang="en")
         }
       }
 
-      // Function to reveal the next color input when the current one is filled
       function checkAndShowNext(currentIndex) {
         const colorInput = document.getElementById(`colorInput${currentIndex}`);
         const colorHex = document.getElementById(`colorHex${currentIndex}`);
         const nextInputIndex = currentIndex + 1;
         const nextColorInput = document.getElementById(`colorInput${nextInputIndex}`);
 
-        if (colorInput.value && colorHex.value && nextColorInput) {
+        if (colorInput.value && colorHex.value && nextColorInput && nextColorInput.parentElement.style.display === 'none') {
           nextColorInput.parentElement.style.display = 'flex';
         }
       }
 
-      // Generate description function using Google Generative AI API via fetch (frontend)
+      // Function to generate the description using backend API
       async function generateDescription() {
         const colors = [];
         for (let i = 1; i <= 10; i++) {
@@ -87,33 +83,21 @@ html(lang="en")
           if (colorHex) colors.push(colorHex);
         }
 
-        const prompt = `Generate a concise description (15-30 words) for the color palette using these colors: ${colors.join(", ")}. Do not mention any company or model names. Simply say you're Lemon AI, developed by Puneet Kumar, if needed. Focus only on the color description.`;
-
         try {
-          const response = await fetch('https://generativelanguage.googleapis.com/v1beta2/models/gemini-1.5-flash:generateText', {
+          const response = await fetch('/generate-description', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${process.env.API_KEY}` // Insert API Key here safely
             },
-            body: JSON.stringify({
-              prompt: {
-                text: prompt
-              }
-            })
+            body: JSON.stringify({ colors }) // Send the colors array to the backend
           });
 
-          const result = await response.json();
-          const description = result.candidates[0].text; // Extract the generated description from the API response
-          console.log(description);
-          document.getElementById("description").value = description;
+          const data = await response.json();
+          document.getElementById("description").value = data.description;
         } catch (error) {
           console.error('Error generating description:', error);
         }
       }
 
-      // Event listener for the "Generate Description" button
-      document.getElementById("descriptionGenerate").addEventListener("click", function(event) {
-        event.preventDefault(); // Prevent form submission when the button is clicked
-        generateDescription();
-      });
+      // Add event listener to button for generating description
+      document.getElementById("descriptionGenerate").addEventListener("click", generateDescription);
