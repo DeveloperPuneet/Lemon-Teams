@@ -43,7 +43,14 @@ html(lang="en")
     include ../public/layouts/footer.pug
 
     script(src="/js/addPalette.js")
-    script.
+    script(type="importmap") 
+      {
+        "imports":{
+          "@google/generative-ai":"https://esm.run/
+@google/generative-ai"
+        }
+      }
+    script(type="module").
       const apiKey = 'AIzaSyAVO7dLCfModBOCg1Z2_RXX6SuxrIyqVYo'; // Your API Key
       
       // Hide additional color inputs initially
@@ -79,7 +86,7 @@ html(lang="en")
       }
 
       // Function to generate the description using Google API directly from the frontend
-      const { GoogleGenerativeAI } = require("@google/generative-ai");
+          import { GoogleGenerativeAI } from "@google/generative-ai";
       async function generateDescription() {
         const colors = [];
         for (let i = 1; i <= 10; i++) {
