@@ -41,22 +41,11 @@ html(lang="en")
           )
       input(type="submit", value="Publish Palette")
     include ../public/layouts/footer.pug
-
     script(src="/js/addPalette.js")
-    script(type="importmap").
-      {
-        "imports":{
-          "@google/generative-ai":"https://esm.run/@google/generative-ai"
-        }
-      }
-    script(type="module").
-      const apiKey = 'AIzaSyAVO7dLCfModBOCg1Z2_RXX6SuxrIyqVYo'; // Your API Key
-      
-      // Hide additional color inputs initially
+    script. 
       for (let i = 2; i <= 10; i++) {
         document.getElementById(`colorInput${i}`).parentElement.style.display = 'none';
       }
-
       function updateColor(index, type) {
         const colorInput = document.getElementById(`colorInput${index}`);
         const colorHex = document.getElementById(`colorHex${index}`);
@@ -72,7 +61,6 @@ html(lang="en")
           colorInput.value = colorValue;
         }
       }
-
       function checkAndShowNext(currentIndex) {
         const colorInput = document.getElementById(`colorInput${currentIndex}`);
         const colorHex = document.getElementById(`colorHex${currentIndex}`);
@@ -83,8 +71,14 @@ html(lang="en")
           nextColorInput.parentElement.style.display = 'flex';
         }
       }
-
-      // Function to generate the description using Google API directly from the frontend
+    script(type="importmap").
+      {
+        "imports":{
+          "@google/generative-ai":"https://esm.run/@google/generative-ai"
+        }
+      }
+    script(type="module").
+      const apiKey = 'AIzaSyAVO7dLCfModBOCg1Z2_RXX6SuxrIyqVYo';
           import { GoogleGenerativeAI } from "@google/generative-ai";
       async function generateDescription() {
         const colors = [];
@@ -96,9 +90,7 @@ html(lang="en")
         const prompt = `Generate a concise description (20-30 words) for the color palette using these colors: ${colors.join(", ")}. Do not mention any company or model names. Simply say you're Lemon AI, developed by Puneet Kumar, if needed. Focus only on the color description.`;
           const genAI = new GoogleGenerativeAI("AIzaSyAVO7dLCfModBOCg1Z2_RXX6SuxrIyqVYo");
           const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
           const result = await model.generateContent(prompt);
           document.getElementById("description").value = result.response.text();
       }
-      // Add event listener to button for generating description
       document.getElementById("descriptionGenerate").addEventListener("click", generateDescription);
