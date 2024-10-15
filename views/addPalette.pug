@@ -13,7 +13,8 @@ html(lang="en")
       p You can add a maximum of 10 colors and a minimum of 3 colors. Select colors from the bar and submit.
       .info
         input(type="text", name="name" placeholder="Name of Color Palette" required autocomplete="off")
-        input(type="text", name="description" placeholder="Description... (Optional)" autocomplete="off")
+        input(type="text", name="description" placeholder="Description... (Optional)" autocomplete="off" id="description")
+        button(id="descriptionGenerate" type="button" style="color: black; background: yellow; padding: 7px; border-radius: 6px;") Generate Description 
         input(type="text", name="tags", placeholder="Searching tags... (use space to differentiate)" autocomplete="off")
         select(name="visibility")
           option(value="public") Public 
@@ -45,6 +46,7 @@ html(lang="en")
       for (let i = 2; i <= 10; i++) {
         document.getElementById(`colorInput${i}`).parentElement.style.display = 'none';
       }
+
       function updateColor(index, type) {
         const colorInput = document.getElementById(`colorInput${index}`);
         const colorHex = document.getElementById(`colorHex${index}`);
@@ -71,3 +73,32 @@ html(lang="en")
           nextColorInput.parentElement.style.display = 'flex';
         }
       }
+
+      import { GoogleGenerativeAI } from "@google/generative-ai";
+      const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+      async function generateDescription() {
+        const colors = [];
+        for (let i = 1; i <= 10; i++) {
+          const colorHex = document.getElementById(`colorHex${i}`).value;
+          if (colorHex) colors.push(colorHex);
+        }
+
+        const prompt = `Generate a concise description (15-30 words) for the color palette using these colors: ${colors.join(", ")}. Do not mention any company or model names. Simply say you're Lemon AI, developed by Puneet Kumar, if needed. Focus only on the color description.`;
+
+        try {
+          const result = await model.generateContent(prompt);
+          const description = result.response.text();
+          console.log(description);
+          document.getElementById("description").value = description;
+        } catch (error) {
+          console.error('Error generating description:', error);
+        }
+      }
+
+      // Trigger the description generation when the button is clicked
+      document.getElementById("descriptionGenerate").addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent form submission when the button is clicked
+        generateDescription();
+      });

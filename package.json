@@ -10,6 +10,7 @@
   "author": "Puneet Kumar",
   "license": "ISC",
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "axios": "^1.7.2",
     "axois": "^0.0.1-security",
     "bcrypt": "^5.1.1",
