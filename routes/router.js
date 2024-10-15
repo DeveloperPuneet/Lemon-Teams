@@ -131,6 +131,6 @@ router.post("/add-code/:code", auth.isLogin, controller.AddingCodeToLibrary);
 router.get("/code/:token", auth.isLogin, controller.LoadCodeDetails);
 router.get("/import/:token", controller.ImportedLinks);
 router.get("/get-palettes", controller.GetPalettes);
-app.post('/generate-description', controller.AI);
+router.post('/generate-description', controller.AI);
 
 module.exports = router;
