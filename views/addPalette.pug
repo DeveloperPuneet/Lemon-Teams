@@ -103,7 +103,8 @@ html(lang="en")
           });
 
           const data = await response.json();
-          document.getElementById("description").value = data.candidates[0].text; // Set the generated description
+          console.log(data)
+          document.getElementById("description").value = data.candidates[0].text; 
         } catch (error) {
           console.error('Error generating description:', error);
         }
