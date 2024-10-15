@@ -79,6 +79,7 @@ html(lang="en")
       }
 
       // Function to generate the description using Google API directly from the frontend
+      const { GoogleGenerativeAI } = require("@google/generative-ai");
       async function generateDescription() {
         const colors = [];
         for (let i = 1; i <= 10; i++) {
@@ -87,13 +88,11 @@ html(lang="en")
         }
 
         const prompt = `Generate a concise description (20-30 words) for the color palette using these colors: ${colors.join(", ")}. Do not mention any company or model names. Simply say you're Lemon AI, developed by Puneet Kumar, if needed. Focus only on the color description.`;
-        import { GoogleGenerativeAI } from "@google/generative-ai";
           const genAI = new GoogleGenerativeAI("AIzaSyAVO7dLCfModBOCg1Z2_RXX6SuxrIyqVYo");
           const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
           const result = await model.generateContent(prompt);
-          console.log(result.response.text());
+          document.getElementById("description").value = result.response.text();
       }
-
       // Add event listener to button for generating description
       document.getElementById("descriptionGenerate").addEventListener("click", generateDescription);
