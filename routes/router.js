@@ -51,7 +51,7 @@ store.on('create', function (sessionId, sessionData) {
 
 // Ensure TTL index is created on the 'expiresAt' field
 mongoose.connection.collection('sessions').createIndex(
-  { "expiresAt": 1 }, 
+  { "expiresAt": 1 },
   { expireAfterSeconds: 0 }
 );
 
@@ -131,6 +131,5 @@ router.post("/add-code/:code", auth.isLogin, controller.AddingCodeToLibrary);
 router.get("/code/:token", auth.isLogin, controller.LoadCodeDetails);
 router.get("/import/:token", controller.ImportedLinks);
 router.get("/get-palettes", controller.GetPalettes);
-router.post('/generate-description', controller.AI);
 
 module.exports = router;

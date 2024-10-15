@@ -8,7 +8,6 @@ const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
 const fs = require('fs');
 const path = require('path');
-const axios = require("axios")
 
 const config = require("../config/config");
 
@@ -1061,46 +1060,6 @@ const GetPalettes = async (req, res) => {
         res.status(500).json({ message: "Error fetching palettes" });
     }
 }
-const { GoogleAuth } = require('google-auth-library');
-
-const AI = async (req, res) => {
-    const { colors } = req.body;
-
-    if (!colors || colors.length === 0) {
-        return res.status(400).json({ error: 'No colors provided' });
-    }
-
-    const prompt = `Generate a concise description (15-30 words) for the color palette using these colors: ${colors.join(", ")}. Do not mention any company or model names. Simply say you're Lemon AI, developed by Puneet Kumar, if needed. Focus only on the color description.`;
-
-    try {
-        const client = await new GoogleAuth({
-            scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-        }).getClient();
-
-        const token = await client.getAccessToken();
-
-        const response = await axios.post(
-            'https://generativelanguage.googleapis.com/v1beta2/models/gemini-1.5-flash:generateText',
-            {
-                prompt: {
-                    text: prompt,
-                },
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-            }
-        );
-
-        const description = response.data.candidates[0].text; // Adjust based on the actual response structure
-        res.json({ description });
-    } catch (error) {
-        console.error('Error generating description:', error.response ? error.response.data : error.message);
-        res.status(500).json({ error: 'Failed to generate description' });
-    }
-};
 
 module.exports = {
     Load,
@@ -1145,5 +1104,4 @@ module.exports = {
     LoadCodeDetails,
     ImportedLinks,
     GetPalettes,
-    AI
 };
