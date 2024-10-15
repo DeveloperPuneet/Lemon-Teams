@@ -1083,6 +1083,8 @@ const AI = async (req, res) => {
   
       const description = response.data.candidates[0].text;
       res.json({ description });
+      console.log(response.data+ " "+ apiKey)
+      return response.data;
     } catch (error) {
       console.error('Error generating description:', error);
       res.status(500).json({ error: 'Failed to generate description' });
