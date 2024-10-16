@@ -1072,16 +1072,13 @@ const VerifyReminderAccount = async (req, res) => {
             // Call the function to send the email for each account
             await AccountVerificationMail(account.name, account.email, account.identity);
         }
-
-        // Send a response indicating that emails have been sent
-        res.status(200).send({ message: 'Verification reminder emails have been sent.' });
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ error: 'An error occurred while sending verification emails.' });
     }
 };
 
-cron.schedule('0 0 1 */3 *', async () => {
+cron.schedule('0 0 1 1,4,7,10 *', async () => {
     await VerifyReminderAccount();
 });
 
