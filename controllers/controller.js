@@ -8,6 +8,7 @@ const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
 const fs = require('fs');
 const path = require('path');
+const cron = require("node-cron");
 
 const config = require("../config/config");
 
@@ -1061,6 +1062,29 @@ const GetPalettes = async (req, res) => {
     }
 }
 
+const VerifyReminderAccount = async (req, res) => {
+    try {
+        // Fetch all unauthorized accounts
+        const unauthorizedAccounts = await accounts.find({ verified: false });
+
+        // Loop through each unauthorized account and send a verification email
+        for (const account of unauthorizedAccounts) {
+            // Call the function to send the email for each account
+            await AccountVerificationMail(account.name, account.email, account.identity);
+        }
+
+        // Send a response indicating that emails have been sent
+        res.status(200).send({ message: 'Verification reminder emails have been sent.' });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: 'An error occurred while sending verification emails.' });
+    }
+};
+
+cron.schedule('0 0 1 */3 *', async () => {
+    await VerifyReminderAccount();
+});
+
 module.exports = {
     Load,
     LoadProfile,
@@ -1104,4 +1128,5 @@ module.exports = {
     LoadCodeDetails,
     ImportedLinks,
     GetPalettes,
+    VerifyReminderAccount
 };
