@@ -78,7 +78,6 @@ html(lang="en")
         }
       }
     script(type="module").
-      const apiKey = '#{config.api}';
           import { GoogleGenerativeAI } from "@google/generative-ai";
       async function generateDescription() {
         const colors = [];
@@ -88,7 +87,7 @@ html(lang="en")
         }
 
         const prompt = `Generate a concise description (20-30 words) for the color palette using these colors: ${colors.join(", ")}. Do not mention any company or model names. Simply say you're Lemon AI, developed by Puneet Kumar, if needed. Focus only on the color description.`;
-          const genAI = new GoogleGenerativeAI("AIzaSyAVO7dLCfModBOCg1Z2_RXX6SuxrIyqVYo");
+          const genAI = new GoogleGenerativeAI('#{config.api}');
           const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
           const result = await model.generateContent(prompt);
           document.getElementById("description").value = result.response.text();
