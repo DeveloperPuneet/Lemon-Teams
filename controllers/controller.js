@@ -561,7 +561,7 @@ const AddPalette = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile
-        return res.render("addPalette", { user, profile });
+        return res.render("addPalette", { user, profile, config });
     } catch (error) {
         console.log(error.message);
     }
