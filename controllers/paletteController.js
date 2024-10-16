@@ -79,6 +79,13 @@ const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
                                 text-transform: uppercase;
                                 box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
                             }
+                            .footer {
+                                text-align: center;
+                                background-color: #FFD700;
+                                padding: 10px;
+                                border-radius: 0 0 8px 8px;
+                                margin-top: 20px;
+                            }
                         </style>
                         <title>Palette Removal Notification</title>
                     </head>
@@ -93,6 +100,12 @@ const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
                                 <div class="palette">
                                     ${colorBoxes}
                                 </div>
+                                <p>Please note the following instructions to ensure your palettes are valid in the future:</p>
+                                <ul>
+                                    <li>Ensure each color is in a valid hex format (e.g., <code>#ffffff</code> for white, <code>#ff0000</code> for red). Hex codes should contain exactly 6 characters (0-9, A-F).</li>
+                                    <li>Alternatively, you can use valid <code>rgb()</code> or <code>rgba()</code> values (e.g., <code>rgb(255, 0, 0)</code> for red).</li>
+                                    <li>Do not include any invalid characters or letters outside of hex codes (e.g., <code>#useless</code> is not valid).</li>
+                                </ul>
                                 <p>If you have any questions, feel free to contact our support team.</p>
                                 <p>Thank you for using Lemon Teams!</p>
                             </div>
@@ -113,6 +126,7 @@ const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
         console.error('Error setting up email transport:', error.message);
     }
 };
+
 
 // Function to validate hex values
 function isValidHexColor(color) {
