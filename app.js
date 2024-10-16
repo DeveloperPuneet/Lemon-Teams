@@ -4,12 +4,11 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 const cron = require('node-cron');
 
-const { removeDuplicatePalettes } = require('./controllers/paletteController');
+const { removeDuplicatePalettes, deleteIdenticalColorPalettes, removeInvalidHexPalettes } = require('./controllers/paletteController');
 const config = require("./config/config");
 const router = require("./routes/router");
 const Palette = require("./models/Palette");
 const Library = require("./models/Library");
-const { deleteIdenticalColorPalettes } = require('./controllers/paletteController');
 
 const app = express();
 const PORT = config.port;
@@ -118,6 +117,7 @@ http.listen(PORT, () => {
 cron.schedule('*/15 * * * *', () => {
     removeDuplicatePalettes();
     deleteIdenticalColorPalettes();
+    removeInvalidHexPalettes();
 });
 
 const url = "https://lemonteams.onrender.com";

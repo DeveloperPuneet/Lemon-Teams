@@ -1,12 +1,11 @@
 const Palette = require('../models/Palette');
 const accounts = require("../models/accounts");
 const nodemailer = require("nodemailer");
-
 const config = require("../config/config");
 
-const PaletteRemovalInformation = async (name, email) => {
+const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
     try {
-        const transports = nodemailer.createTransport({
+        const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 587,
             secure: false,
@@ -17,10 +16,15 @@ const PaletteRemovalInformation = async (name, email) => {
             }
         });
 
+        // Create the HTML for the palette display using exact color formats provided by the user
+        const colorBoxes = paletteColors.map(color => `
+            <div class="color-box" style="background-color:${color};">${color}</div>
+        `).join(''); // Display each color as a block
+
         const mail = {
             from: config.email,
             to: email,
-            subject: "Lemon Teams: Duplicated Palette has been removed",
+            subject: "Lemon Teams: Palette Removed",
             html: `<!DOCTYPE html>
                     <html lang="en">
                     <head>
@@ -55,61 +59,52 @@ const PaletteRemovalInformation = async (name, email) => {
                             .content {
                                 padding: 20px;
                             }
-                            .content p {
-                                margin: 0 0 20px;
-                            }
-                            .button {
-                                display: inline-block;
-                                background-color: #32CD32;
-                                color: #ffffff;
-                                padding: 10px 20px;
-                                text-decoration: none;
-                                border-radius: 5px;
-                                text-align: center;
-                            }
-                            .footer {
-                                text-align: center;
+                            .palette {
+                                display: flex;
+                                justify-content: space-around;
                                 padding: 10px;
-                                background-color: #FFD700;
-                                border-radius: 0 0 8px 8px;
-                                margin-top: 20px;
+                                border: 1px solid #ddd;
+                                border-radius: 8px;
+                                background-color: #f9f9f9;
                             }
-                            .footer p {
-                                margin: 0;
-                            }
-                            a{
+                            .color-box {
+                                width: 50px;
+                                height: 50px;
+                                text-align: center;
+                                line-height: 50px;
+                                border-radius: 4px;
+                                font-size: 12px;
                                 color: #fff;
+                                margin: 0 5px;
+                                text-transform: uppercase;
+                                box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
                             }
                         </style>
-                        <title>Welcome to Lemon Teams</title>
+                        <title>Palette Removal Notification</title>
                     </head>
-                <body>
-                    <div class="container">
-                        <div class="header">
-                            <h1>Lemon Teams!</h1>
+                    <body>
+                        <div class="container">
+                            <div class="header">
+                                <h1>Lemon Teams</h1>
+                            </div>
+                            <div class="content">
+                                <p>Hi ${name},</p>
+                                <p>We wanted to inform you that one of your palettes has been removed due to invalid or duplicate colors. Below are the colors from the palette that was removed:</p>
+                                <div class="palette">
+                                    ${colorBoxes}
+                                </div>
+                                <p>If you have any questions, feel free to contact our support team.</p>
+                                <p>Thank you for using Lemon Teams!</p>
+                            </div>
+                            <div class="footer">
+                                <p>&copy; 2024 Lemon Teams. All rights reserved.</p>
+                            </div>
                         </div>
-                        <div class="content">
-                            <p>Hi ${name},</p>
-                            <p>We hope you're enjoying your experience with Lemon Teams. We wanted to inform you that as part of our ongoing efforts to keep our platform clean and efficient, we have identified and removed some duplicate color palettes.</p>
-                            <p>Here are the details:</p>
-                            <ul>
-                                <li>Any duplicate color palettes with the same set of colors have been removed.</li>
-                                <li>Your unique and original palettes are safe and remain intact.</li>
-                                <li>This cleanup helps us maintain a high-quality collection of color palettes for all users.</li>
-                            </ul>
-                            <p>If you have any questions or need further assistance, feel free to contact our support team.</p>
-                            <p>Thank you for being a part of the Lemon Teams community!</p>
-                            <p>The Lemon Teams Team</p>
-                        </div>
-                        <div class="footer">
-                            <p>&copy; 2024 Lemon Teams. All rights reserved.</p>
-                        </div>
-                    </div>
-                </body>
+                    </body>
                     </html>`
         };
 
-        transports.sendMail(mail, (error, info) => {
+        transporter.sendMail(mail, (error, info) => {
             if (error) {
                 console.error(`Error sending mail to ${email}:`, error.message);
             }
@@ -118,6 +113,39 @@ const PaletteRemovalInformation = async (name, email) => {
         console.error('Error setting up email transport:', error.message);
     }
 };
+
+// Function to validate hex values
+function isValidHexColor(color) {
+    const hexColorRegex = /^#([0-9A-F]{3}){1,2}$/i;
+    return hexColorRegex.test(color);
+}
+
+// Remove palettes with invalid hex or invalid color format values
+async function removeInvalidHexPalettes() {
+    try {
+        const palettes = await Palette.find({});
+        for (const palette of palettes) {
+            const colors = [
+                palette.color1, palette.color2, palette.color3, palette.color4, palette.color5,
+                palette.color6, palette.color7, palette.color8, palette.color9, palette.color10
+            ].filter(Boolean); // Filter out undefined or null values
+
+            const invalidColors = colors.filter(color => !isValidHexColor(color) && !color.startsWith('rgb'));
+
+            if (invalidColors.length > 0) {
+                const user = await accounts.findOne({ identity: palette.identity });
+                if (user) {
+                    const deleted = await Palette.deleteOne({ _id: palette._id });
+                    if (deleted) {
+                        await sendPaletteRemovalEmail(user.name, user.email, colors); // Send email with exact colors
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error removing palettes with invalid hex values:', error.message);
+    }
+}
 
 function arePalettesEqual(palette1, palette2) {
     const colors1 = [
@@ -145,6 +173,7 @@ function arePalettesEqual(palette1, palette2) {
     return true;
 }
 
+// Remove duplicate palettes
 async function removeDuplicatePalettes() {
     try {
         const palettes = await Palette.find({});
@@ -161,7 +190,10 @@ async function removeDuplicatePalettes() {
                 if (user) {
                     const deletion = await Palette.deleteOne({ _id: palette._id });
                     if (deletion) {
-                        await PaletteRemovalInformation(user.name, user.email);
+                        await sendPaletteRemovalEmail(user.name, user.email, [
+                            palette.color1, palette.color2, palette.color3, palette.color4, palette.color5,
+                            palette.color6, palette.color7, palette.color8, palette.color9, palette.color10
+                        ].filter(Boolean));
                     }
                 }
             } else {
@@ -173,6 +205,7 @@ async function removeDuplicatePalettes() {
     }
 }
 
+// Delete identical palettes with a single color
 const deleteIdenticalColorPalettes = async () => {
     try {
         const palettes = await Palette.find();
@@ -194,7 +227,7 @@ const deleteIdenticalColorPalettes = async () => {
             if (uniqueColors.size === 1) {
                 const deleted = await Palette.deleteOne({ _id: palette._id });
                 if (deleted) {
-                    await PaletteRemovalInformation(user.name, user.email);
+                    await sendPaletteRemovalEmail(user.name, user.email, colors);
                 }
             }
         }
@@ -203,4 +236,4 @@ const deleteIdenticalColorPalettes = async () => {
     }
 };
 
-module.exports = { removeDuplicatePalettes, PaletteRemovalInformation, deleteIdenticalColorPalettes };
+module.exports = { removeDuplicatePalettes, sendPaletteRemovalEmail, deleteIdenticalColorPalettes, removeInvalidHexPalettes };
