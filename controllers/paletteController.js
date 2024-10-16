@@ -96,7 +96,7 @@ const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
                             </div>
                             <div class="content">
                                 <p>Hi ${name},</p>
-                                <p>We wanted to inform you that one of your palettes has been removed due to invalid or duplicate colors. Below are the colors from the palette that was removed:</p>
+                                <p>We hope you're enjoying your experience with Lemon Teams. We wanted to inform you that as part of our ongoing efforts to keep our platform clean and efficient, we have identified and removed some duplicate and invalid color palettes. Below are the colors from the palette that was removed:</p>
                                 <div class="palette">
                                     ${colorBoxes}
                                 </div>
