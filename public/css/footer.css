@@ -89,7 +89,7 @@
 
 .logo-copyrights {
     width: 200px;
-    height: fit-content;
+    height: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -105,8 +105,9 @@
 }
 
 .logo-copyrights img {
-    width: 70%;
+    width: 50%;
     margin: auto;
+    object-fit: contain;
 }
 
 .logo-copyrights .footer-logo-head {
@@ -127,15 +128,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-}
-
-.lower-brand-description {
-    min-width: 300px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: fit-content;
+    height: 200px;
 }
 
 .social-media {
@@ -163,6 +156,14 @@
     margin-bottom: 10px;
 }
 
+.lower-brand-description{
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
 @media (max-width: 595px) {
     .logo-copyrights {
         width: 70vw;
@@ -177,6 +178,7 @@
         align-items: center;
         text-align: center;
         padding: 0;
+        height: fit-content;
     }
 
     .description-foot {
@@ -197,5 +199,6 @@
     .lower-content {
         display: flex;
         flex-wrap: wrap;
+        height: fit-content;
     }
 }
