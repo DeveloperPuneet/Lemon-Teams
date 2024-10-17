@@ -13,9 +13,6 @@ const controller = require("../controllers/controller");
 
 const router = express();
 
-// MongoDB connection
-mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: true });
-
 // Configure MongoDB session store
 const store = new MongoDBStore({
   uri: config.database,  // Your MongoDB URI
