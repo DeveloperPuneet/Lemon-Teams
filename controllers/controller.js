@@ -1006,12 +1006,14 @@ const LoadLibrary = async (req, res) => {
             isLibOurs = true;
         }
         const libraryCodes = await Code.find({ token: { $in: library.library } });
+        const owner = await accounts.findOne({ identity: library.identity });
         return res.render("LibraryCollection", {
             user,
             profile,
             library,
             isLibOurs,
-            libraryCodes
+            libraryCodes,
+            owner
         });
     } catch (error) {
         console.log(error.message);
@@ -1082,6 +1084,14 @@ cron.schedule('0 0 1 1,4,7,10 *', async () => {
     await VerifyReminderAccount();
 });
 
+const WrongRequestHandler = async (req, res) => {
+    try {
+        res.redirect("/");
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 module.exports = {
     Load,
     LoadProfile,
@@ -1125,5 +1135,6 @@ module.exports = {
     LoadCodeDetails,
     ImportedLinks,
     GetPalettes,
-    VerifyReminderAccount
+    VerifyReminderAccount,
+    WrongRequestHandler
 };

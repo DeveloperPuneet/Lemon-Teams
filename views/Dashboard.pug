@@ -24,41 +24,53 @@ html(lang="en")
                     h5 Lemon Color Lab
                     p.sub-headings Your Palettes
                     .palettes
-                        each palette in palettes
-                            a.goto(href=`/open-palette?code=${palette.code}`) 
-                                .palette
-                                    each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
-                                        if color
-                                            .color(data-color=`${color}`, style=`background: ${color};`)
+                        if palettes.length > 0
+                            each palette in palettes
+                                a.goto(href=`/open-palette?code=${palette.code}`) 
+                                    .palette
+                                        each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
+                                            if color
+                                                .color(data-color=`${color}`, style=`background: ${color};`)
+                        else
+                            p.mentionInfoActivity No palettes published yet.
                     p.sub-headings Liked Palettes
                     .palettes
-                        each palette in likedPalettes
-                            a.goto(href=`/open-palette?code=${palette.code}`) 
-                                .palette
-                                    each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
-                                        if color
-                                            .color(data-color=`${color}`, style=`background: ${color};`)
+                        if likedPalettes.length > 0
+                            each palette in likedPalettes
+                                a.goto(href=`/open-palette?code=${palette.code}`) 
+                                    .palette
+                                        each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
+                                            if color
+                                                .color(data-color=`${color}`, style=`background: ${color};`)
+                        else
+                            p.mentionInfoActivity You haven't liked any palettes yet.
                 .lemon-library 
                     h5 Lemon Library
                     p.sub-headings Your Libraries 
                     .container-libs 
-                        .lib-cards 
-                            each lib in ourLibs
-                                a(href=`/library/${lib.code}`) 
-                                    .lib-card 
-                                        .hide #{lib.tags} #{lib.name}
-                                        .heading-lib-card #{lib.name}
-                                        .heading-lib-para #{lib.description}
-                                        .version #{lib.version}
+                        if ourLibs.length > 0
+                            .lib-cards 
+                                each lib in ourLibs
+                                    a(href=`/library/${lib.code}`) 
+                                        .lib-card 
+                                            .hide #{lib.tags} #{lib.name}
+                                            .heading-lib-card #{lib.name}
+                                            .heading-lib-para #{lib.description}
+                                            .version #{lib.version}
+                        else
+                            p.mentionInfoActivity You haven't published any libraries yet.
                     p.sub-headings Saved Libraries 
                     .container-libs 
-                        .lib-cards 
-                            each lib in savedLibs
-                                a(href=`/library/${lib.code}`) 
-                                    .lib-card 
-                                        .hide #{lib.tags} #{lib.name}
-                                        .heading-lib-card #{lib.name}
-                                        .heading-lib-para #{lib.description}
-                                        .version #{lib.version}
+                        if savedLibs.length > 0
+                            .lib-cards 
+                                each lib in savedLibs
+                                    a(href=`/library/${lib.code}`) 
+                                        .lib-card 
+                                            .hide #{lib.tags} #{lib.name}
+                                            .heading-lib-card #{lib.name}
+                                            .heading-lib-para #{lib.description}
+                                            .version #{lib.version}
+                        else
+                            p.mentionInfoActivity You haven't saved any libraries yet.
         include ../public/layouts/footer.pug
         script(src="/js/OpenPalette.js")

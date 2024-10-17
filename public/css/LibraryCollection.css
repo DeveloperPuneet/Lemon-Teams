@@ -180,6 +180,26 @@ body {
     margin: 15px 5px;
 }
 
-.hide{
+.hide {
     display: none;
+}
+
+.lib-views {
+    margin: 10px;
+    padding: 10px;
+    color: var(--sunset-glow);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+}
+
+.lib-views p{
+    color: var(--sunset-glow);
+    margin-bottom: 5px;
+}
+
+.lib-views a{
+    color: var(--sunset-glow);
+    text-decoration: none;
 }

@@ -28,6 +28,9 @@ html(lang="en")
                                 .heading-lib-para #{lib.description}
                                 .version #{lib.version}
                                 .hide #{lib.version} #{lib.name}
+            .lib-views
+                p Usage: #{library.views}
+                a(href=`/account/${owner.identity}`, target="_blank", rel="noopener noreferrer") #{owner.name}
         include ../public/layouts/footer.pug
         script(src="/js/LibraryCollection.js") 
         script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js' integrity='sha512-11t8Q+vY9JlCrr+PveZKTYJq8n7O09Y5X/pk/aMd3vJugSvu4xOunGEUzaADqL3I8cZKE/pBwwCfXzDkRJh2sQ==' crossorigin='anonymous')

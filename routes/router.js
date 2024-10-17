@@ -132,4 +132,7 @@ router.get("/code/:token", auth.isLogin, controller.LoadCodeDetails);
 router.get("/import/:token", controller.ImportedLinks);
 router.get("/get-palettes", controller.GetPalettes);
 
+// For handling wrong requests
+router.get("*", controller.WrongRequestHandler);
+
 module.exports = router;

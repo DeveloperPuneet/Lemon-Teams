@@ -2,11 +2,21 @@ doctype html
 html(lang="en")
     head
         meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet" href="/css/Register.css")
         include ../public/components/header.pug
         title Lemon Teams: Register 
         meta(name="robots" content="index, follow")
+        script.
+            function validatePassword() {
+                const password = document.querySelector('input[name="password"]').value;
+                const regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+                if (!regex.test(password)) {
+                    alert("Password must be at least 8 characters long, contain at least one number and one special character.");
+                    return false;
+                }
+                return true;
+            }
     body 
         include ../public/layouts/navigation.pug
         .container
@@ -15,7 +25,7 @@ html(lang="en")
                 .message-box
                     p= message
             .form
-                form(method="post" action="/register")
+                form(method="post" action="/register" onsubmit="return validatePassword()")
                     input(type="text" name="name" placeholder="Jhone Doe" required)
                     input(type="email" placeholder="abc@xyz.com" name="email" required)
                     input(type="password" placeholder="**** ****" name="password" required)
