@@ -1,5 +1,36 @@
 const mongoose = require("mongoose");
 
+const NotificationSchema = new mongoose.Schema({
+    app: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    comment: {
+        type: String,
+        default: null
+    },
+    link: {
+        type: String,
+        default: ""
+    },
+    identity: {
+        type: String,
+        default: ""
+    },
+    expire: {
+        type: Date,
+        default: () => Date.now() + 864000000 // 10 days in milliseconds
+    },
+    time: {
+        type: Date,  
+        default: Date.now
+    }
+});
+
 const schema = new mongoose.Schema({
     name: {
         type: String,
@@ -71,6 +102,10 @@ const schema = new mongoose.Schema({
     pronounce: {
         type: String,
         default: "he/she"
+    },
+    notifications: {
+        type: [NotificationSchema],
+        default: []
     }
 });
 

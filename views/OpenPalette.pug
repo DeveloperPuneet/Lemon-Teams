@@ -66,7 +66,7 @@ html(lang="en")
             const paletteIdentity = '#{palette.code}';
 
             likeBtn.addEventListener('click', () => {
-                socket.emit('toggle-like', { userId, paletteIdentity });
+                socket.emit('toggle-like', { userId, paletteIdentity, });
             });
 
             commentForm.addEventListener('submit', (event) => {

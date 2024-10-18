@@ -9,6 +9,7 @@ const config = require("./config/config");
 const router = require("./routes/router");
 const Palette = require("./models/Palette");
 const Library = require("./models/Library");
+const accounts = require("./models/accounts");
 
 const app = express();
 const PORT = config.port;
@@ -29,6 +30,8 @@ database();
 app.use("/", router);
 
 io.on('connection', (socket) => {
+    // testing
+    console.log("a user connected");
 
     socket.on('toggle-like', async (data) => {
         try {
@@ -38,8 +41,17 @@ io.on('connection', (socket) => {
                     palette.liked.pull(data.userId);
                 } else {
                     palette.liked.push(data.userId);
+                    const user = await accounts.findOne({ identity: data.userId });
+                    await accounts.notifications.push({
+                        app: "Color Lab",
+                        comment: '',
+                        name: user.name,
+                        link: data.paletteIdentity,
+                        identity: data.userId,
+                    });
                 }
                 await palette.save();
+                await accounts.save();
                 io.emit('like-updated', { paletteIdentity: data.paletteIdentity, likes: palette.liked.length });
             }
         } catch (error) {
@@ -77,6 +89,15 @@ io.on('connection', (socket) => {
             const palette = await Palette.findOne({ code: data.paletteIdentity });
             if (palette) {
                 palette.comments.push({ name: data.name, comment: data.comment });
+
+                // Push a comment action object
+                palette.actions.push({
+                    userId: data.userId,
+                    type: 'comment',
+                    comment: data.comment,
+                    timestamp: new Date() // Capture the timestamp
+                });
+
                 await palette.save();
                 io.emit('comment-updated', { paletteIdentity: data.paletteIdentity, comments: palette.comments });
             }
