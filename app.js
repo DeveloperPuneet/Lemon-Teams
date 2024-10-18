@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
                 } else {
                     palette.liked.push(data.userId);
                     const user = await accounts.findOne({ identity: data.userId });
-                    await accounts.notifications.push({
+                    const data = await user.notifications.push({
                         app: "Color Lab",
                         comment: '',
                         name: user.name,
@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
                     });
                 }
                 await palette.save();
-                await accounts.save();
+                await data.save();
                 io.emit('like-updated', { paletteIdentity: data.paletteIdentity, likes: palette.liked.length });
             }
         } catch (error) {
