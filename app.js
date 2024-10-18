@@ -49,9 +49,9 @@ io.on('connection', (socket) => {
                         link: data.paletteIdentity,
                         identity: data.userId,
                     });
+                    await data.save();
                 }
                 await palette.save();
-                await data.save();
                 io.emit('like-updated', { paletteIdentity: data.paletteIdentity, likes: palette.liked.length });
             }
         } catch (error) {
