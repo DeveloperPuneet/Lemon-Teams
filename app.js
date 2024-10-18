@@ -30,8 +30,6 @@ database();
 app.use("/", router);
 
 io.on('connection', (socket) => {
-    // testing
-    console.log("a user connected");
 
     socket.on('toggle-like', async (data) => {
         try {
@@ -90,13 +88,15 @@ io.on('connection', (socket) => {
             if (palette) {
                 palette.comments.push({ name: data.name, comment: data.comment });
 
-                // Push a comment action object
-                palette.actions.push({
-                    userId: data.userId,
-                    type: 'comment',
+                const user = await accounts.findOne({ identity: data.userId });
+                user.notifications.push({
+                    app: "Color Lab",
                     comment: data.comment,
-                    timestamp: new Date() // Capture the timestamp
+                    name: user.name,
+                    link: data.paletteIdentity,
+                    identity: data.userId,
                 });
+                await user.save();
 
                 await palette.save();
                 io.emit('comment-updated', { paletteIdentity: data.paletteIdentity, comments: palette.comments });
@@ -114,6 +114,14 @@ io.on('connection', (socket) => {
                 if (userIndex === -1) {
                     library.saved.push(userId);
                     io.emit('save-updated', { libraryCode, saved: true });
+                    const user = await accounts.findOne({ identity: userId });
+                    user.notifications.push({
+                        app: "Library",
+                        name: user.name,
+                        link: data.libraryCode,
+                        identity: data.userId,
+                    });
+                    await user.save();
                 } else {
                     library.saved.splice(userIndex, 1);
                     io.emit('save-updated', { libraryCode, saved: false });
