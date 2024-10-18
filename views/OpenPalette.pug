@@ -50,7 +50,7 @@ html(lang="en")
                 .comment-list
                     each comment in palette.comments
                         .comment #{comment.name}: #{comment.comment}
-        include ../public/layouts/footer.pug
+        include ../public/layouts/footer_withoutSocket.pug
         script(src="/js/OpenPalette.js")
         script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js' integrity='sha512-11t8Q+vY9JlCrr+PveZKTYJq8n7O09Y5X/pk/aMd3vJugSvu4xOunGEUzaADqL3I8cZKE/pBwwCfXzDkRJh2sQ==' crossorigin='anonymous')
         script.
