@@ -42,14 +42,14 @@ io.on('connection', (socket) => {
                 } else {
                     palette.liked.push(data.userId);
                     const user = await accounts.findOne({ identity: data.userId });
-                    const data = await user.notifications.push({
+                    user.notifications.push({
                         app: "Color Lab",
                         comment: '',
                         name: user.name,
                         link: data.paletteIdentity,
                         identity: data.userId,
                     });
-                    await data.save();
+                    await user.save();
                 }
                 await palette.save();
                 io.emit('like-updated', { paletteIdentity: data.paletteIdentity, likes: palette.liked.length });
