@@ -353,8 +353,7 @@ const identityGenerator = async () => {
 const Load = async (req, res) => {
     try {
         const testimonialsData = await testimonials.find();
-        const notifications = null;
-        return res.render("Load", { testimonialsData, notifications });
+        return res.render("Load", { testimonialsData });
     } catch (error) {
         console.log(error.message);
     }
