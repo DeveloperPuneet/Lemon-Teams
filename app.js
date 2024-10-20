@@ -88,7 +88,6 @@ io.on('connection', (socket) => {
             const palette = await Palette.findOne({ code: data.paletteIdentity });
             if (palette) {
                 palette.comments.push({ name: data.name, comment: data.comment });
-
                 const user = await accounts.findOne({ identity: data.userId });
                 const owner = await accounts.findOne({ identity: palette.identity });
                 owner.notifications.push({
@@ -99,7 +98,6 @@ io.on('connection', (socket) => {
                     identity: data.userId,
                 });
                 await owner.save();
-
                 await palette.save();
                 io.emit('comment-updated', { paletteIdentity: data.paletteIdentity, comments: palette.comments });
             }
