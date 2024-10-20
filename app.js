@@ -29,6 +29,7 @@ database();
 
 app.use("/", router);
 
+// socket.io stuff
 io.on('connection', (socket) => {
 
     socket.on('toggle-like', async (data) => {
