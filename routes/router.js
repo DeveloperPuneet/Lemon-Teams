@@ -97,7 +97,7 @@ router.post("/new-password", controller.ChangePassword);
 router.get("/account/:identity", auth.isLogin, controller.LoadProfile);
 router.get("/account", auth.isLogin, controller.LoadLogin);
 router.get("/dashboard", auth.isLogin, controller.LoadDashboard);
-router.get("/products", controller.productLoad);
+router.get("/products", auth.isLogin, controller.productLoad);
 router.get("/lemon-color-lab", auth.isLogin, controller.LemonColorLab);
 router.get("/lemon-color-lab-preview", auth.isLogin, controller.LemonColorLab);
 router.get("/add-palette", auth.isLogin, controller.AddPalette);
