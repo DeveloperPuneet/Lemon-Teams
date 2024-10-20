@@ -23,28 +23,26 @@ notifyIcon.addEventListener("click", () => {
 
 // JavaScript function to calculate "time ago"
 function timeAgo(date) {
-    let now = new Date();
-    const time = new Date(now);
-    const timestamp = time.getTime();
-    const seconds = Math.floor((timestamp - new Date(Number(date))) / 1000);
+    const now = Date.now(); // Current timestamp in milliseconds
+    const timestamp = Number(date); // Ensure the date is treated as a valid number
+    const seconds = Math.floor((now - timestamp) / 1000); // Difference in seconds
 
-    let interval = Math.floor(seconds / 31536000);
+    let interval = Math.floor(seconds / 31536000); // Years
     if (interval >= 1) return `${interval} year${interval > 1 ? 's' : ''} ago`;
 
-    interval = Math.floor(seconds / 2592000);
+    interval = Math.floor(seconds / 2592000); // Months
     if (interval >= 1) return `${interval} month${interval > 1 ? 's' : ''} ago`;
 
-    interval = Math.floor(seconds / 86400);
+    interval = Math.floor(seconds / 86400); // Days
     if (interval >= 1) return `${interval} day${interval > 1 ? 's' : ''} ago`;
 
-    interval = Math.floor(seconds / 3600);
+    interval = Math.floor(seconds / 3600); // Hours
     if (interval >= 1) return `${interval} hour${interval > 1 ? 's' : ''} ago`;
 
-    interval = Math.floor(seconds / 60);
+    interval = Math.floor(seconds / 60); // Minutes
     if (interval >= 1) return `${interval} minute${interval > 1 ? 's' : ''} ago`;
 
     return `just now`;
-    // Ensure the date is treated as a valid timestamp
 }
 
 // Update time ago for all notifications
