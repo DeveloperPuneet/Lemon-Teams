@@ -2,6 +2,7 @@ const notifyIcon = document.getElementById("notify-icon");
 const notification = document.getElementById("notifications");
 const menu = document.getElementById("menu");
 const close = document.getElementById("close");
+const now = Date.now(); // Current timestamp in milliseconds
 menu.addEventListener("click", () => {
     document.getElementById("options").style.right = "0";
 });
@@ -23,7 +24,6 @@ notifyIcon.addEventListener("click", () => {
 
 // JavaScript function to calculate "time ago"
 function timeAgo(date) {
-    const now = Date.now(); // Current timestamp in milliseconds
     const timestamp = Number(date); // Ensure the date is treated as a valid number
     const seconds = Math.floor((now - timestamp) / 1000); // Difference in seconds
 
