@@ -1080,7 +1080,7 @@ const VerifyReminderAccount = async (req, res) => {
     }
 };
 
-cron.schedule('0 0 1 1,4,7,10 *', async () => {
+cron.schedule('0 0 1,16 * *', async () => {
     await VerifyReminderAccount();
 });
 
