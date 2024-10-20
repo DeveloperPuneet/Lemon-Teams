@@ -23,28 +23,30 @@ notifyIcon.addEventListener("click", () => {
 
 // JavaScript function to calculate "time ago"
 function timeAgo(date) {
-    let now = Date();
-    const time = new Date(now);
-    const timestamp = time.getTime();
+    setInterval(()=>{
+        let now = new Date();
+        const time = new Date(now);
+        const timestamp = time.getTime();
+        const seconds = Math.floor((timestamp - new Date(Number(date))) / 1000); 
+    
+        let interval = Math.floor(seconds / 31536000);
+        if (interval >= 1) return `${interval} year${interval > 1 ? 's' : ''} ago`;
+    
+        interval = Math.floor(seconds / 2592000);
+        if (interval >= 1) return `${interval} month${interval > 1 ? 's' : ''} ago`;
+    
+        interval = Math.floor(seconds / 86400);
+        if (interval >= 1) return `${interval} day${interval > 1 ? 's' : ''} ago`;
+    
+        interval = Math.floor(seconds / 3600);
+        if (interval >= 1) return `${interval} hour${interval > 1 ? 's' : ''} ago`;
+    
+        interval = Math.floor(seconds / 60);
+        if (interval >= 1) return `${interval} minute${interval > 1 ? 's' : ''} ago`;
+    
+        return `just now`;
+    }, 60);
     // Ensure the date is treated as a valid timestamp
-    const seconds = Math.floor((timestamp - new Date(Number(date))) / 1000); 
-
-    let interval = Math.floor(seconds / 31536000);
-    if (interval >= 1) return `${interval} year${interval > 1 ? 's' : ''} ago`;
-
-    interval = Math.floor(seconds / 2592000);
-    if (interval >= 1) return `${interval} month${interval > 1 ? 's' : ''} ago`;
-
-    interval = Math.floor(seconds / 86400);
-    if (interval >= 1) return `${interval} day${interval > 1 ? 's' : ''} ago`;
-
-    interval = Math.floor(seconds / 3600);
-    if (interval >= 1) return `${interval} hour${interval > 1 ? 's' : ''} ago`;
-
-    interval = Math.floor(seconds / 60);
-    if (interval >= 1) return `${interval} minute${interval > 1 ? 's' : ''} ago`;
-
-    return `just now`;
 }
 
 // Update time ago for all notifications
