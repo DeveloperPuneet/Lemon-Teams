@@ -43,5 +43,5 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
                         p <span class="bold"> #{notification.name} </span> commented "#{notification.comment}" on your <a href="https://lemonteams.onrender.com/open-palette?code=#{notification.link}" target="_blank" style="color: white;"> palette </a>
                 else if(notification.app == "Library")
                         p <span class="bold">  #{notification.name} </span> saved <a href="https://lemonteams.onrender.com/library/#{notification.link}" target="_blank" style="color: white;"> Library </a>
-                p.time-ago.time(id="time-ago-#{index}" data-time="#{notification.time}")
+                p.time-ago.time(id=`time-ago-${index}` data-time=`${notification.time}`)
 script(src="../js/navigation.js") 

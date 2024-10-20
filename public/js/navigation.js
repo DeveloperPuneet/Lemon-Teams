@@ -23,8 +23,9 @@ notifyIcon.addEventListener("click", () => {
 
 // JavaScript function to calculate "time ago"
 function timeAgo(date) {
-    const now = new Date();
-    const seconds = Math.floor((now - new Date(date)) / 1000);
+    const now = Date.now();
+    // Ensure the date is treated as a valid timestamp
+    const seconds = Math.floor((now - new Date(Number(date))) / 1000); 
 
     let interval = Math.floor(seconds / 31536000);
     if (interval >= 1) return `${interval} year${interval > 1 ? 's' : ''} ago`;
@@ -57,7 +58,7 @@ function updateTimeAgo() {
     });
 }
 
-// Call the function every minute to update the times
+// Call the function every minute (60000ms) to update the times
 setInterval(updateTimeAgo, 60);
 
 // Run the function initially when the page loads
