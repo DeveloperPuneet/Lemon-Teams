@@ -75,7 +75,7 @@ html(lang="en")
                 const comment = commentTextArea.value.trim();
 
                 if (name && comment) {
-                    socket.emit('add-comment', { name, comment, paletteIdentity });
+                    socket.emit('add-comment', { name, comment, paletteIdentity, userId });
                     commentNameInput.value = '';
                     commentTextArea.value = '';
                 }

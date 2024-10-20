@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const date = Date.now();
 
 const NotificationSchema = new mongoose.Schema({
     app: {
@@ -23,11 +24,11 @@ const NotificationSchema = new mongoose.Schema({
     },
     expire: {
         type: Date,
-        default: () => Date.now() + 864000000 // 10 days in milliseconds
+        default: () => date + 864000000 
     },
     time: {
         type: Date,  
-        default: Date.now
+        default: date
     }
 });
 
