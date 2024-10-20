@@ -90,6 +90,7 @@ io.on('connection', (socket) => {
                 palette.comments.push({ name: data.name, comment: data.comment });
 
                 const user = await accounts.findOne({ identity: data.userId });
+                const owner = await accounts.findOne({ identity: palette.identity });
                 user.notifications.push({
                     app: "Color Lab",
                     comment: data.comment,
@@ -116,13 +117,14 @@ io.on('connection', (socket) => {
                     library.saved.push(userId);
                     io.emit('save-updated', { libraryCode, saved: true });
                     const user = await accounts.findOne({ identity: userId });
-                    user.notifications.push({
+                    const owner = await accounts.findOne({ identity: library.identity });
+                    owner.notifications.push({
                         app: "Library",
                         name: user.name,
-                        link: data.libraryCode,
-                        identity: data.userId,
+                        link: libraryCode,
+                        identity: userId,
                     });
-                    await user.save();
+                    await owner.save();
                 } else {
                     library.saved.splice(userIndex, 1);
                     io.emit('save-updated', { libraryCode, saved: false });
