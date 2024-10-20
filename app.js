@@ -98,7 +98,7 @@ io.on('connection', (socket) => {
                     link: data.paletteIdentity,
                     identity: data.userId,
                 });
-                await user.save();
+                await owner.save();
 
                 await palette.save();
                 io.emit('comment-updated', { paletteIdentity: data.paletteIdentity, comments: palette.comments });
