@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
                     palette.liked.pull(data.userId);
                 } else {
                     palette.liked.push(data.userId);
-                    const user = await accounts.findOne({ identity: data.userId });
+                    const user = await accounts.findOne({ identity: palette.identity });
                     user.notifications.push({
                         app: "Color Lab",
                         comment: '',
