@@ -23,11 +23,11 @@ const NotificationSchema = new mongoose.Schema({
         default: ""
     },
     expire: {
-        type: Date,
+        type: Number,
         default: () => date + 864000000 
     },
     time: {
-        type: Date,  
+        type: Number,  
         default: date
     }
 });
