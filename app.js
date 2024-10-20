@@ -91,7 +91,7 @@ io.on('connection', (socket) => {
 
                 const user = await accounts.findOne({ identity: data.userId });
                 const owner = await accounts.findOne({ identity: palette.identity });
-                user.notifications.push({
+                owner.notifications.push({
                     app: "Color Lab",
                     comment: data.comment,
                     name: user.name,
