@@ -151,8 +151,14 @@ cron.schedule('*/15 * * * *', () => {
     removeInvalidHexPalettes();
 });
 
-cron.schedule('0 18 * * 1', async () => {
-    await sendTopPalettesEmail();
+cron.schedule('15 18 * * 1', async () => {
+    console.log('Running weekly palette email task at 18:15 every Monday...');
+    try {
+        await sendTopPalettesEmail();
+        console.log('Weekly palette email sent successfully!');
+    } catch (error) {
+        console.error('Error running the weekly email task:', error);
+    }
 });
 
 const url = "https://lemonteams.onrender.com";

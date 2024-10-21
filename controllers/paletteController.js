@@ -404,7 +404,12 @@ async function sendTopPalettesEmail() {
                 html: emailContent
             };
 
-            await transporter.sendMail(mailOptions);
+            const mailed = await transporter.sendMail(mailOptions);
+            if(mailed){
+
+            } else{
+                console.log("error while sending mail")
+            }
         }
 
         // Reset weekly views of all palettes to 0 after sending the emails
