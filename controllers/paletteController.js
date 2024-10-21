@@ -24,7 +24,7 @@ const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
         const mail = {
             from: config.email,
             to: email,
-            subject: "Lemon Teams: Palette Removed",
+            subject: "Lemon Teams: You're Palette has been Removed",
             html: `<!DOCTYPE html>
                     <html lang="en">
                     <head>
@@ -86,6 +86,10 @@ const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
                                 border-radius: 0 0 8px 8px;
                                 margin-top: 20px;
                             }
+                            .bold {
+                                font-weight: 700;
+                                margin: 7px;
+                            }
                         </style>
                         <title>Palette Removal Notification</title>
                     </head>
@@ -97,6 +101,9 @@ const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
                             <div class="content">
                                 <p>Hi ${name},</p>
                                 <p>We hope you're enjoying your experience with Lemon Teams. We wanted to inform you that as part of our ongoing efforts to keep our platform clean and efficient, we have identified and removed some duplicate and invalid color palettes. Below are the colors from the palette that was removed:</p>
+                                <div class="bold">
+                                Note: you're Palette has been removed due to some duplicate and invalid color.
+                                </div>
                                 <div class="palette">
                                     ${colorBoxes}
                                 </div>
