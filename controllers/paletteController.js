@@ -426,7 +426,7 @@ async function sendTopPalettesEmail() {
 
         // Reset weekly views of all palettes to 0 after sending the emails
         await Palette.updateMany({}, { weeklyViews: 0 });
-
+        await Palette.save();
     } catch (error) {
         console.error('Error sending email or resetting weekly views:', error);
     }
