@@ -152,10 +152,8 @@ cron.schedule('*/15 * * * *', () => {
 });
 
 cron.schedule('0 0 * * 0', async () => {
-    console.log('Running the palette email task at midnight every Sunday...');
     try {
         await sendTopPalettesEmail();
-        console.log('Palette email task executed successfully!');
     } catch (error) {
         console.error('Error running the email task:', error.message);
     }
