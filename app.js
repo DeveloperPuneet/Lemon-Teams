@@ -151,8 +151,8 @@ cron.schedule('*/15 * * * *', () => {
     removeInvalidHexPalettes();
 });
 
-cron.schedule('* * * * *', async () => {
-    console.log('Running the palette email task every minute...');
+cron.schedule('0 0 * * 0', async () => {
+    console.log('Running the palette email task at midnight every Sunday...');
     try {
         await sendTopPalettesEmail();
         console.log('Palette email task executed successfully!');
@@ -160,6 +160,7 @@ cron.schedule('* * * * *', async () => {
         console.error('Error running the email task:', error.message);
     }
 });
+
 
 const url = "https://lemonteams.onrender.com";
 const interval = 184000;
