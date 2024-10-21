@@ -369,7 +369,7 @@ async function sendTopPalettesEmail() {
                     ${colors.map(color => `<div class="color-box" style="background-color:${color};">${color}</div>`).join('')}
                 </div>
                 <div class="palette-name">
-                    ${palette.name} (${palette.weeklyViews} views)
+                    <a href="https://lemonteams.onrender.com/open-palette?code=${palette.identity}" traget="_blank" style="text-decoration: none; color: black;">${palette.name} (${palette.weeklyViews} views)</a>
                 </div>`;
         });
 
