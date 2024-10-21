@@ -22,12 +22,14 @@ notifyIcon.addEventListener("click", () => {
     }
 });
 
-// JavaScript function to calculate "time ago"
-function timeAgo(date) {
-    let now = Date.now(); // Current timestamp in milliseconds
+let now = Date.now(); // Current timestamp in milliseconds
     setInterval(() => {
         now = now + 1;
+        console.log(now)
     }, 1);
+
+// JavaScript function to calculate "time ago"
+function timeAgo(date) {
     const timestamp = Number(date); // Ensure the date is treated as a valid number
     const seconds = Math.floor((now - timestamp) / 1000); // Difference in seconds
 
