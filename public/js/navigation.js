@@ -2,6 +2,7 @@ const notifyIcon = document.getElementById("notify-icon");
 const notification = document.getElementById("notifications");
 const menu = document.getElementById("menu");
 const close = document.getElementById("close");
+const now = Date.now(); // Current timestamp in milliseconds
 menu.addEventListener("click", () => {
     document.getElementById("options").style.right = "0";
 });
