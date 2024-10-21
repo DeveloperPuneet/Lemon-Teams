@@ -151,13 +151,13 @@ cron.schedule('*/15 * * * *', () => {
     removeInvalidHexPalettes();
 });
 
-cron.schedule('15 18 * * 1', async () => {
-    console.log('Running weekly palette email task at 18:15 every Monday...');
+cron.schedule('* * * * *', async () => {
+    console.log('Running the palette email task every minute...');
     try {
         await sendTopPalettesEmail();
-        console.log('Weekly palette email sent successfully!');
+        console.log('Palette email task executed successfully!');
     } catch (error) {
-        console.error('Error running the weekly email task:', error);
+        console.error('Error running the email task:', error.message);
     }
 });
 
