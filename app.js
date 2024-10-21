@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 const cron = require('node-cron');
 
-const { removeDuplicatePalettes, deleteIdenticalColorPalettes, removeInvalidHexPalettes } = require('./controllers/paletteController');
+const { sendTopPalettesEmail, removeDuplicatePalettes, deleteIdenticalColorPalettes, removeInvalidHexPalettes } = require('./controllers/paletteController');
 const config = require("./config/config");
 const router = require("./routes/router");
 const Palette = require("./models/Palette");
@@ -149,6 +149,10 @@ cron.schedule('*/15 * * * *', () => {
     removeDuplicatePalettes();
     deleteIdenticalColorPalettes();
     removeInvalidHexPalettes();
+});
+
+cron.schedule('0 18 * * 1', async () => {
+    await sendTopPalettesEmail();
 });
 
 const url = "https://lemonteams.onrender.com";

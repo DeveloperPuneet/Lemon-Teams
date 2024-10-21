@@ -609,7 +609,8 @@ const OpenPalette = async (req, res) => {
         let isPaletteOurs = false;
         if (palette) {
             const views = palette.views + 1;
-            await Palette.updateOne({ code: code }, { $set: { views: views } });
+            const weekly = palette.weeklyViews + 1;
+            await Palette.updateOne({ code: code }, { $set: { views: views, weeklyViews: weekly } });
             const user = await accounts.findOne({ identity: req.session.identity });
             const profile = user ? "/accounts/" + user.profile : undefined;
             const author = await accounts.findOne({ identity: palette.identity });

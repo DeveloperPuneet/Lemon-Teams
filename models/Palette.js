@@ -78,6 +78,10 @@ const schema = new mongoose.Schema({
     visibility:{
         type: String,
         required: true
+    },
+    weeklyViews:{
+        type: Number,
+        default: 0
     }
 });
 

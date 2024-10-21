@@ -257,4 +257,162 @@ const deleteIdenticalColorPalettes = async () => {
     }
 };
 
-module.exports = { removeDuplicatePalettes, sendPaletteRemovalEmail, deleteIdenticalColorPalettes, removeInvalidHexPalettes };
+const Accounts = require('../models/accounts');
+
+// Function to send weekly email with top 5 palettes and reset weekly views
+async function sendTopPalettesEmail() {
+    try {
+        // Fetch the top 5 palettes with the highest weekly views
+        const topPalettes = await Palette.find({ weeklyViews: { $gt: 0 } })
+                                         .sort({ weeklyViews: -1 })
+                                         .limit(5);
+
+        // Fetch all accounts (assuming accounts have an email field)
+        const users = await Accounts.find();
+
+        // Create email content using HTML template
+        let emailContent = `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    body {
+                        font-family: 'Arial', sans-serif;
+                        background-color: #f7f7f7;
+                        color: #333333;
+                        margin: 0;
+                        padding: 20px;
+                    }
+                    .container {
+                        max-width: 600px;
+                        margin: 0 auto;
+                        background-color: #ffffff;
+                        padding: 20px;
+                        border-radius: 8px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    }
+                    .header {
+                        text-align: center;
+                        background-color: #FFD700;
+                        padding: 10px;
+                        border-radius: 8px 8px 0 0;
+                    }
+                    .header h1 {
+                        margin: 0;
+                        color: #333333;
+                    }
+                    .content {
+                        padding: 20px;
+                    }
+                    .palette {
+                        display: flex;
+                        justify-content: space-around;
+                        padding: 10px;
+                        border: 1px solid #ddd;
+                        border-radius: 8px;
+                        background-color: #f9f9f9;
+                        margin-bottom: 15px;
+                    }
+                    .color-box {
+                        width: 50px;
+                        height: 50px;
+                        text-align: center;
+                        line-height: 50px;
+                        border-radius: 4px;
+                        font-size: 12px;
+                        color: #fff;
+                        margin: 0 5px;
+                        text-transform: uppercase;
+                        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+                    }
+                    .palette-name {
+                        text-align: center;
+                        font-weight: bold;
+                        margin-top: 10px;
+                        margin-bottom: 20px;
+                    }
+                    .footer {
+                        text-align: center;
+                        background-color: #FFD700;
+                        padding: 10px;
+                        border-radius: 0 0 8px 8px;
+                        margin-top: 20px;
+                    }
+                </style>
+                <title>Top Palettes of the Week</title>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h1>Lemon Teams</h1>
+                    </div>
+                    <div class="content">
+                        <p>Hi,</p>
+                        <p>Here are the top 5 most viewed palettes of the week from Lemon Teams. Check out their colors below!</p>`;
+
+        // Add palettes to the email content
+        topPalettes.forEach(palette => {
+            let colors = [];
+
+            // Collect only non-empty color fields (color1, color2, ..., color10)
+            for (let i = 1; i <= 10; i++) {
+                if (palette[`color${i}`] && palette[`color${i}`] !== "") {
+                    colors.push(palette[`color${i}`]);
+                }
+            }
+
+            // Add palette colors and name to the email content
+            emailContent += `
+                <div class="palette">
+                    ${colors.map(color => `<div class="color-box" style="background-color:${color};">${color}</div>`).join('')}
+                </div>
+                <div class="palette-name">
+                    ${palette.name} (${palette.weeklyViews} views)
+                </div>`;
+        });
+
+        emailContent += `
+                        <p>Thank you for using Lemon Teams! Stay tuned for more amazing palettes next week.</p>
+                    </div>
+                    <div class="footer">
+                        <p>&copy; 2024 Lemon Teams. All rights reserved.</p>
+                    </div>
+                </div>
+            </body>
+            </html>`;
+
+        // Setup the mail transporter
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            requireTLS: true,
+            auth: {
+                user: config.email,
+                pass: config.password
+            }
+        });
+
+        // Send email to all users
+        for (const user of users) {
+            const mailOptions = {
+                from: config.email,
+                to: user.email, 
+                subject: 'Top 5 Most Viewed Palettes of the Week',
+                html: emailContent
+            };
+
+            await transporter.sendMail(mailOptions);
+        }
+
+        // Reset weekly views of all palettes to 0 after sending the emails
+        await Palette.updateMany({}, { weeklyViews: 0 });
+        
+    } catch (error) {
+        console.error('Error sending email or resetting weekly views:', error);
+    }
+}
+
+module.exports = { sendTopPalettesEmail, removeDuplicatePalettes, sendPaletteRemovalEmail, deleteIdenticalColorPalettes, removeInvalidHexPalettes };
