@@ -156,7 +156,7 @@ cron.schedule('0 18 * * 1', async () => {
 });
 
 const url = "https://lemonteams.onrender.com";
-const interval = 183000;
+const interval = 184000;
 function reloadWebsite() {
     axios.get(url)
         .then(response => {
