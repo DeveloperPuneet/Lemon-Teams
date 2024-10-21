@@ -264,8 +264,8 @@ async function sendTopPalettesEmail() {
     try {
         // Fetch the top 5 palettes with the highest weekly views
         const topPalettes = await Palette.find({ weeklyViews: { $gt: 0 }, visibility: "public" })
-                                         .sort({ weeklyViews: -1 })
-                                         .limit(5);
+            .sort({ weeklyViews: -1 })
+            .limit(5);
 
         // Fetch all accounts (assuming accounts have an email field)
         const users = await Accounts.find();
@@ -278,6 +278,11 @@ async function sendTopPalettesEmail() {
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Arima:wght@100..700&display=swap');
+
+                    * {
+                        font-family: "Arima", system-ui;
+                    }
                     body {
                         font-family: 'Arial', sans-serif;
                         background-color: #f7f7f7;
@@ -330,8 +335,8 @@ async function sendTopPalettesEmail() {
                     .palette-name {
                         text-align: center;
                         font-weight: bold;
-                        margin-top: 10px;
-                        margin-bottom: 20px;
+                        margin-top: 5px;
+                        margin-bottom: 5px;
                     }
                     .footer {
                         text-align: center;
@@ -339,6 +344,9 @@ async function sendTopPalettesEmail() {
                         padding: 10px;
                         border-radius: 0 0 8px 8px;
                         margin-top: 20px;
+                    }
+                    .palette-description{
+                        margin-bottom: 10px;
                     }
                 </style>
                 <title>Top Palettes of the Week</title>
@@ -349,8 +357,8 @@ async function sendTopPalettesEmail() {
                         <h1>Lemon Teams</h1>
                     </div>
                     <div class="content">
-                        <p>Hi,</p>
-                        <p>Here are the top 5 most viewed palettes of the week from Lemon Teams. Check out their colors below!</p>`;
+                        <p>Greetings from Lemon Teams!</p>
+                        <p>We’re excited to share with you the top 5 most viewed palettes from this past week. These vibrant collections have captured the attention of our community, showcasing the creativity and inspiration that our platform has to offer. Below, you’ll find the colors that make each palette unique and appealing. Take a moment to explore these stunning combinations and find inspiration for your next project!</p>`;
 
         // Add palettes to the email content
         topPalettes.forEach(palette => {
@@ -369,12 +377,16 @@ async function sendTopPalettesEmail() {
                     ${colors.map(color => `<div class="color-box" style="background-color:${color};">${color}</div>`).join('')}
                 </div>
                 <div class="palette-name">
-                    <a href="https://lemonteams.onrender.com/open-palette?code=${palette.identity}" traget="_blank" style="text-decoration: none; color: black;">${palette.name} (${palette.weeklyViews} views)</a>
-                </div>`;
+                    <a href="https://lemonteams.onrender.com/open-palette?code=${palette.code}" traget="_blank" style="text-decoration: none; color: black;">${palette.name} (${palette.weeklyViews} views)</a>
+                </div>
+                <div class="palette-description">
+                ${palette.description}
+                </div>
+                `;
         });
 
         emailContent += `
-                        <p>Thank you for using Lemon Teams! Stay tuned for more amazing palettes next week.</p>
+                        <p>Thank you for being a part of the Lemon Teams community! We appreciate your support and enthusiasm for our platform. Be sure to stay tuned, as we’ll be unveiling even more amazing palettes next week. We can’t wait to share the creativity and inspiration that awaits you!</p>
                     </div>
                     <div class="footer">
                         <p>&copy; 2024 Lemon Teams. All rights reserved.</p>
@@ -399,22 +411,22 @@ async function sendTopPalettesEmail() {
         for (const user of users) {
             const mailOptions = {
                 from: config.email,
-                to: user.email, 
+                to: user.email,
                 subject: 'Top 5 Most Viewed Palettes of the Week',
                 html: emailContent
             };
 
             const mailed = await transporter.sendMail(mailOptions);
-            if(mailed){
+            if (mailed) {
 
-            } else{
+            } else {
                 console.log("error while sending mail")
             }
         }
 
         // Reset weekly views of all palettes to 0 after sending the emails
         await Palette.updateMany({}, { weeklyViews: 0 });
-        
+
     } catch (error) {
         console.error('Error sending email or resetting weekly views:', error);
     }
