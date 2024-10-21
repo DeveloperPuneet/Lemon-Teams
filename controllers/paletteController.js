@@ -263,7 +263,7 @@ const Accounts = require('../models/accounts');
 async function sendTopPalettesEmail() {
     try {
         // Fetch the top 5 palettes with the highest weekly views
-        const topPalettes = await Palette.find({ weeklyViews: { $gt: 0 } })
+        const topPalettes = await Palette.find({ weeklyViews: { $gt: 0 }, visibility: "public" })
                                          .sort({ weeklyViews: -1 })
                                          .limit(5);
 
