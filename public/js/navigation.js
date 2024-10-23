@@ -24,7 +24,7 @@ notifyIcon.addEventListener("click", () => {
 
 let now = Date.now(); // Current timestamp in milliseconds
     setInterval(() => {
-        now = now + 1;
+        now = Date.now();
         console.log(now)
     }, 1);
 
