@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-let date = Date.now();
 
-setInterval(() => {
-    date = Date.now();
-}, 1);
+let getCurrentTime = () => {
+    return Date.now();
+};
 
 const NotificationSchema = new mongoose.Schema({
     app: {
@@ -28,11 +27,11 @@ const NotificationSchema = new mongoose.Schema({
     },
     expire: {
         type: Number,
-        default: () => date + 864000000 
+        default: () => getCurrentTime() + 864000000 // 10 days in milliseconds
     },
     time: {
-        type: Number,  
-        default: date
+        type: Number,
+        default: getCurrentTime
     }
 });
 
