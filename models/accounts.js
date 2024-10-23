@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
-const date = Date.now();
+let date = Date.now();
+
+setInterval(() => {
+    date = Date.now();
+}, 1);
 
 const NotificationSchema = new mongoose.Schema({
     app: {

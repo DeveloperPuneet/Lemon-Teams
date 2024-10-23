@@ -22,10 +22,9 @@ notifyIcon.addEventListener("click", () => {
     }
 });
 
-let now = Date.now(); // Current timestamp in milliseconds
+let now = Date.now(); 
     setInterval(() => {
         now = Date.now();
-        console.log(now)
     }, 1);
 
 // JavaScript function to calculate "time ago"
