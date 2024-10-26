@@ -1054,8 +1054,9 @@ const GetPalettes = async (req, res) => {
     const limit = parseInt(req.query.limit) || 50; // Number of palettes to load
 
     try {
-        // Fetch palettes from database (with pagination)
-        const palettes = await Palette.find({})
+        // Fetch palettes from database with filtering, sorting, and pagination
+        const palettes = await Palette.find({ visibility: "public" })
+            .sort({ views: -1 }) // Sort by views in descending order
             .skip((page - 1) * limit)
             .limit(limit);
 
@@ -1063,7 +1064,7 @@ const GetPalettes = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Error fetching palettes" });
     }
-}
+};
 
 const VerifyReminderAccount = async (req, res) => {
     try {
