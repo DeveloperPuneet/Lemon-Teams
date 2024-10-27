@@ -1,30 +1,42 @@
 # Lemon Teams
 
-Lemon Teams is a web application designed to help developers discover and share beautiful color palettes. Inspired by the Coolors website, Lemon Teams provides a platform where users can create, like, and comment on color palettes.
+Lemon Teams is a versatile web application designed to help developers discover, create, and share beautiful color palettes. Inspired by the Coolors website, Lemon Teams offers a collection of services, including color palette generation, code library sharing, website building, and more, tailored to developers’ needs.
 
 ## Features
 
-- **Create and Share Palettes**: Users can create custom color palettes and share them with the community.
-- **Like and Comment**: Users can like and comment on their favorite palettes.
-- **Responsive Design**: The application is fully responsive and works on all device sizes.
+- **Lemon Color Lab**: Discover and create stunning color palettes with a built-in AI description generator.
+- **Lemon Library**: Publish and use custom code libraries with a CDN-like experience, supporting both public and private options.
+- **Lemon Builder**: Access and customize website templates, edit them directly, and create personal websites.
+- **Real-Time Notifications**: Get notified for key interactions like saving libraries, liking palettes, and commenting on palettes.
 - **User Authentication**: Secure login and registration system.
-- **Real-Time Updates**: Comments and likes update in real-time without page reloads.
+- **Responsive Design**: Fully responsive across all device sizes.
+- **Real-Time Updates**: Comments, likes, and notifications update in real time without page reloads.
 
 ## Usage
 
-### Creating a Palette
-
+### Lemon Color Lab
+#### Creating a Palette
 1. Register or log in to your account.
-2. Navigate to the "Create Palette" page.
+2. Navigate to the "Lemon Color Lab" section.
 3. Use the color picker to select colors for your palette.
-4. Add a name and description for your palette.
+4. Add a name and description; the AI will suggest a description based on your colors if desired.
 5. Click "Save" to publish your palette.
 
-### Liking and Commenting
-
-1. Browse the available palettes on the homepage.
+#### Liking and Commenting on a Palette
+1. Browse palettes on the homepage or in the Lemon Color Lab.
 2. Click the heart icon to like a palette.
-3. Scroll down to the comments section to add your comment.
+3. Scroll to the comments section to add your feedback.
+
+### Lemon Library
+#### Publishing a Library
+1. Go to the "Lemon Library" section.
+2. Create a new library by uploading code or pasting it directly.
+3. Choose between a public or private setting.
+4. Click "Publish" to generate a sharable link for use in your projects.
+
+#### Using a Library
+1. Copy the unique link generated for each library.
+2. Paste this link in your code to import and use the library seamlessly, similar to a CDN.
 
 ## Contributing
 
@@ -38,8 +50,8 @@ We welcome contributions from the community! To contribute:
 
 ## Contact
 
-For any questions or feedback, please contact:
+For any questions or feedback, please reach out:
 
 - **Email**: developerpuneet2010@gmail.com
 
-We hope you enjoy using Lemon Teams!
+We hope you enjoy using Lemon Teams and look forward to seeing your creative contributions!
