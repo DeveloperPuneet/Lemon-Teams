@@ -1,6 +1,6 @@
 {
   "name": "lemon",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Lemon offers versatile services for individuals and teams, fostering collaboration, productivity, and innovation through intuitive digital solutions and platforms.",
   "main": "app.js",
   "scripts": {
