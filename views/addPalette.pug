@@ -100,7 +100,7 @@ html(lang="en")
           if (colorHex) colors.push(colorHex);
         }
 
-        const prompt = `Generate keywords for each color in the palette focusing on moods objects and atmospheres these colors evoke. Limit each color to a maximum of 15 keywords and provide the keywords in a simple line without labels or symbols: ${colors.join(", ")}`;
+        const prompt = `Generate a set of descriptive keywords that capture the moods objects and atmospheres evoked by the colors in the provided palette. The total number of keywords should not exceed 15. Combine all keywords into a single continuous line without any labels symbols or additional text. Ensure that the keywords are relevant and evocative, drawing on sensory associations and emotional responses related to the colors. you must not give keyword for each single color just combine them: ${colors.join(", ")}`;
           const genAI = new GoogleGenerativeAI('#{config.api}');
           const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
           const descriptionByAi = await model.generateContent(prompt);
