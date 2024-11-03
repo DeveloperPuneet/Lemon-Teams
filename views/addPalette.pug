@@ -100,7 +100,7 @@ html(lang="en")
           if (colorHex) colors.push(colorHex);
         }
 
-        const prompt = `Generate keywords for each color in the palette, focusing on moods, objects, and atmospheres these colors evoke. Limit each color to a maximum of 15 keywords, and provide the keywords in a simple list format without labels, color codes, or symbols.: ${colors.join(", ")}`;
+        const prompt = `Generate keywords for each color in the palette focusing on moods objects and atmospheres these colors evoke. Limit each color to a maximum of 15 keywords and provide the keywords in a simple line without labels or symbols: ${colors.join(", ")}`;
           const genAI = new GoogleGenerativeAI('#{config.api}');
           const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
           const descriptionByAi = await model.generateContent(prompt);
