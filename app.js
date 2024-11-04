@@ -1,9 +1,11 @@
 //! जय श्री कृष्ण
+/* These lines of code are importing necessary modules in a Node.js application: */
 const express = require("express");
 const mongoose = require("mongoose");
 const axios = require("axios");
 const cron = require('node-cron');
 
+/* These lines of code are importing necessary modules and dependencies in a Node.js application. */
 const { sendTopPalettesEmail, removeDuplicatePalettes, deleteIdenticalColorPalettes, removeInvalidHexPalettes } = require('./controllers/paletteController');
 const config = require("./config/config");
 const router = require("./routes/router");
@@ -11,11 +13,17 @@ const Palette = require("./models/Palette");
 const Library = require("./models/Library");
 const accounts = require("./models/accounts");
 
+/* These lines of code are setting up a Node.js server using Express framework and Socket.io for
+real-time communication. Here's what each line is doing: */
 const app = express();
 const PORT = config.port;
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
+/**
+ * The function `database` attempts to establish a connection to a database using mongoose, and if it
+ * fails, it retries after a delay of 600 seconds.
+ */
 const database = async () => {
     try {
         await mongoose.connect(config.database);
@@ -30,6 +38,8 @@ database();
 app.use("/", router);
 
 // socket.io stuff
+/* This block of code is handling various socket events within a Node.js application using Socket.io.
+Here's a breakdown of what each socket event is doing: */
 io.on('connection', (socket) => {
 
     socket.on('toggle-like', async (data) => {
@@ -141,6 +151,10 @@ io.on('connection', (socket) => {
     });
 });
 
+/* This is starting the Node.js server to listen on a specific port defined by `PORT`. When a client
+makes a request to the server, it will handle the request and respond accordingly. Additionally, the
+callback function inside `http.listen` is logging a message "build completed ✨" to the console once
+the server is successfully started. */
 http.listen(PORT, () => {
     console.log("build completed ✨");
 });

@@ -1,3 +1,7 @@
+/* The above code is importing various modules and configurations in a JavaScript file. It is importing
+the `Palette` and `accounts` models from their respective files, as well as the `nodemailer` module
+and a `config` file. This code snippet is setting up the necessary dependencies for the JavaScript
+file to work with these modules and configurations. */
 const Palette = require('../models/Palette');
 const accounts = require("../models/accounts");
 const nodemailer = require("nodemailer");
@@ -168,6 +172,18 @@ async function removeInvalidHexPalettes() {
     }
 }
 
+/**
+ * The function `arePalettesEqual` compares two color palettes to determine if they have the same
+ * colors in the same order.
+ * @param palette1 - It looks like you were about to provide the details for `palette1` but the message
+ * got cut off. Please go ahead and provide the details for `palette1` so that I can assist you
+ * further.
+ * @param palette2 - It seems like you were about to provide the details for `palette2` but the message
+ * got cut off. Please go ahead and provide the details for `palette2` so that I can assist you
+ * further.
+ * @returns The function `arePalettesEqual` is returning a boolean value. It returns `true` if the two
+ * palettes have the same colors in the same order, and `false` otherwise.
+ */
 function arePalettesEqual(palette1, palette2) {
     const colors1 = [
         palette1.color1, palette1.color2, palette1.color3, palette1.color4, palette1.color5,
@@ -260,6 +276,11 @@ const deleteIdenticalColorPalettes = async () => {
 const Accounts = require('../models/accounts');
 
 // Function to send weekly email with top 5 palettes and reset weekly views
+/**
+ * The function `sendTopPalettesEmail` fetches the top 5 palettes with the highest weekly views,
+ * creates an HTML email template with palette information, and sends the email to all users while
+ * resetting the weekly views of the palettes to 0 afterwards.
+ */
 async function sendTopPalettesEmail() {
     try {
         // Fetch the top 5 palettes with the highest weekly views
