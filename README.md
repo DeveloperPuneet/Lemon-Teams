@@ -6,7 +6,6 @@ Lemon Teams is a versatile web application designed to help developers discover,
 
 - **Lemon Color Lab**: Discover and create stunning color palettes with a built-in AI description generator.
 - **Lemon Library**: Publish and use custom code libraries with a CDN-like experience, supporting both public and private options.
-- **Lemon Builder**: Access and customize website templates, edit them directly, and create personal websites.
 - **Real-Time Notifications**: Get notified for key interactions like saving libraries, liking palettes, and commenting on palettes.
 - **User Authentication**: Secure login and registration system.
 - **Responsive Design**: Fully responsive across all device sizes.
