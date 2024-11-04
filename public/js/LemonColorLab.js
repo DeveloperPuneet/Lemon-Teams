@@ -1,20 +1,22 @@
 document.getElementById('searching').addEventListener('input', function () {
-    let searchValue = this.value.toLowerCase();
-    let palettes = document.querySelectorAll('.palette');
-
-    palettes.forEach(palette => {
-        let text = Array.from(palette.querySelectorAll('.hide')).map(element => element.innerText.toLowerCase()).join("");
-        if (text.includes(searchValue)) {
-        } else {
-            palette.style.display = 'none';
-        }
-    });
-
-    if (searchValue === '') {
+    setInterval(() => {
+        let searchValue = this.value.toLowerCase();
+        let palettes = document.querySelectorAll('.palette');
+    
         palettes.forEach(palette => {
-            palette.style.display = '';
+            let text = Array.from(palette.querySelectorAll('.hide')).map(element => element.innerText.toLowerCase()).join("");
+            if (text.includes(searchValue)) {
+            } else {
+                palette.style.display = 'none';
+            }
         });
-    }
+    
+        if (searchValue === '') {
+            palettes.forEach(palette => {
+                palette.style.display = '';
+            });
+        }
+    }, 60);
 });
 
 let currentPage = 1; // Keep track of the current page
