@@ -827,7 +827,8 @@ const PublishingPalette = async (req, res) => {
         });
         const saved = await data.save();
         const user = await accounts.findOne({ identity: req.session.identity });
-        await accounts.updateOne({ identity: req.session.identity }, { coin: user.coin + 2 })
+        let coin = user.coin + 2;
+        await accounts.updateOne({ identity: req.session.identity }, { coin: coin })
         user.notifications.push({
             app: "Team won",
             comment: '',
@@ -1442,7 +1443,8 @@ const CreatingLibrary = async (req, res) => {
             code: code,
             identity: req.session.identity
         });
-        await accounts.updateOne({ identity: req.session.identity }, { coin: user.coin + 5 });
+        let coin = user.coin + 5
+        await accounts.updateOne({ identity: req.session.identity }, { coin: coin });
         user.notifications.push({
             app: "Team won",
             comment: '',
@@ -1547,7 +1549,8 @@ const AddingCodeToLibrary = async (req, res) => {
             if (saveCode) {
                 const updateLibTokens = await Library.updateOne({ code: libCode }, { $push: { library: token } });
                 const user = await accounts.findOne({ identity: req.session.identity });
-                await accounts.updateOne({ identity: req.session.identity }, { coin: user.coin + 10 });
+                let coin = user.coin + 10
+                await accounts.updateOne({ identity: req.session.identity }, { coin: coin });
                 user.notifications.push({
                     app: "Team won",
                     comment: '',
@@ -1658,8 +1661,9 @@ const ImportedLinks = async (req, res) => {
             const views = parseInt(updateFields.views) + 1;
             const libraryViews = await Library.updateOne({ library: token }, { $set: { views: views } });
             const user = await accounts.findOne({ identity: req.session.identity });
+            let coin = user.coin + 0.01;
             await accounts.updateOne({ identity: req.session.identity }, {
-                coin: user.coin + 0.01
+                coin: coin
             });
             user.notifications.push({
                 app: "Team won",

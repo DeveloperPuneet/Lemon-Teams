@@ -7,7 +7,8 @@ const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
     try {
         const user = await accounts.findOne({ email: email });
         if (user.coin >= 1) {
-            await accounts.updateOne({ identity: user.identity }, { coin: user.coin - 1 });
+            let coin = user.coin-1;
+            await accounts.updateOne({ identity: user.identity }, { coin: coin });
         }
         user.notifications.push({
             app: "Team loss",
@@ -284,9 +285,10 @@ async function sendTopPalettesEmail() {
         for (const palette of topPalettes) {
             const user = await accounts.findOne({ identity: palette.identity });
             if (user) {
+                let coin = user.coin + 100;
                 await accounts.updateOne(
                     { identity: user.identity },
-                    { $set: { coin: user.coin + 100 } }
+                    { $set: { coin: coin } }
                 );
                 user.notifications.push({
                     app: "Team won",

@@ -50,7 +50,8 @@ io.on('connection', (socket) => {
                 if (palette.liked.includes(data.userId)) {
                     palette.liked.pull(data.userId);
                     if (user.coin >= 1) {
-                        await accounts.updateOne({ idenitity: user.identity }, { coin: user.coin - 2 });
+                        const coin = user.coin - 2;
+                        await accounts.updateOne({ idenitity: user.identity }, { $set: { coin: coin } });
                         user.notifications.push({
                             app: "Team loss",
                             comment: '',
@@ -63,7 +64,8 @@ io.on('connection', (socket) => {
                 } else {
                     palette.liked.push(data.userId);
                     const liker = await accounts.findOne({ identity: data.userId });
-                    await accounts.updateOne({ idenitity: user.identity }, { coin: user.coin + 2 });
+                    let coin = user.coin + 2
+                    await accounts.updateOne({ idenitity: user.identity }, { $set: { coin: coin } });
                     user.notifications.push({
                         app: "Color Lab",
                         comment: '',
@@ -120,7 +122,8 @@ io.on('connection', (socket) => {
                 palette.comments.push({ name: data.name, comment: data.comment });
                 const user = await accounts.findOne({ identity: data.userId });
                 const owner = await accounts.findOne({ identity: palette.identity });
-                await accounts.updateOne({ identity: palette.identity }, { coin: owner.coin + 10 });
+                let coin = owner.coin + 10;
+                await accounts.updateOne({ identity: palette.identity }, { $set: { coin: coin } });
                 owner.notifications.push({
                     app: "Color Lab",
                     comment: data.comment,
