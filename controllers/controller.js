@@ -833,9 +833,7 @@ const PublishingPalette = async (req, res) => {
         user.notifications.push({
             app: "Team won",
             comment: '',
-            name: "2",
-            link: data.paletteIdentity,
-            identity: data.userId,
+            name: "2"
         });
         await user.save();
         const profile = "/accounts/" + user.profile
@@ -1449,9 +1447,7 @@ const CreatingLibrary = async (req, res) => {
         user.notifications.push({
             app: "Team won",
             comment: '',
-            name: "5",
-            link: data.paletteIdentity,
-            identity: data.userId,
+            name: "5"
         });
         await user.save();
         const created = await LibraryPublishing.save();
@@ -1555,9 +1551,7 @@ const AddingCodeToLibrary = async (req, res) => {
                 user.notifications.push({
                     app: "Team won",
                     comment: '',
-                    name: "10",
-                    link: data.paletteIdentity,
-                    identity: data.userId,
+                    name: "10"
                 });
                 await user.save();
                 if (updateLibTokens) {
@@ -1669,9 +1663,7 @@ const ImportedLinks = async (req, res) => {
             user.notifications.push({
                 app: "Team won",
                 comment: '',
-                name: "0.01",
-                link: data.paletteIdentity,
-                identity: data.userId,
+                name: "0.01"
             });
             await user.save();
         };

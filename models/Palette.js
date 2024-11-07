@@ -87,6 +87,14 @@ const schema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    sponser:{
+        type: Boolean,
+        default: false
+    },
+    sponser_expires:{
+        type: Number,
+        default: ()=> getCurrentTime + 2592000000
+    }
 });
 
 module.exports = mongoose.model('Palette', schema);

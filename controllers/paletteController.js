@@ -7,7 +7,7 @@ const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
     try {
         const user = await accounts.findOne({ email: email });
         if (user.coin >= 1) {
-            let coin = user.coin-1;
+            let coin = user.coin - 1;
             await accounts.updateOne({ identity: user.identity }, { coin: coin });
         }
         user.notifications.push({
@@ -462,5 +462,13 @@ async function sendTopPalettesEmail() {
         console.error('Error sending email or resetting weekly views:', error);
     }
 }
+
+const getCurrentDate = () => {
+    return Date.now()
+}
+
+setInterval(async () => {
+    await Palette.deleteMany({ sponser_expires: getCurrentDate })
+}, 1);
 
 module.exports = { sendTopPalettesEmail, removeDuplicatePalettes, sendPaletteRemovalEmail, deleteIdenticalColorPalettes, removeInvalidHexPalettes };
