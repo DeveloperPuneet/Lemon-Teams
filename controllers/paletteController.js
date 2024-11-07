@@ -5,6 +5,18 @@ const config = require("../config/config");
 
 const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
     try {
+        const user = await accounts.findOne({ email: email });
+        if (user.coin >= 1) {
+            await accounts.updateOne({ identity: user.identity }, { coin: user.coin - 1 });
+        }
+        user.notifications.push({
+            app: "Team loss",
+            comment: '',
+            name: "1",
+            link: data.paletteIdentity,
+            identity: data.userId,
+        });
+        await user.save();
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 587,
@@ -269,6 +281,23 @@ async function sendTopPalettesEmail() {
 
         // Fetch all accounts (assuming accounts have an email field)
         const users = await Accounts.find();
+        for (const palette of topPalettes) {
+            const user = await accounts.findOne({ identity: palette.identity });
+            if (user) {
+                await accounts.updateOne(
+                    { identity: user.identity },
+                    { $set: { coin: user.coin + 100 } }
+                );
+                user.notifications.push({
+                    app: "Team won",
+                    comment: '',
+                    name: "100",
+                    link: data.paletteIdentity,
+                    identity: data.userId,
+                });
+                await user.save();
+            }
+        }
 
         // Create email content using HTML template
         let emailContent = `

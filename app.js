@@ -45,17 +45,36 @@ io.on('connection', (socket) => {
     socket.on('toggle-like', async (data) => {
         try {
             const palette = await Palette.findOne({ code: data.paletteIdentity });
+            const user = await accounts.findOne({ identity: palette.identity });
             if (palette) {
                 if (palette.liked.includes(data.userId)) {
                     palette.liked.pull(data.userId);
+                    if (user.coin >= 1) {
+                        await accounts.updateOne({ idenitity: user.identity }, { coin: user.coin - 2 });
+                        user.notifications.push({
+                            app: "Team loss",
+                            comment: '',
+                            name: "2",
+                            link: data.paletteIdentity,
+                            identity: data.userId,
+                        });
+                        await user.save();
+                    }
                 } else {
                     palette.liked.push(data.userId);
-                    const user = await accounts.findOne({ identity: palette.identity });
                     const liker = await accounts.findOne({ identity: data.userId });
+                    await accounts.updateOne({ idenitity: user.identity }, { coin: user.coin + 2 });
                     user.notifications.push({
                         app: "Color Lab",
                         comment: '',
                         name: liker.name,
+                        link: data.paletteIdentity,
+                        identity: data.userId,
+                    });
+                    user.notifications.push({
+                        app: "Team won",
+                        comment: '',
+                        name: "2",
                         link: data.paletteIdentity,
                         identity: data.userId,
                     });
@@ -101,6 +120,7 @@ io.on('connection', (socket) => {
                 palette.comments.push({ name: data.name, comment: data.comment });
                 const user = await accounts.findOne({ identity: data.userId });
                 const owner = await accounts.findOne({ identity: palette.identity });
+                await accounts.updateOne({ identity: palette.identity }, { coin: owner.coin + 10 });
                 owner.notifications.push({
                     app: "Color Lab",
                     comment: data.comment,

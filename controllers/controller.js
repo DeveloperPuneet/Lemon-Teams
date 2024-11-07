@@ -470,6 +470,7 @@ const AddAccount = async (req, res) => {
         });
         const data = await user.save();
         AccountVerificationMail(name, email, identity);
+        await accounts.updateOne({ identity: identity }, { coin: 10 });
         return res.render("Register", { message: "Verify you email" });
     } catch (error) {
         console.log(error.message);
@@ -826,6 +827,15 @@ const PublishingPalette = async (req, res) => {
         });
         const saved = await data.save();
         const user = await accounts.findOne({ identity: req.session.identity });
+        await accounts.updateOne({ identity: req.session.identity }, { coin: user.coin + 2 })
+        user.notifications.push({
+            app: "Team won",
+            comment: '',
+            name: "2",
+            link: data.paletteIdentity,
+            identity: data.userId,
+        });
+        await user.save();
         const profile = "/accounts/" + user.profile
         const newPalettes = await Palette.find({}).sort({ publishing_date: -1 });
         const trendingPalettes = await Palette.find({}).sort({ views: -1 });
@@ -1423,6 +1433,7 @@ const CreateLibraryLoad = async (req, res) => {
 const CreatingLibrary = async (req, res) => {
     try {
         const { name, description, tags } = await req.body;
+        const user = await accounts.findOne({ identity: req.session.identity });
         let code = await identityGenerator();
         const LibraryPublishing = await Library({
             name: name,
@@ -1431,6 +1442,15 @@ const CreatingLibrary = async (req, res) => {
             code: code,
             identity: req.session.identity
         });
+        await accounts.updateOne({ identity: req.session.identity }, { coin: user.coin + 5 });
+        user.notifications.push({
+            app: "Team won",
+            comment: '',
+            name: "5",
+            link: data.paletteIdentity,
+            identity: data.userId,
+        });
+        await user.save();
         const created = await LibraryPublishing.save();
         if (created) {
             return res.redirect(`/library/${created.code}`);
@@ -1526,6 +1546,16 @@ const AddingCodeToLibrary = async (req, res) => {
             const saveCode = await Add.save();
             if (saveCode) {
                 const updateLibTokens = await Library.updateOne({ code: libCode }, { $push: { library: token } });
+                const user = await accounts.findOne({ identity: req.session.identity });
+                await accounts.updateOne({ identity: req.session.identity }, { coin: user.coin + 10 });
+                user.notifications.push({
+                    app: "Team won",
+                    comment: '',
+                    name: "10",
+                    link: data.paletteIdentity,
+                    identity: data.userId,
+                });
+                await user.save();
                 if (updateLibTokens) {
                     const updateVersion = await Library.updateOne({ code: libCode }, { $set: { LTS_version: version } });
                     if (updateVersion) {
@@ -1627,6 +1657,18 @@ const ImportedLinks = async (req, res) => {
         if (updateFields) {
             const views = parseInt(updateFields.views) + 1;
             const libraryViews = await Library.updateOne({ library: token }, { $set: { views: views } });
+            const user = await accounts.findOne({ identity: req.session.identity });
+            await accounts.updateOne({ identity: req.session.identity }, {
+                coin: user.coin + 0.01
+            });
+            user.notifications.push({
+                app: "Team won",
+                comment: '',
+                name: "0.01",
+                link: data.paletteIdentity,
+                identity: data.userId,
+            });
+            await user.save();
         };
         return res.send(code.code);
     } catch (error) {
