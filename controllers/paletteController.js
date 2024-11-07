@@ -472,6 +472,6 @@ setInterval(async () => {
         { sponser_expires: { $lte: getCurrentDate() } },
         { $set: { sponser: false } }
     );
-}, 60000);
+}, 600000);
 
 module.exports = { sendTopPalettesEmail, removeDuplicatePalettes, sendPaletteRemovalEmail, deleteIdenticalColorPalettes, removeInvalidHexPalettes };
