@@ -7,6 +7,7 @@ const testimonials = require("../models/Testimonials");
 const Palette = require("../models/Palette");
 const Library = require("../models/Library");
 const Code = require("../models/Code");
+const ReedemCode = require("../models/ReedemCode");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
@@ -1753,7 +1754,41 @@ cron.schedule('0 0 1 * *', async () => {
  */
 const WrongRequestHandler = async (req, res) => {
     try {
-        res.redirect("/");
+        return res.redirect("/");
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const ReedemCodeLoad = async (req, res) => {
+    try {
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile;
+        return res.render("ReedemCode", { user, profile });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const ReedemCodes = async (req, res) => {
+    try {
+        const identity = req.session.identity;
+        const code = req.body.code;
+        const isValidCode = await ReedemCode.findOne({ code: code });
+        if (isValidCode && !isValidCode.redeemed_by.includes(identity)) {
+            const user = await accounts.findOne({ identity: req.session.identity });
+            let coin = user.coin
+            await accounts.updateOne({ identity: identity }, { coin: coin + isValidCode.amount });
+            await ReedemCode.updateOne({ code: code }, { $push: { redeemed_by: identity } });
+            const profile = "/accounts/" + user.profile;
+            let message = "The is redeemed successfully 😎"
+            return res.render("ReedemCode", { user, profile, message });
+        } else{
+            const user = await accounts.findOne({ identity: req.session.identity });
+            const profile = "/accounts/" + user.profile;
+            let message = "Invalid code or code is already redeemed 😿"
+            return res.render("ReedemCode", { user, profile, message });
+        }
     } catch (error) {
         console.log(error.message);
     }
@@ -1804,5 +1839,7 @@ module.exports = {
     ImportedLinks,
     GetPalettes,
     VerifyReminderAccount,
-    WrongRequestHandler
+    WrongRequestHandler,
+    ReedemCodeLoad,
+    ReedemCodes
 };

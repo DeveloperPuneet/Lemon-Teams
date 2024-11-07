@@ -87,32 +87,6 @@ const schema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    ads: {
-        type: Boolean,
-        default: false
-    },
-    ads_text: {
-        type: String
-    },
-    ads_title: {
-        type: String
-    },
-    ads_cost: {
-        type: Number,
-        default: 5 // cost + (views*5)
-    },
-    ads_expires: {
-        type: Number,
-        default: () => getCurrentTime() + 864000000
-    },
-    ads_conductor: {
-        type: String,
-        default: ""
-    },
-    ads_link: {
-        type: String,
-        default: ""
-    }
 });
 
 module.exports = mongoose.model('Palette', schema);

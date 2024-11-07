@@ -14,9 +14,10 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
             a(href="/account") <span class="material-symbols-outlined">person</span>
         -else
             .coins 
-                .img-coin
-                    img(src="/Emblem/Emblem.jpeg")
-                p #{user.coin}
+                a(href="/reedem-code") 
+                    .img-coin
+                        img(src="/Emblem/Emblem.jpeg")
+                    p #{user.coin}
             i.fa-solid.fa-bell#notify-icon
             a(href=`/account/${user.identity}` class="nav-profile-image") 
                 img(src=profile alt="Profile")

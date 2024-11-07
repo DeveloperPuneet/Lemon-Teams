@@ -1,0 +1,20 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="/css/Register.css")
+        include ../public/components/header.pug
+        title Lemon Teams: Reedem Code 
+    body 
+        include ../public/layouts/navigation.pug
+        .container
+            h1 Reedem Code
+            - if(message !== undefined)
+                .message-box
+                    p= message
+            .form
+                form(method="post" action="")
+                    input(type="text" placeholder="abc-xyz" name="code" required autocomplete="false")
+                    input(type="submit" value="Reedem Code")
+        include ../public/layouts/footer.pug

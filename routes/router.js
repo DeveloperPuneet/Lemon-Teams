@@ -128,6 +128,8 @@ router.post("/add-code/:code", auth.isLogin, controller.AddingCodeToLibrary);
 router.get("/code/:token", auth.isLogin, controller.LoadCodeDetails);
 router.get("/import/:token", controller.ImportedLinks);
 router.get("/get-palettes", controller.GetPalettes);
+router.get("/reedem-code", auth.isLogin, controller.ReedemCodeLoad);
+router.post("/reedem-code", auth.isLogin, controller.ReedemCodes);
 
 // For handling wrong requests
 router.get("*", controller.WrongRequestHandler);
