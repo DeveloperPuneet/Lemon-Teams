@@ -31,6 +31,17 @@ html(lang="en")
                                     each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
                                         if color
                                             .color(style=`background: ${color};`)
+                .new 
+                    h5 Sponsered Palettes
+                    .new-container 
+                        each palette in sponsered
+                            a(href=`/open-palette?code=${palette.code}`) 
+                                .palette
+                                    .hide= palette.tags
+                                    .hide= palette.name
+                                    each color in [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5, palette.color6, palette.color7, palette.color8, palette.color9, palette.color10]
+                                        if color
+                                            .color(style=`background: ${color};`)
                 .trending 
                     h5 Trending
                     .container-trending
