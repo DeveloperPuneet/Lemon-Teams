@@ -110,6 +110,10 @@ const schema = new mongoose.Schema({
     notifications: {
         type: [NotificationSchema],
         default: []
+    },
+    coin:{
+        type: Number,
+        default: 0
     }
 });
 

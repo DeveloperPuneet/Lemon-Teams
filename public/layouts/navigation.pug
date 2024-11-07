@@ -13,6 +13,9 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
         -if (!user)
             a(href="/account") <span class="material-symbols-outlined">person</span>
         -else
+            .coins 
+                img(src="/Emblem/Emblem.jpeg")
+                p #{user.coin}
             i.fa-solid.fa-bell#notify-icon
             a(href=`/account/${user.identity}` class="nav-profile-image") 
                 img(src=profile alt="Profile")
@@ -43,5 +46,9 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
                         p <span class="bold"> #{notification.name} </span> commented "#{notification.comment}" on your <a href="https://lemonteams.onrender.com/open-palette?code=#{notification.link}" target="_blank" style="color: white;"> palette </a>
                 else if(notification.app == "Library")
                         p <span class="bold">  #{notification.name} </span> saved <a href="https://lemonteams.onrender.com/library/#{notification.link}" target="_blank" style="color: white;"> Library </a>
+                else if(notification.app == "Team won")
+                        p You got <span class="bold"> #{notification.name} Lemon Coins </span>
+                else if(notification.app == "Team loss")
+                        p You lost <span class="bold"> #{notification.name} Lemon Coins </span>
                 p.time-ago.time(id=`time-ago-${index}` data-time=`${notification.time}`)
 script(src="../js/navigation.js") 
