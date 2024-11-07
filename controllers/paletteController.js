@@ -467,10 +467,11 @@ const getCurrentDate = () => {
     return Date.now()
 }
 
-const ExpireDate = getCurrentDate();
-
 setInterval(async () => {
-    await Palette.updateMany({ sponser_expires: ExpireDate }, { $set: { sponser: false } });
-}, 1);
+    await Palette.updateMany(
+        { sponser_expires: { $lte: getCurrentDate() } },
+        { $set: { sponser: false } }
+    );
+}, 60000);
 
 module.exports = { sendTopPalettesEmail, removeDuplicatePalettes, sendPaletteRemovalEmail, deleteIdenticalColorPalettes, removeInvalidHexPalettes };
