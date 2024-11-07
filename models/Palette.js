@@ -92,8 +92,7 @@ const schema = new mongoose.Schema({
         default: false
     },
     sponser_expires:{
-        type: Number,
-        default: ()=> getCurrentTime + 2592000000
+        type: Number
     }
 });
 

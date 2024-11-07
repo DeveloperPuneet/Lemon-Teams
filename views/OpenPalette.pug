@@ -14,7 +14,8 @@ html(lang="en")
                 form(action="/delete-palette", method="post") 
                     input(type="hidden", value=palette.code, name="code")
                     .btn-actions 
-                        input(type="submit" value="Delete" class="btn") 
+                        input(type="submit" value="Delete" class="btn")
+                button#sponser Sponser Palette (1.2k/month) 
             -else
                 -if (palette.Report.includes(user.identity))
                     .btn-actions#report-btn Reported
@@ -119,4 +120,13 @@ html(lang="en")
                 socket.emit('toggle-report', { userId, paletteIdentity });
             });
             }
+            });
+
+            const sponserbtn = document.getElementById("sponser");
+            if(sponserbtn){
+            sponserbtn.addEventListener('click', () => {
+                socket.emit('purchase-palette', { userId, paletteIdentity });
+            });
+            socket.on("purchase-progress", (data) => {
+                alert(data.message);
             });

@@ -140,6 +140,29 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on("purchase-palette", async ({ userId, paletteIdentity }) => {
+        try {
+            let message;
+            const user = await accounts.findOne({ identity: userId });
+            const palette = await Palette.findOne({ code: paletteIdentity });
+            let getCurrentTime = () => {
+                return Date.now();
+            };
+            if (user.coin >= 1200) {
+                palette.sponser = true;
+                palette.sponser_expires = getCurrentTime() + 2592000000;
+                await palette.save();
+                await accounts.updateOne({ identity: user.identity }, { coin: user.coin - 1200 });
+                message = "Your Palette has been Sponsered successfully 😚";
+            } else{
+                message = "Your Palette has been Sponsered successfully 😚";
+            }
+            socket.emit("purchase-progress", {message});
+        } catch (error) {
+            console.error(error.message);
+        }
+    })
+
     socket.on('toggle-save', async ({ userId, libraryCode }) => {
         try {
             const library = await Library.findOne({ code: libraryCode });
