@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
                     palette.liked.pull(data.userId);
                     if (user.coin >= 1) {
                         const coin = user.coin - 2;
-                        await accounts.updateOne({ idenitity: user.identity }, { $set: { coin: coin } });
+                        await accounts.updateOne({ identity: user.identity }, { $set: { coin: coin } });
                         user.notifications.push({
                             app: "Team loss",
                             comment: '',
@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
                     palette.liked.push(data.userId);
                     const liker = await accounts.findOne({ identity: data.userId });
                     let coin = user.coin + 2
-                    await accounts.updateOne({ idenitity: user.identity }, { $set: { coin: coin } });
+                    await accounts.updateOne({ identity: user.identity }, { $set: { coin: coin } });
                     user.notifications.push({
                         app: "Color Lab",
                         comment: '',
