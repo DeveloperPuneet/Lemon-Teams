@@ -4,6 +4,8 @@ let getCurrentTime = () => {
     return Date.now();
 };
 
+let date = getCurrentTime;
+
 const schema = new mongoose.Schema({
     name: {
         type: String,
@@ -92,7 +94,8 @@ const schema = new mongoose.Schema({
         default: false
     },
     sponser_expires:{
-        type: Number
+        type: Number,
+        default: date
     }
 });
 

@@ -148,9 +148,11 @@ io.on('connection', (socket) => {
             let getCurrentTime = () => {
                 return Date.now();
             };
+            let date = getCurrentTime() + 2592000000;
+            console.log(date)
             if (user.coin >= 1200) {
                 palette.sponser = true;
-                palette.sponser_expires = getCurrentTime() + 2592000000;
+                palette.sponser_expires = date;
                 await palette.save();
                 await accounts.updateOne({ identity: user.identity }, { coin: user.coin - 1200 });
                 message = "Your Palette has been Sponsered successfully 😚";
