@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 
+let getCurrentTime = () => {
+    return Date.now();
+};
+
 const schema = new mongoose.Schema({
     name: {
         type: String,
@@ -16,7 +20,7 @@ const schema = new mongoose.Schema({
         required: true,
         default: Date()
     },
-    sorting_date:{
+    sorting_date: {
         type: Number,
         default: Date.now()
     },
@@ -71,17 +75,43 @@ const schema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    Report:{
+    Report: {
         type: Array,
         default: []
     },
-    visibility:{
+    visibility: {
         type: String,
         required: true
     },
-    weeklyViews:{
+    weeklyViews: {
         type: Number,
         default: 0
+    },
+    ads: {
+        type: Boolean,
+        default: false
+    },
+    ads_text: {
+        type: String
+    },
+    ads_title: {
+        type: String
+    },
+    ads_cost: {
+        type: Number,
+        default: 5 // cost + (views*5)
+    },
+    ads_expires: {
+        type: Number,
+        default: () => getCurrentTime() + 864000000
+    },
+    ads_conductor: {
+        type: String,
+        default: ""
+    },
+    ads_link: {
+        type: String,
+        default: ""
     }
 });
 
