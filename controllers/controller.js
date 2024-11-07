@@ -763,7 +763,7 @@ const LemonColorLab = async (req, res) => {
         const profile = "/accounts/" + user.profile;
         const newPalettes = await Palette.find({ visibility: "public" }).sort({ sorting_date: -1 }).limit(30);
         const trendingPalettes = await Palette.find({ visibility: "public" }).sort({ views: -1 });
-        const sponsered = await Palette.find({ visibility: "public", "sponser": true });
+        const sponsered = await Palette.find({ visibility: "public", "sponser": true }).sort({ sorting_date: -1 });
         return res.render("LemonColorLab", { user, profile, newPalettes, trendingPalettes, sponsered });
     } catch (error) {
         console.log(error.message);
