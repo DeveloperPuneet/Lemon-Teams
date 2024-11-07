@@ -15,7 +15,7 @@ html(lang="en")
                     input(type="hidden", value=palette.code, name="code")
                     .btn-actions 
                         input(type="submit" value="Delete" class="btn")
-                button#sponser Sponser Palette (1.2k/month) 
+                button.btn#sponser Sponser Palette (1.2k/month) 
             -else
                 -if (palette.Report.includes(user.identity))
                     .btn-actions#report-btn Reported
@@ -57,7 +57,6 @@ html(lang="en")
         script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js' integrity='sha512-11t8Q+vY9JlCrr+PveZKTYJq8n7O09Y5X/pk/aMd3vJugSvu4xOunGEUzaADqL3I8cZKE/pBwwCfXzDkRJh2sQ==' crossorigin='anonymous')
         script.
             const socket = io();
-            document.addEventListener('DOMContentLoaded', (event) => {
             const likeBtn = document.getElementById('like-btn');
             const reportBtn = document.getElementById('report-btn');
             const commentForm = document.getElementById('comment-form');
@@ -120,13 +119,12 @@ html(lang="en")
                 socket.emit('toggle-report', { userId, paletteIdentity });
             });
             }
+            socket.on("purchase-progress", (data) => {
+                alert(data.message);
             });
-
             const sponserbtn = document.getElementById("sponser");
             if(sponserbtn){
             sponserbtn.addEventListener('click', () => {
                 socket.emit('purchase-palette', { userId, paletteIdentity });
-            });
-            socket.on("purchase-progress", (data) => {
-                alert(data.message);
-            });
+            })};
+            

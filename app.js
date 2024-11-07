@@ -149,15 +149,16 @@ io.on('connection', (socket) => {
                 return Date.now();
             };
             let date = getCurrentTime() + 2592000000;
-            console.log(date)
-            if (user.coin >= 1200) {
+            if (user.coin >= 1200 && palette.sponser == false) {
                 palette.sponser = true;
                 palette.sponser_expires = date;
                 await palette.save();
                 await accounts.updateOne({ identity: user.identity }, { coin: user.coin - 1200 });
                 message = "Your Palette has been Sponsered successfully 😚";
-            } else{
-                message = "Your Palette has been Sponsered successfully 😚";
+            } else if(palette.sponser == true){
+                message = "Your Palette is already Sponsered 😚";
+            } else {
+                message = "Not enough Coins 😿";
             }
             socket.emit("purchase-progress", {message});
         } catch (error) {
