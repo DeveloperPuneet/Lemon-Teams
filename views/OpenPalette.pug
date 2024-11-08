@@ -15,7 +15,7 @@ html(lang="en")
                     input(type="hidden", value=palette.code, name="code")
                     .btn-actions 
                         input(type="submit" value="Delete" class="btn")
-                button.btn#sponser Sponser Palette (1.2k/month) 
+                button.btn#sponser(title="Your palette will be visible in sponsored Palette section, which will increase reach of palette 👌") Sponsor Palette (1.2k/month) 
             -else
                 -if (palette.Report.includes(user.identity))
                     .btn-actions#report-btn Reported

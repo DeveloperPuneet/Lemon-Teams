@@ -696,7 +696,7 @@ const LoadDashboard = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile;
-        const palettes = await Palette.find({ identity: req.session.identity });
+        const palettes = await Palette.find({ identity: req.session.identity }).sort({sorting_date: -1});
         const likedPalettes = await Palette.find({ liked: req.session.identity });
         const filteredPalettes = palettes.map(palette => {
             return {
