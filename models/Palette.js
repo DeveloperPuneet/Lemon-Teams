@@ -89,11 +89,11 @@ const schema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    sponser:{
+    sponser: {
         type: Boolean,
         default: false
     },
-    sponser_expires:{
+    sponser_expires: {
         type: Number,
         default: date
     }
