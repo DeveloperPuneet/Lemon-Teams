@@ -76,7 +76,7 @@ html(lang="en")
             .apps
                 each leader in leaderboards
                     .app
-                        a(href=`${leader.identity}`, target="_blank", rel="noopener noreferrer" class="transferred-leaderboard") 
+                        a(href=`/account/${leader.identity}`, target="_blank", rel="noopener noreferrer" class="transferred-leaderboard") 
                             img(src=`/accounts/${leader.profile}`, 
                                 alt="Loading..." 
                                 class="leader-img"
