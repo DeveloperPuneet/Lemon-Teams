@@ -72,5 +72,16 @@ html(lang="en")
                                             .version #{lib.version}
                         else
                             p.mentionInfoActivity You haven't saved any libraries yet.
+            h4.leaderBoard Top 30 LeaderBoard
+            .apps
+                each leader in leaderboards
+                    .app
+                        a(href=`${leader.identity}`, target="_blank", rel="noopener noreferrer" class="transferred-leaderboard") 
+                            img(src=`/accounts/${leader.profile}`, 
+                                alt="Loading..." 
+                                class="leader-img"
+                                onerror="this.src='/accounts/default.png'; this.onerror=null;")
+                            p.leader-name #{leader.name}
+                            p.leader-coin=leader.coin
         include ../public/layouts/footer.pug
         script(src="/js/OpenPalette.js")

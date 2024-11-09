@@ -267,3 +267,25 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.leaderBoard {
+    color: var(--sunset-glow);
+}
+
+.transferred-leaderboard {
+    color: var(--lemon-yellow);
+    text-decoration: none;
+}
+
+.leader-name {
+    color: var(--highlight-white);
+    font-size: 1rem;
+}
+
+.leader-img {
+    border-radius: 50%;
+}
+
+.leader-coin{
+    font-size: 0.7rem;
+}

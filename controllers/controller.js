@@ -696,7 +696,7 @@ const LoadDashboard = async (req, res) => {
     try {
         const user = await accounts.findOne({ identity: req.session.identity });
         const profile = "/accounts/" + user.profile;
-        const palettes = await Palette.find({ identity: req.session.identity }).sort({sorting_date: -1});
+        const palettes = await Palette.find({ identity: req.session.identity }).sort({ sorting_date: -1 });
         const likedPalettes = await Palette.find({ liked: req.session.identity });
         const filteredPalettes = palettes.map(palette => {
             return {
@@ -734,7 +734,8 @@ const LoadDashboard = async (req, res) => {
         });
         const ourLibs = await Library.find({ identity: req.session.identity });
         const savedLibs = await Library.find({ saved: req.session.identity });
-        return res.render("Dashboard", { user, profile, palettes: filteredPalettes, likedPalettes: LikedFilteredPalettes, ourLibs, savedLibs });
+        const leaderboards = await accounts.find({}).sort({ coin: -1 }).limit(30);
+        return res.render("Dashboard", { user, profile, palettes: filteredPalettes, likedPalettes: LikedFilteredPalettes, ourLibs, savedLibs, leaderboards });
     } catch (error) {
         console.log(error.message);
     }
