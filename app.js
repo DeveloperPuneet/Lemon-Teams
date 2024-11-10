@@ -214,7 +214,7 @@ cron.schedule('*/15 * * * *', () => {
     removeInvalidHexPalettes();
 });
 
-cron.schedule('2 11 * * 0', async () => {
+cron.schedule('35 11 * * 0', async () => {
     try {
         await sendTopPalettesEmail();
     } catch (error) {
