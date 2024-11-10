@@ -14,9 +14,7 @@ const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
         user.notifications.push({
             app: "Team loss",
             comment: '',
-            name: "1",
-            link: data.paletteIdentity,
-            identity: data.userId,
+            name: "1"
         });
         await user.save();
         const transporter = nodemailer.createTransport({
@@ -295,8 +293,6 @@ async function sendTopPalettesEmail() {
                     app: "Team won",
                     comment: '',
                     name: "100",
-                    link: data.paletteIdentity,
-                    identity: data.userId,
                 });
                 await user.save();
             }
