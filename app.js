@@ -212,6 +212,9 @@ cron.schedule('*/15 * * * *', () => {
     removeDuplicatePalettes();
     deleteIdenticalColorPalettes();
     removeInvalidHexPalettes();
+}, {
+    scheduled: true,
+    timezone: "Asia/Kolkata" 
 });
 
 const url = "https://lemonteams.onrender.com";
