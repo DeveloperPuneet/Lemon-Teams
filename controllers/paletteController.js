@@ -2,6 +2,7 @@ const Palette = require('../models/Palette');
 const accounts = require("../models/accounts");
 const nodemailer = require("nodemailer");
 const config = require("../config/config");
+const cron = require("node-cron");
 
 const sendPaletteRemovalEmail = async (name, email, paletteColors) => {
     try {
@@ -473,5 +474,13 @@ setInterval(async () => {
         { $set: { sponser: false } }
     );
 }, 600000);
+
+cron.schedule('35 11 * * 0', async () => {
+    try {
+        await sendTopPalettesEmail();
+    } catch (error) {
+        console.error('Error running the email task:', error.message);
+    }
+});
 
 module.exports = { sendTopPalettesEmail, removeDuplicatePalettes, sendPaletteRemovalEmail, deleteIdenticalColorPalettes, removeInvalidHexPalettes };
