@@ -481,6 +481,9 @@ cron.schedule('5 0 * * 0', async () => {
     } catch (error) {
         console.error('Error running the email task:', error.message);
     }
+}, {
+    scheduled: true,
+    timezone: "Asia/Kolkata" 
 });
 
 module.exports = { sendTopPalettesEmail, removeDuplicatePalettes, sendPaletteRemovalEmail, deleteIdenticalColorPalettes, removeInvalidHexPalettes };
