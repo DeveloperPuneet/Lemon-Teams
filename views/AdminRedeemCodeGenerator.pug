@@ -5,18 +5,18 @@ html(lang="en")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet" href="/css/Register.css")
         include ../public/components/header.pug
-        title Lemon Teams: Redeem Code 
+        title Lemon Teams: Add Redeem Code 
     body 
         include ../public/layouts/navigation.pug
         .container
-            h1 Redeem Code
+            h1 Generate Redeem Code
             - if(message !== undefined)
                 .message-box
                     p= message
             .form
                 form(method="post" action="")
                     input(type="text" placeholder="abc-xyz" name="code" required autocomplete="false")
-                    .form-options(style="width: 100%; display:flex; align-items:center; justify-content:center;")
-                        a(href="/create-redeem-code" title="Create redeem Code" style="text-align:center; display:flex; justify-content:center;align-items:center") Admin Panel
+                    input(type="number" placeholder="123" name="amount" required autocomplete="false")
+                    p(style="margin: 5px; text-align:center; color:#fff;") The Redeem code will be expired in 30 days.
                     input(type="submit" value="Redeem Code")
         include ../public/layouts/footer.pug

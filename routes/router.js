@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 const config = require("../config/config");
 const auth = require("../middlewares/auth");
 const controller = require("../controllers/controller");
+const redeemController = require("../controllers/RedeemController");
 
 const router = express();
 
@@ -130,6 +131,8 @@ router.get("/import/:token", controller.ImportedLinks);
 router.get("/get-palettes", controller.GetPalettes);
 router.get("/reedem-code", auth.isLogin, controller.ReedemCodeLoad);
 router.post("/reedem-code", auth.isLogin, controller.ReedemCodes);
+router.get("/create-redeem-code", auth.isLogin, redeemController.LoadRedeemCodeGenerator);
+router.post("/create-redeem-code", auth.isLogin, redeemController.PublishingRedeemCode);
 
 // For handling wrong requests
 router.get("*", controller.WrongRequestHandler);

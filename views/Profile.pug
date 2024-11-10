@@ -11,7 +11,7 @@ html(lang="en")
     .container 
       .left 
         .top 
-          img#ChangeProfile(src=showProfile, alt="Your Profile")
+          img#ChangeProfile(src=showProfile, alt="Your Profile" onerror="this.src='/accounts/default.png'; this.onerror=null;")
         .bottom 
           h2.name #{profileUser.name}
           h4.email #{profileUser.email}

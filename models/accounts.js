@@ -114,6 +114,10 @@ const schema = new mongoose.Schema({
     coin:{
         type: Number,
         default: 0
+    },
+    admin:{
+        type: Boolean,
+        default: false
     }
 });
 

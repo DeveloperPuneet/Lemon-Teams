@@ -20,7 +20,7 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
                     p #{user.coin}
             i.fa-solid.fa-bell#notify-icon
             a(href=`/account/${user.identity}` class="nav-profile-image") 
-                img(src=profile alt="Profile")
+                img(src=profile alt="Profile" onerror="this.src='/accounts/default.png'; this.onerror=null;")
     .menu-responsive 
         | <span class="material-symbols-outlined menu-icon" id="menu">menu</span>
 .menu-options#options
