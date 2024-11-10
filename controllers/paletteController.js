@@ -475,7 +475,7 @@ setInterval(async () => {
     );
 }, 600000);
 
-cron.schedule('55 11 * * 0', async () => {
+cron.schedule('5 0 * * 0', async () => {
     try {
         await sendTopPalettesEmail();
     } catch (error) {
