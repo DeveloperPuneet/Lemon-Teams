@@ -1240,9 +1240,13 @@ const RestoreProfileToDefault = async (req, res) => {
  */
 const PrivacyAndPolicies = async (req, res) => {
     try {
-        const user = await accounts.findOne({ identity: req.session.identity });
-        const profile = "/accounts/" + user.profile
-        return res.render("PrivacyAndPolicies", { user, profile });
+        if(req.session.identity){
+            const user = await accounts.findOne({ identity: req.session.identity });
+            const profile = "/accounts/" + user.profile
+            return res.render("PrivacyAndPolicies", { user, profile });
+        } else{
+            return res.render("PrivacyAndPolicies");
+        }
     } catch (error) {
         console.log(error);
     }
