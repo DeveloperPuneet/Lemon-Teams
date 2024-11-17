@@ -2,7 +2,7 @@ document.getElementById('searching').addEventListener('input', function () {
     setInterval(() => {
         let searchValue = this.value.toLowerCase();
         let palettes = document.querySelectorAll('.palette');
-    
+
         palettes.forEach(palette => {
             let text = Array.from(palette.querySelectorAll('.hide')).map(element => element.innerText.toLowerCase()).join("");
             if (text.includes(searchValue)) {
@@ -10,7 +10,7 @@ document.getElementById('searching').addEventListener('input', function () {
                 palette.style.display = 'none';
             }
         });
-    
+
         if (searchValue === '') {
             palettes.forEach(palette => {
                 palette.style.display = '';
@@ -60,8 +60,8 @@ function renderPalettes(palettes) {
         loadedPalettes.add(palette.code);
 
         let colors = [
-            palette.color1, palette.color2, palette.color3, palette.color4, 
-            palette.color5, palette.color6, palette.color7, palette.color8, 
+            palette.color1, palette.color2, palette.color3, palette.color4,
+            palette.color5, palette.color6, palette.color7, palette.color8,
             palette.color9, palette.color10
         ].filter(Boolean); // Filter out empty or undefined color values
 
@@ -83,8 +83,19 @@ function renderPalettes(palettes) {
             console.warn(`No valid colors found for palette: ${palette.code}`);
         }
         paletteElement.appendChild(searchInstallation);
-        paletteContainer.appendChild(paletteElement); // Append the new palettes to the container
+        paletteContainer.appendChild(paletteElement); // Append the colors to the palette
     });
+    // Add Ads between the palette 
+    paletteContainer.innerHTML += `<script type="text/javascript">
+	atOptions = {
+		'key' : '95e04a77e1ace9580af1ecee51dcb57e',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/95e04a77e1ace9580af1ecee51dcb57e/invoke.js"></script>`
 }
 
 // Infinite scrolling logic
