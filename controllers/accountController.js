@@ -16,13 +16,11 @@ const deleteExpiredNotifications = async () => {
                 }
             }
         );
-        console.log(result);
     } catch (error) {
         console.error("Error deleting expired notifications:", error);
     }
 };
 
-deleteExpiredNotifications();
 // Schedule the cleanup task to run at midnight every day
 cron.schedule("0 0 * * *", async () => {
     await deleteExpiredNotifications();
