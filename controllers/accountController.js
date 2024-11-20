@@ -1,5 +1,6 @@
 const accounts = require("../models/accounts");
 const cron = require("node-cron");
+const mongoose = require("mongoose");
 
 const deleteExpiredNotifications = async () => {
     try {
@@ -15,6 +16,7 @@ const deleteExpiredNotifications = async () => {
                 }
             }
         );
+        console.log(result);
     } catch (error) {
         console.error("Error deleting expired notifications:", error);
     }

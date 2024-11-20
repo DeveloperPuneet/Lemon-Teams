@@ -16,6 +16,7 @@ const path = require('path');
 const cron = require("node-cron");
 
 const config = require("../config/config");
+require("../controllers/accountController")
 
 /**
  * The above functions are used to send different types of emails (account verification, password
