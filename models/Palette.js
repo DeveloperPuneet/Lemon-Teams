@@ -96,6 +96,10 @@ const schema = new mongoose.Schema({
     sponser_expires: {
         type: Number,
         default: date
+    },
+    viewers:{
+        type: Array,
+        default: []
     }
 });
 

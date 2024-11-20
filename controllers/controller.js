@@ -866,10 +866,19 @@ const OpenPalette = async (req, res) => {
         const code = req.query.code;
         const palette = await Palette.findOne({ code: code });
         let isPaletteOurs = false;
+        let Identity = req.session.identity;
         if (palette) {
+            // palette data management 
             const views = palette.views + 1;
             const weekly = palette.weeklyViews + 1;
-            await Palette.updateOne({ code: code }, { $set: { views: views, weeklyViews: weekly } });
+            if (!palette.viewers.includes(Identity)) {
+                palette.viewers.push(Identity);
+                await Palette.updateOne({ code: code }, { $set: { views: views, weeklyViews: weekly } });
+                palette.save();
+            } else{
+                await Palette.updateOne({ code: code }, { $set: {weeklyViews: weekly } });
+            }
+            // user account data
             const user = await accounts.findOne({ identity: req.session.identity });
             const profile = user ? "/accounts/" + user.profile : undefined;
             const author = await accounts.findOne({ identity: palette.identity });
