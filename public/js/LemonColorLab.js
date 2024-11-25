@@ -85,18 +85,6 @@ function renderPalettes(palettes) {
         paletteElement.appendChild(searchInstallation);
         paletteContainer.appendChild(paletteElement); // Append the colors to the palette
     });
-    // Add Ads between the palette 
-    paletteContainer.innerHTML += `<script type="text/javascript">
-	atOptions = {
-		'key' : '95e04a77e1ace9580af1ecee51dcb57e',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/95e04a77e1ace9580af1ecee51dcb57e/invoke.js"></script>`
-}
 
 // Infinite scrolling logic
 window.addEventListener('scroll', () => {

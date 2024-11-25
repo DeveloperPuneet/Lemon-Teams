@@ -83,15 +83,5 @@ html(lang="en")
                                 onerror="this.src='/accounts/default.png'; this.onerror=null;")
                             p.leader-name #{leader.name}
                             p.leader-coin=leader.coin
-            .ads(style="display: flex; justify-content: center; align-items: center;")
-                script(type="text/javascript").
-                    atOptions = {
-                        'key' : '0fcbee03076f0d65f6168a364afa1b52',
-                        'format' : 'iframe',
-                        'height' : 90,
-                        'width' : 728,
-                        'params' : {}
-                    };
-                script(type="text/javascript", src="//www.highperformanceformat.com/0fcbee03076f0d65f6168a364afa1b52/invoke.js")
         include ../public/layouts/footer.pug
         script(src="/js/OpenPalette.js")
