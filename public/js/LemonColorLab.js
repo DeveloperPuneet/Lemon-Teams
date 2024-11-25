@@ -85,7 +85,7 @@ function renderPalettes(palettes) {
         paletteElement.appendChild(searchInstallation);
         paletteContainer.appendChild(paletteElement); // Append the colors to the palette
     });
-
+}
 // Infinite scrolling logic
 window.addEventListener('scroll', () => {
     let { scrollTop, scrollHeight, clientHeight } = document.documentElement;
