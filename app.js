@@ -199,12 +199,12 @@ io.on('connection', (socket) => {
     socket.on("buyBadge", async (data) => {
         try {
             let user = await accounts.findOne({ identity: data.userId });
-            if (user.coin >= data.cost && user.badges.includes(data.title)) {
+            if (user.coin >= data.cost && !user.badges.includes(data.title)) {
                 user.coin -= data.cost;
                 user.badges.push(data.title);
                 await user.save();
                 socket.emit("badge-purchased", { message: "Badge Purchased successfully 🥰" });
-            } else if(user.coin >= data.cost) {
+            } else if(user.coin <= data.cost) {
                 socket.emit("badge-purchased", { message: "Don't have enough coins 😿" });
             } else if(user.badges.includes(data.title)){
                 socket.emit("badge-purchased", { message: "You already own this badge 🤪" });
