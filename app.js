@@ -155,12 +155,12 @@ io.on('connection', (socket) => {
                 await palette.save();
                 await accounts.updateOne({ identity: user.identity }, { coin: user.coin - 1200 });
                 message = "Your Palette has been Sponsered successfully 😚";
-            } else if(palette.sponser == true){
+            } else if (palette.sponser == true) {
                 message = "Your Palette is already Sponsered 😚";
             } else {
                 message = "Not enough Coins 😿";
             }
-            socket.emit("purchase-progress", {message});
+            socket.emit("purchase-progress", { message });
         } catch (error) {
             console.error(error.message);
         }
@@ -196,6 +196,24 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on("buyBadge", async (data) => {
+        try {
+            let user = await accounts.findOne({ identity: data.userId });
+            if (user.coin >= data.cost && user.badges.includes(data.title)) {
+                user.coin -= data.cost;
+                user.badges.push(data.title);
+                await user.save();
+                socket.emit("badge-purchased", { message: "Badge Purchased successfully 🥰" });
+            } else if(user.coin >= data.cost) {
+                socket.emit("badge-purchased", { message: "Don't have enough coins 😿" });
+            } else if(user.badges.includes(data.title)){
+                socket.emit("badge-purchased", { message: "You already own this badge 🤪" });
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    });
+
     socket.on('disconnect', () => {
     });
 });
@@ -214,7 +232,7 @@ cron.schedule('*/15 * * * *', () => {
     removeInvalidHexPalettes();
 }, {
     scheduled: true,
-    timezone: "Asia/Kolkata" 
+    timezone: "Asia/Kolkata"
 });
 
 const url = "https://lemonteams.onrender.com";

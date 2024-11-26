@@ -224,7 +224,7 @@
     aspect-ratio: 1/1;
 }
 
-@media (max-width: 655px) {
+@media (max-width: 855px) {
     .logo p {
         display: none;
     }
@@ -234,7 +234,7 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 775px) {
     .options {
         display: none;
     }

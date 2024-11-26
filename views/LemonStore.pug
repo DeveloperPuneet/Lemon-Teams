@@ -1,0 +1,32 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../public/components/header.pug
+        link(rel="stylesheet", href="/css/LemonStore.css")
+        title Lemon Teams: Lemon Store
+    body#body 
+        include ../public/layouts/navigation.pug
+        h1.store-heading-text Lemon Store 
+        p.store-description-text a dedicated space in Lemon Teams where you can purchase exclusive badges to personalize your profile and showcase your achievements. Stand out, express yourself, and let your profile shine with unique badges crafted just for you!
+        .store 
+            .badges 
+                h4 Badges
+                .cards
+                    .badge-cards 
+                        .badge-img
+                            img(src="/ecosystem/OdinaryUser.png", alt="loyalUser.png")
+                        p.badge-text Loyal User
+                        button(class="buy-btn" onclick="buyBadge('OdinaryUser.png', 10000000)") 10000000
+        include ../public/layouts/footer_withoutSocket.pug
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js' integrity='sha512-11t8Q+vY9JlCrr+PveZKTYJq8n7O09Y5X/pk/aMd3vJugSvu4xOunGEUzaADqL3I8cZKE/pBwwCfXzDkRJh2sQ==' crossorigin='anonymous')
+        script.
+            const socket = io();
+            const userId = '#{user.identity}';
+            function buyBadge(title, cost){
+                socket.emit('buyBadge', {userId, title, cost});
+            }
+            socket.on("badge-purchased", async(data)=>{
+                alert(data.message);
+            });

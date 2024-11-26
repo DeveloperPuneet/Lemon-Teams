@@ -16,7 +16,8 @@ const path = require('path');
 const cron = require("node-cron");
 
 const config = require("../config/config");
-require("../controllers/accountController")
+require("../controllers/accountController");
+require("../controllers/storeController");
 
 /**
  * The above functions are used to send different types of emails (account verification, password
@@ -876,8 +877,8 @@ const OpenPalette = async (req, res) => {
                 palette.viewers.push(Identity);
                 await Palette.updateOne({ code: code }, { $set: { views: views, weeklyViews: weekly } });
                 palette.save();
-            } else{
-                await Palette.updateOne({ code: code }, { $set: {weeklyViews: weekly } });
+            } else {
+                await Palette.updateOne({ code: code }, { $set: { weeklyViews: weekly } });
             }
             // user account data
             const user = await accounts.findOne({ identity: req.session.identity });
@@ -1250,11 +1251,11 @@ const RestoreProfileToDefault = async (req, res) => {
  */
 const PrivacyAndPolicies = async (req, res) => {
     try {
-        if(req.session.identity){
+        if (req.session.identity) {
             const user = await accounts.findOne({ identity: req.session.identity });
             const profile = "/accounts/" + user.profile
             return res.render("PrivacyAndPolicies", { user, profile });
-        } else{
+        } else {
             return res.render("PrivacyAndPolicies");
         }
     } catch (error) {
@@ -1802,6 +1803,16 @@ const ReedemCodes = async (req, res) => {
     }
 }
 
+const LemonStoreLoad = async (req, res) => {
+    try {
+        let user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile;
+        return res.render("LemonStore", { user, profile });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 // Exporting all the modules in the route file
 module.exports = {
     Load,
@@ -1849,5 +1860,6 @@ module.exports = {
     VerifyReminderAccount,
     WrongRequestHandler,
     ReedemCodeLoad,
-    ReedemCodes
+    ReedemCodes,
+    LemonStoreLoad
 };

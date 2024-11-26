@@ -118,6 +118,10 @@ const schema = new mongoose.Schema({
     admin:{
         type: Boolean,
         default: false
+    },
+    badges:{
+        type: Array,
+        default: []
     }
 });
 

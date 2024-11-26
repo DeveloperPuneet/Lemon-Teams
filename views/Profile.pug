@@ -39,6 +39,15 @@ html(lang="en")
             .description 
               p Description
               textarea(name="description" placeholder="Description" required)= profileUser.description
+            .badges Badges
+            .bdgs
+              -if(profileUser.badges.length-1 >= 0)
+                -for(let i = profileUser.badges.length - 1; i >= 0; i--) 
+                  .bdg-img
+                    img(src=`/ecosystem/${profileUser.badges[i]}`, alt="")
+                p #{profileUser.badges.length}
+              -else
+                p(style="text-align:center; width: 100%;") Get Badges from <a href="/lemon-store">Lemon Store</a>
             .add-links
               p Links
               .adding-link
@@ -64,5 +73,14 @@ html(lang="en")
           .description 
             p.highlighted Description
             p #{profileUser.description}
+          .badges 
+            p.highlighted Badges
+            .bdgs
+              -if(profileUser.badges.length-1 >= 0)
+                -for (let i = profileUser.badges.length - 1; i >= 0; i--)
+                  .bdg-img
+                    img(src=`/ecosystem/${profileUser.badges[i]}`, alt="")
+              -else 
+                p(style="text-align:center; width: 100%;") No badges available
     include ../public/layouts/footer.pug
     script(src="/js/Profile.js")

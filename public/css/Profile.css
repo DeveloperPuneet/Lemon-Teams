@@ -345,3 +345,32 @@ form {
         flex-direction: column;
     }
 }
+
+.bdgs {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+    max-height: fit-content;
+    overflow-x: auto;
+    margin: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.bdg-img {
+    min-height: 100px;
+    min-width: 100px !important;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    scroll-snap-align: start;
+}
+
+.bdg-img img{
+    width: 100px;
+    aspect-ratio: 1/1;
+    height: 100px;
+}

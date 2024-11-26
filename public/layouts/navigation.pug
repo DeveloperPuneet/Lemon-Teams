@@ -13,6 +13,7 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
         -if (!user)
             a(href="/account") <span class="material-symbols-outlined">person</span>
         -else
+            a(href="/lemon-store") Lemon Store
             a(href="/dashboard") Dashboard
             .coins 
                 a(href="/reedem-code") 
@@ -37,6 +38,8 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
         a(href="/account") <i class="fa-solid fa-file-invoice"></i>&nbsp; Account 
     -else
         a(href=`/account/${user.identity}`) <i class="fa-solid fa-file-invoice"></i>&nbsp; Account 
+        a(href="/lemon-store") Lemon Store
+        a(href="/dashboard") Dashboard
     .line
 #notifications 
     if (user.notifications)
