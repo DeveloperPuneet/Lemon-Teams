@@ -369,8 +369,19 @@ form {
     scroll-snap-align: start;
 }
 
-.bdg-img img{
+.bdg-img img {
     width: 100px;
     aspect-ratio: 1/1;
     height: 100px;
+}
+
+.badges .highlighted {
+    font-size: 1.2rem;
+    color: var(--highlight-white);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.badges{
+    width: 100%;
 }
