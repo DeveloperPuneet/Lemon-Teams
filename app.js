@@ -208,6 +208,8 @@ io.on('connection', (socket) => {
                 socket.emit("badge-purchased", { message: "Don't have enough coins 😿" });
             } else if(user.badges.includes(data.title)){
                 socket.emit("badge-purchased", { message: "You already own this badge 🤪" });
+            } else{
+                socket.emit("badge-purchased", { message: "Not enough coins 😭" });
             }
         } catch (error) {
             console.log(error.message);

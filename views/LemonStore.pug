@@ -54,9 +54,13 @@ html(lang="en")
         script.
             const socket = io();
             const userId = '#{user.identity}';
+            socket.on("badge-purchased", async(data)=>{
+                try{
+                alert(data.message);
+                } catch(error){
+                    console.log(error.message);
+                }
+            });
             function buyBadge(title, cost){
                 socket.emit('buyBadge', {userId, title, cost});
             }
-            socket.on("badge-purchased", async(data)=>{
-                alert(data.message);
-            });
