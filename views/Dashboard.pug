@@ -32,7 +32,7 @@ html(lang="en")
                                             if color
                                                 .color(data-color=`${color}`, style=`background: ${color};`)
                         else
-                            p.mentionInfoActivity No palettes published yet.
+                            p.mentionInfoActivity(style="width: 100%; text-align:center;") No palettes published yet.
                     p.sub-headings Liked Palettes
                     .palettes
                         if likedPalettes.length > 0
@@ -43,7 +43,7 @@ html(lang="en")
                                             if color
                                                 .color(data-color=`${color}`, style=`background: ${color};`)
                         else
-                            p.mentionInfoActivity You haven't liked any palettes yet.
+                            p.mentionInfoActivity(style="width: 100%; text-align:center;") You haven't liked any palettes yet.
                 .lemon-library 
                     h5 Lemon Library
                     p.sub-headings Your Libraries 
