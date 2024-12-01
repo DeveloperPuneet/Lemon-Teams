@@ -38,12 +38,26 @@ const DistributeBadges = async () => {
                                 if (likes >= 1000) {
                                     if (!account.badges.includes("1000-liked-palette.jpeg")) {
                                         account.badges.push("1000-liked-palette.jpeg");
+                                    } else {
+                                        account.badges.pull("1-liked-palette.jpeg");
                                     }
+                                } else {
+                                    account.badges.pull("1000-liked-palette.jpeg");
                                 }
+                            } else {
+                                account.badges.pull("500-liked-palette.jpeg");
                             }
+                        } else {
+                            account.badges.pull("100-liked-palette.jpeg");
                         }
+                    } else {
+                        account.badges.pull("50-liked-palette.jpeg");
                     }
+                } else {
+                    account.badges.pull("10-liked-palette.jpeg");
                 }
+            } else {
+                account.badges.pull("1-liked-palette.jpeg");
             }
             await account.save();
         });
