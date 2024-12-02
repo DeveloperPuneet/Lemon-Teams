@@ -10,7 +10,8 @@ const DistributeBadges = async () => {
         Accounts.forEach(async (account) => {
             let identity = account.identity;
             let likes = 0;
-            await palettes.forEach(palette => {
+            // badges for likes of palettes
+            palettes.forEach(palette => {
                 if (palette.liked.includes(identity)) {
                     likes++;
                 }
@@ -57,6 +58,20 @@ const DistributeBadges = async () => {
             } else {
                 account.badges.pull("1-liked-palette.jpeg");
             }
+            //badges for comments on palettes
+            palettes.forEach(async (palette) => {
+                let AdminIdentity = palette.identity;
+                let comments = palette.comments.length;
+                let AdminAccount = await accounts.findOne({ identity: AdminIdentity });
+                if (comments >= 1) {
+                    if (!AdminAccount.badges.includes("1-comment-received.jpeg")) {
+                        AdminAccount.badges.push("1-comment-received.jpeg");
+                    }
+                } else {
+                    AdminAccount.badges.pull("1-comment-received.jpeg");
+                }
+                await AdminIdentity.save();
+            });
             await account.save();
         });
     } catch (error) {
