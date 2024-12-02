@@ -79,7 +79,9 @@ const DistributeBadges = async () => {
                     }
                 }
 
-                await AdminAccount.save();
+                if (AdminAccount) {
+                    await AdminAccount.save();
+                }
             }
             await account.save();
         });
