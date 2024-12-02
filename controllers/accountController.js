@@ -61,7 +61,7 @@ const DistributeBadges = async () => {
             //badges for comments on palettes
             palettes.forEach(async (palette) => {
                 let AdminIdentity = palette.identity;
-                let comments = palette.comments.length;
+                let comments = palette.comments.length-1;
                 let AdminAccount = await accounts.findOne({ identity: AdminIdentity });
                 if (comments >= 1) {
                     if (!AdminAccount.badges.includes("1-comment-received.jpeg")) {
