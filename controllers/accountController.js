@@ -59,19 +59,28 @@ const DistributeBadges = async () => {
                 account.badges.pull("1-liked-palette.jpeg");
             }
             //badges for comments on palettes
-            palettes.forEach(async (palette) => {
+            for (const palette of palettes) {
                 let AdminIdentity = palette.identity;
-                let comments = palette.comments.length-1;
+                let comments = palette.comments.length - 1;
                 let AdminAccount = await accounts.findOne({ identity: AdminIdentity });
+
+                if (!AdminAccount) {
+                    continue;
+                }
+
                 if (comments >= 1) {
                     if (!AdminAccount.badges.includes("1-comment-received.jpeg")) {
                         AdminAccount.badges.push("1-comment-received.jpeg");
                     }
                 } else {
-                    AdminAccount.badges.pull("1-comment-received.jpeg");
+                    const badgeIndex = AdminAccount.badges.indexOf("1-comment-received.jpeg");
+                    if (badgeIndex !== -1) {
+                        AdminAccount.badges.splice(badgeIndex, 1);
+                    }
                 }
-                await AdminIdentity.save();
-            });
+
+                await AdminAccount.save();
+            }
             await account.save();
         });
     } catch (error) {
