@@ -57,13 +57,21 @@ const DistributeBadges = async () => {
                 }
             } else {
                 account.badges.pull("1-liked-palette.jpeg");
-            }           
+            }
             await account.save();
         });
     } catch (error) {
         console.log(error.message);
     }
 }
+
+const VersioningReset = async () => {
+    try {
+        const Reset = await accounts.updateMany({}, { $set: { __v: 0 } });
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 const deleteExpiredNotifications = async () => {
     try {
@@ -91,4 +99,8 @@ cron.schedule("0 0 * * *", async () => {
 
 cron.schedule('* * * * *', () => {
     DistributeBadges();
+});
+
+cron.schedule('30 30 0 * * *', () => {
+    VersioningReset();
 });
