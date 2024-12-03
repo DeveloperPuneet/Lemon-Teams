@@ -289,6 +289,23 @@ body {
     margin-top: 20px;
 }
 
+.dynamic-effect {
+    animation: fadeIn linear;
+    animation-timeline: view();
+}
+
+@keyframes fadeIn {
+    from {
+        scale: .8;
+        opacity: 0;
+    }
+
+    to {
+        scale: 1;
+        opacity: 1;
+    }
+} 
+
 @media (max-width: 800px) {
     .Testimonials {
         padding: 10px;
