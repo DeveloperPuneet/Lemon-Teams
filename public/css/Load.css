@@ -292,6 +292,7 @@ body {
 .dynamic-effect {
     animation: fadeIn linear;
     animation-timeline: view();
+    animation-range: entry 0;
 }
 
 @keyframes fadeIn {
