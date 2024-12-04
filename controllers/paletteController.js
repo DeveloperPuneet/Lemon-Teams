@@ -502,7 +502,7 @@ const CommentPaletteBadges = async () => {
                     if (!user.badges.includes("1-palette-comment.jpeg")) {
                         await accounts.updateOne({ identity: palette.identity }, { $push: { badges: "1-palette-comment.jpeg" } });
                     }
-                    if(palette.comments.length >= 5){
+                    if (palette.comments.length >= 5) {
                         if (!user.badges.includes("5-palette-comment.jpeg")) {
                             await accounts.updateOne({ identity: palette.identity }, { $push: { badges: "5-palette-comment.jpeg" } });
                         }
