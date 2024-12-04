@@ -492,8 +492,29 @@ const FakePalettes = async () => {
     }
 }
 
+const CommentPaletteBadges = async () => {
+    try {
+        const palettes = await Palette.find({});
+        for (const palette of palettes) {
+            let user = await accounts.findOne({ identity: palette.identity });
+            try {
+                if (palette.comments.length >= 1) {
+                    if (!user.badges.includes("1-palette-comment.jpeg")) {
+                        await accounts.updateOne({ identity: palette.identity }, { $push: { badges: "1-palette-comment.jpeg" } });
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 cron.schedule('* * * * *', () => {
     FakePalettes();
+    CommentPaletteBadges();
 });
 
 cron.schedule('5 0 * * 0', async () => {
