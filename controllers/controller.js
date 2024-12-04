@@ -14,6 +14,7 @@ const randomstring = require("randomstring");
 const fs = require('fs');
 const path = require('path');
 const cron = require("node-cron");
+const mongoose = require("mongoose");
 
 const config = require("../config/config");
 require("../controllers/accountController");
@@ -640,15 +641,25 @@ const EnterPasswordLoad = async (req, res) => {
  */
 const ChangePassword = async (req, res) => {
     try {
-        const { identity, token, password } = await req.body;
+        const { identity, token, password } = req.body;
         const newPassword = await encryptedPassCode(password);
-        const user = await accounts.updateOne({ identity: identity, token: token }, { $set: { password: newPassword } });
-        const userData = await accounts.updateOne({ identity: identity, token: token }, { $set: { token: "" } });
+        const userUpdate = await accounts.updateOne(
+            { identity: identity, token: token },
+            { $set: { password: newPassword, token: "" } }
+        );
+        if (userUpdate.matchedCount === 0) {
+            return res.status(404).send("Invalid identity or token.");
+        }
+        const sessionsCollection = mongoose.connection.collection("sessions");
+        await sessionsCollection.deleteMany({
+            "session.identity": identity
+        });
         return res.render("Login", { message: "Your password is changed successfully ✔" });
     } catch (error) {
-        console.log(error.message);
+        console.error("Error in ChangePassword:", error.message);
+        return res.status(500).send("An error occurred while changing the password.");
     }
-}
+};
 
 /**
  * The function `productLoad` asynchronously loads user data and renders the "Products" page based on
