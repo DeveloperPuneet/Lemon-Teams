@@ -204,16 +204,23 @@ io.on('connection', (socket) => {
                 user.badges.push(data.title);
                 await user.save();
                 socket.emit("badge-purchased", { message: "Badge Purchased successfully 🥰" });
-            } else if(user.coin <= data.cost) {
+            } else if (user.coin <= data.cost) {
                 socket.emit("badge-purchased", { message: "Don't have enough coins 😿" });
-            } else if(user.badges.includes(data.title)){
+            } else if (user.badges.includes(data.title)) {
                 socket.emit("badge-purchased", { message: "You already own this badge 🤪" });
-            } else{
+            } else {
                 socket.emit("badge-purchased", { message: "Not enough coins 😭" });
             }
         } catch (error) {
             console.log(error.message);
         }
+    });
+
+    socket.on("coin-update", async (data) => {
+        let user = data.user;
+        const account = await accounts.findOne({ identity: user });
+        let coin = account.coin;
+        socket.emit("coin-update", { coin });
     });
 
     socket.on('disconnect', () => {

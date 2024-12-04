@@ -19,7 +19,7 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
                 a(href="/reedem-code") 
                     .img-coin
                         img(src="/Emblem/Emblem.jpeg")
-                    p #{user.coin}
+                    p#coin #{user.coin}
             i.fa-solid.fa-bell#notify-icon
             a(href=`/account/${user.identity}` class="nav-profile-image") 
                 img(src=profile alt="Profile" onerror="this.src='/accounts/default.png'; this.onerror=null;")
@@ -57,4 +57,14 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
                 else if(notification.app == "Team loss")
                         p You lost <span class="bold"> #{notification.name} Lemon Coins </span>
                 p.time-ago.time(id=`time-ago-${index}` data-time=`${notification.time}`)
+include ../components/socket_setup.pug
+script. 
+    let user =  `#{user.identity}`;
+    let coin = document.getElementById("coin");
+    setInterval(()=>{
+        socket.emit("coin-update", {user});
+    }, 2000);
+    socket.on("coin-update", async(data)=>{
+        coin.innerHTML = data.coin;
+    });
 script(src="../js/navigation.js") 

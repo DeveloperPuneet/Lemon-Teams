@@ -50,9 +50,7 @@ html(lang="en")
                         p.badge-text Loyal Journey
                         button(class="buy-btn" onclick="buyBadge('loyalUser.png', 70000)") 70000
         include ../public/layouts/footer_withoutSocket.pug
-        script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js' integrity='sha512-11t8Q+vY9JlCrr+PveZKTYJq8n7O09Y5X/pk/aMd3vJugSvu4xOunGEUzaADqL3I8cZKE/pBwwCfXzDkRJh2sQ==' crossorigin='anonymous')
         script.
-            const socket = io();
             const userId = '#{user.identity}';
             socket.on("badge-purchased", async(data)=>{
                 try{

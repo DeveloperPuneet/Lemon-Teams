@@ -33,9 +33,7 @@ html(lang="en")
                 a(href=`/account/${owner.identity}`, target="_blank", rel="noopener noreferrer") #{owner.name}
         include ../public/layouts/footer_withoutSocket.pug
         script(src="/js/LibraryCollection.js") 
-        script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js' integrity='sha512-11t8Q+vY9JlCrr+PveZKTYJq8n7O09Y5X/pk/aMd3vJugSvu4xOunGEUzaADqL3I8cZKE/pBwwCfXzDkRJh2sQ==' crossorigin='anonymous')
         script.
-            const socket = io();
             document.addEventListener("DOMContentLoaded", () => {
             const saveButton = document.getElementById("save-library");
             const libraryCode = "#{library.code}"; 
