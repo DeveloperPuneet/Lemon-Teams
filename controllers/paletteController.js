@@ -506,6 +506,31 @@ const CommentPaletteBadges = async () => {
                         if (!user.badges.includes("5-palette-comment.jpeg")) {
                             await accounts.updateOne({ identity: palette.identity }, { $push: { badges: "5-palette-comment.jpeg" } });
                         }
+                        if (palette.comments.length >= 10) {
+                            if (!user.badges.includes("10-palette-comment.jpeg")) {
+                                await accounts.updateOne({ identity: palette.identity }, { $push: { badges: "10-palette-comment.jpeg" } });
+                            }
+                            if (palette.comments.length >= 50) {
+                                if (!user.badges.includes("50-palette-comment.jpeg")) {
+                                    await accounts.updateOne({ identity: palette.identity }, { $push: { badges: "50-palette-comment.jpeg" } });
+                                }
+                                if (palette.comments.length >= 100) {
+                                    if (!user.badges.includes("100-palette-comment.jpeg")) {
+                                        await accounts.updateOne({ identity: palette.identity }, { $push: { badges: "100-palette-comment.jpeg" } });
+                                    }
+                                    if (palette.comments.length >= 500) {
+                                        if (!user.badges.includes("500-palette-comment.jpeg")) {
+                                            await accounts.updateOne({ identity: palette.identity }, { $push: { badges: "500-palette-comment.jpeg" } });
+                                        }
+                                        if (palette.comments.length >= 1000) {
+                                            if (!user.badges.includes("1000-palette-comment.jpeg")) {
+                                                await accounts.updateOne({ identity: palette.identity }, { $push: { badges: "1000-palette-comment.jpeg" } });
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             } catch (error) {
