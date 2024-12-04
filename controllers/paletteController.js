@@ -471,6 +471,31 @@ setInterval(async () => {
     );
 }, 600000);
 
+const FakePalettes = async () => {
+    try {
+        const palettes = await Palette.find({});
+        palettes.forEach(async (palette) => {
+            try {
+                if (palette.identity) {
+                    let identity = palette.identity;
+                    let userExists = await accounts.findOne({ identity: identity });
+                    if (!userExists) {
+                        await Palette.deleteOne({ code: palette.code })
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+cron.schedule('* * * * *', () => {
+    FakePalettes();
+});
+
 cron.schedule('5 0 * * 0', async () => {
     try {
         await sendTopPalettesEmail();
@@ -479,7 +504,7 @@ cron.schedule('5 0 * * 0', async () => {
     }
 }, {
     scheduled: true,
-    timezone: "Asia/Kolkata" 
+    timezone: "Asia/Kolkata"
 });
 
 module.exports = { sendTopPalettesEmail, removeDuplicatePalettes, sendPaletteRemovalEmail, deleteIdenticalColorPalettes, removeInvalidHexPalettes };
