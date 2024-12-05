@@ -32,6 +32,10 @@ const NotificationSchema = new mongoose.Schema({
     time: {
         type: Number,
         default: getCurrentTime
+    },
+    seen: {
+        type: Boolean,
+        default: false
     }
 });
 
@@ -111,15 +115,15 @@ const schema = new mongoose.Schema({
         type: [NotificationSchema],
         default: []
     },
-    coin:{
+    coin: {
         type: Number,
         default: 0
     },
-    admin:{
+    admin: {
         type: Boolean,
         default: false
     },
-    badges:{
+    badges: {
         type: Array,
         default: []
     }

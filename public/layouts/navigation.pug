@@ -45,6 +45,7 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Sy
     if (user.notifications)
         each notification in user.notifications.reverse()
             .notification
+                .hide #{notification.seen}
                 if (notification.app == "Color Lab")
                     if (notification.comment == null || notification.comment == "" || !notification.comment || notification.comment == undefined)
                         p <span class="bold">  #{notification.name} </span> liked your <a href="https://lemonteams.onrender.com/open-palette?code=#{notification.link}" target="_blank" style="color: white;"> palette </a>
@@ -67,4 +68,25 @@ script.
     socket.on("coin-update", async(data)=>{
         coin.innerHTML = data.coin;
     });
+    async function update(){
+    const hideDivs = document.querySelectorAll('.hide');
+    const count = Array.from(hideDivs).filter(div => div.innerHTML.trim() === 'false').length;
+    if(count >= 1){
+        document.getElementById('notify-icon').style.borderBottom = '1px solid red';
+        document.getElementById('notify-icon').style.padding = '0';
+        document.getElementById('notify-icon').style.paddingBottom = '2px';
+    }
+    document.getElementById('notify-icon').addEventListener('click',()=>{
+        document.getElementById('notify-icon').style.borderBottom = 'none';
+        socket.emit("notification-seen", {user});
+        hideDivs.forEach(div => {
+            if (div.innerHTML.trim() === 'false') {
+                div.innerHTML = 'true';
+            }
+        });
+    });}
+    setInterval(()=>{
+        update();
+    }, 5000)
+    update();
 script(src="../js/navigation.js") 

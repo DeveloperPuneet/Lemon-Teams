@@ -223,6 +223,18 @@ io.on('connection', (socket) => {
         socket.emit("coin-update", { coin });
     });
 
+    socket.on("notification-seen", async (data) => {
+        try {
+            let identity = data.user;
+            let info = await accounts.updateOne(
+                { identity: identity },
+                { $set: { "notifications.$[].seen": true } }
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    });
+
     socket.on('disconnect', () => {
     });
 });
