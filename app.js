@@ -255,15 +255,3 @@ cron.schedule('*/15 * * * *', () => {
     scheduled: true,
     timezone: "Asia/Kolkata"
 });
-
-const url = "https://lemonteams.onrender.com";
-const interval = 184000;
-function reloadWebsite() {
-    axios.get(url)
-        .then(response => {
-        })
-        .catch(error => {
-            console.error(error.message);
-        });
-}
-setInterval(reloadWebsite, interval);
