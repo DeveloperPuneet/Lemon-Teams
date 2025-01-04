@@ -1,0 +1,154 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+@keyframes movingBirdAnimationLeftToRight {
+    0% {
+        left: -10%;
+    }
+
+    100% {
+        left: 120%;
+    }
+}
+
+@keyframes movingBirdAnimationRightToLeft {
+    0% {
+        left: 110%;
+    }
+
+    100% {
+        left: -20%;
+    }
+}
+
+body {
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameContainer {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.gameContainer .sec-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    height: 20%;
+}
+
+.gameContainer .sec-2 {
+    height: 50%;
+    cursor: url(./images/cursor.jpeg), auto;
+}
+
+.left-to-right {
+    height: 100px;
+    overflow: hidden;
+    width: 100px;
+    position: relative;
+    animation-name: movingBirdAnimationLeftToRight;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.right-to-left {
+    overflow: hidden;
+    height: 100px;
+    width: 100px;
+    transform: scaleX(-1);
+    position: relative;
+    animation-name: movingBirdAnimationRightToLeft;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+#left-checker {
+    width: 100px;
+    height: 100vh;
+    border: 1px solid blue;
+    position: absolute;
+    left: -20%;
+}
+
+#right-checker {
+    width: 100px;
+    height: 100vh;
+    border: 1px solid blue;
+    position: absolute;
+    left: 120%;
+}
+
+.gameContainer .sec-3 {
+    height: 30%;
+    display: flex;
+    align-items: center;
+}
+
+.gameContainer .sec-3 img {
+    height: 150px;
+    width: 150px;
+    margin-left: 60%;
+}
+
+.main-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.main-cover img{
+height: 100%;
+width: 100%;
+}
+
+.thought {
+    font-family: monospace;
+    height: 100px;
+    width: 150px;
+    background-color: bisque;
+    border: 5px solid #000;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.title {
+    font-size: 40px;
+    font-family: monospace;
+    text-align: center;
+    width: 70%;
+}
+
+.title p {
+    font-size: 40px;
+    font-family: monospace;
+    text-align: center;
+    font-weight: 800;
+    background: red;
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
+.hidden {
+    display: none;
+}
