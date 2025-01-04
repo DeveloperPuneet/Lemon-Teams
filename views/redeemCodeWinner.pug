@@ -13,7 +13,7 @@ html(lang="en")
             h1 Reward Redeem Code
             - if(code !== undefined)
                 .message-box
-                    p#code #{message}
+                    p#code #{code}
                     .copyBtn#copyBtn Copy Code
         include ../public/layouts/footer.pug
         script(src="/js/redeemCodeWinner.js")

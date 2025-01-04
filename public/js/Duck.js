@@ -121,6 +121,7 @@ const React = (e) => {
 
 setInterval(() => {
     document.getElementById("score").innerHTML = `Score : ${score}`;
+    document.getElementById("amount").value = score;
 }, 100);
 
 const selectionDirection = () => {
@@ -224,7 +225,7 @@ bird.addEventListener('click', () => {
     }, 1000);
 });
 
-function HACK(e){
+function HACKTHEGAME(e){
 score = score + e
 }
 

@@ -64,10 +64,15 @@ body {
     position: relative;
 }
 
-.copyBtn{
+.copyBtn {
     background: var(--river-rock);
     color: #fff;
     border-radius: 5px;
     margin-top: 20px;
     padding: 5px;
+}
+
+.message-box {
+    display: flex;
+    flex-direction: column;
 }

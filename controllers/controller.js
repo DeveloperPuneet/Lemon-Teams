@@ -1824,6 +1824,14 @@ const LemonStoreLoad = async (req, res) => {
     }
 }
 
+const duckGame = async (req, res) => {
+    try {
+        return res.render("Duck");
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 // Exporting all the modules in the route file
 module.exports = {
     Load,
@@ -1872,5 +1880,6 @@ module.exports = {
     WrongRequestHandler,
     ReedemCodeLoad,
     ReedemCodes,
-    LemonStoreLoad
+    LemonStoreLoad,
+    duckGame
 };

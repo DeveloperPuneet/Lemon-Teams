@@ -73,8 +73,8 @@ const RedeemCode = async (req, res) => {
 const autoRedeemCodeGenerator = async (req, res) => {
     try {
         const expire = await CurrentDate() + 2592000000;
-        const code = RedeemCode();
-        const amount = req.body.amount;
+        const code = await RedeemCode();
+        const amount = await req.body.amount;
         const newCode = await redeemCode({
             code: code,
             amount: amount,
@@ -91,8 +91,10 @@ const autoRedeemCodeGenerator = async (req, res) => {
 
 const redeemCodeWinner = async (req, res) => {
     try {
-        const code = req.query.code;
-        return res.render("redeemCodeWinner", code);
+        const user = await accounts.findOne({ identity: req.session.identity });
+        const profile = "/accounts/" + user.profile;
+        const code = await req.query.code;
+        return res.render("redeemCodeWinner", { code, user, profile });
     } catch (error) {
         console.log(error);
     }

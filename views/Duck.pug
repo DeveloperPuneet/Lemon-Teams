@@ -1,0 +1,42 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Duck Killer: Shooting Game
+    link(rel="stylesheet", href="/css/Duck.css")
+  body
+    .unsupported GRAPHICS DISPLAY NOT SUPPORTED IN THIS DEVICE
+    .main
+      .main-cover
+        img(src="/media/images/land.png" alt="")
+      .gameContainer
+        .sec-1
+          #score Score : 0
+          form(action="/auto-redeem-code-generate", method="post") 
+              input(type="hidden", name="amount" id="amount") 
+              input(type="submit", value="Get Code" style="margin-left: 10px; background: gray; border: 1px solid white; color white; padding: 4px; border-radius: 5px;")
+          .title
+            p Duck Killer
+        .sec-2
+          #left-checker
+          img(src="/media/images/Designer.png" id="bird" class="right-to-left" alt="bird")
+          #right-checker
+        .sec-3
+          img(src="/media/images/Dog.png" alt="")
+          .thought#thought hmmmmmmmmm...
+      audio(src="/media/audios/loose-1.wav" id="loose-1")
+      audio(src="/media/audios/loose-2.wav" id="loose-2")
+      audio(src="/media/audios/loose-3.wav" id="loose-3")
+      audio(src="/media/audios/loose-4.wav" id="loose-4")
+      audio(src="/media/audios/loose-5.wav" id="loose-5")
+      audio(src="/media/audios/win-1.wav" id="win-1")
+      audio(src="/media/audios/win-2.wav" id="win-2")
+      audio(src="/media/audios/win-3.wav" id="win-3")
+      audio(src="/media/audios/win-4.wav" id="win-4")
+      audio(src="/media/audios/win-5.wav" id="win-5")
+      audio(src="/media/audios/background-1.mp3" id="background-1" allow="autoplay" autoplay)
+      audio(src="/media/audios/background-2.mp3" id="background-2")
+      audio(src="/media/audios/background-3.mp3" id="background-3")
+      audio(src="/media/audios/background-4.mp3" id="background-4")
+  script(src="/js/Duck.js")
