@@ -1,5 +1,6 @@
 const accounts = require("../models/accounts");
 const redeemCode = require("../models/ReedemCode");
+const randomstring = require("randomstring");
 
 const CurrentDate = () => {
     try {
@@ -60,7 +61,46 @@ setInterval(async () => {
     });
 }, 7200000);
 
+const RedeemCode = async (req, res) => {
+    try {
+        const code = await randomstring.generate(20);
+        return code
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const autoRedeemCodeGenerator = async (req, res) => {
+    try {
+        const expire = await CurrentDate() + 2592000000;
+        const code = RedeemCode();
+        const amount = req.body.amount;
+        const newCode = await redeemCode({
+            code: code,
+            amount: amount,
+            expire: expire
+        });
+        const result = await newCode.save();
+        if (result) {
+            return res.redirect(`/redeem-code-winner-game?code=${code}`);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const redeemCodeWinner = async (req, res) => {
+    try {
+        const code = req.query.code;
+        return res.render("redeemCodeWinner", code);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     LoadRedeemCodeGenerator,
-    PublishingRedeemCode
+    PublishingRedeemCode,
+    autoRedeemCodeGenerator,
+    redeemCodeWinner
 }

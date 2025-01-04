@@ -134,6 +134,8 @@ router.post("/reedem-code", auth.isLogin, controller.ReedemCodes);
 router.get("/create-redeem-code", auth.isLogin, redeemController.LoadRedeemCodeGenerator);
 router.post("/create-redeem-code", auth.isLogin, redeemController.PublishingRedeemCode);
 router.get("/lemon-store", auth.isLogin, controller.LemonStoreLoad);
+router.post("/auto-redeem-code-generate", auth.isLogin, redeemController.autoRedeemCodeGenerator);
+router.get("/redeem-code-winner-game", auth.isLogin, redeemController.redeemCodeWinner);
 
 // For handling wrong requests
 router.get("*", controller.WrongRequestHandler);
