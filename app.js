@@ -256,12 +256,12 @@ cron.schedule('*/15 * * * *', () => {
     timezone: "Asia/Kolkata"
 });
 
-async function visitWebsite() {
-    try {
-        await axios.get('https://lemonteams.onrender.com');
-    } catch (error) {
-    }
-}
+// async function visitWebsite() {
+//     try {
+//         await axios.get('https://lemonteams.onrender.com');
+//     } catch (error) {
+//     }
+// }
 
-visitWebsite();
-setInterval(visitWebsite, 15 * 60 * 1000);
+// visitWebsite();
+// setInterval(visitWebsite, 15 * 60 * 1000);
