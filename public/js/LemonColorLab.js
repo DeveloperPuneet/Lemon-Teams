@@ -70,7 +70,7 @@ function renderPalettes(palettes) {
         paletteElement.classList.add('palette');
         let searchInstallation = document.createElement("div");
         searchInstallation.classList.add("hide");
-        searchInstallation.innerHTML = palette.tags + " " + palette.name
+        searchInstallation.innerHTML = palette.tags + " " + palette.name + " " + palette.identity + " " + palette.code
         // Check if there are any colors to display
         if (colors.length > 0) {
             colors.forEach(color => {
