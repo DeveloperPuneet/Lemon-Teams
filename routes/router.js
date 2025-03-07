@@ -140,5 +140,12 @@ router.get("/duck-game", auth.isLogin, controller.duckGame);
 
 // For handling wrong requests
 router.get("*", controller.WrongRequestHandler);
+router.get(".well-known/brave-rewards-verification.txt", ()=>{
+  res.send(`This is a Brave Creators publisher verification file.
+
+Domain: lemonteams.onrender.com
+Token: f5f2b7d3767d94cb8368ff4cecd5150938396cbd571b35e71d01bbc591913c88
+    `)
+})
 
 module.exports = router;
