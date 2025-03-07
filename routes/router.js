@@ -139,7 +139,7 @@ router.get("/redeem-code-winner-game", auth.isLogin, redeemController.redeemCode
 router.get("/duck-game", auth.isLogin, controller.duckGame);
 
 // For handling wrong requests
-router.get("/.well-known/brave-rewards-verification.txt", auth.isLogout, () => {
+router.get("/.well-known/brave-rewards-verification.txt", auth.isLogout, (req,res) => {
   res.send(`This is a Brave Creators publisher verification file.
 
 Domain: lemonteams.onrender.com
