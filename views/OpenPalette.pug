@@ -52,6 +52,17 @@ html(lang="en")
                 .comment-list
                     each comment in palette.comments
                         .comment #{comment.name}: #{comment.comment}
+                .ads(style="width:100vw; display:flex; justify-content:center; align-items:center")
+                    script(type="text/javascript").
+                        atOptions = {
+                            'key' : '0fcbee03076f0d65f6168a364afa1b52',
+                            'format' : 'iframe',
+                            'height' : 90,
+                            'width' : 728,
+                            'params' : {}
+                        };
+                    script(type="text/javascript" src="//www.highperformanceformat.com/0fcbee03076f0d65f6168a364afa1b52/invoke.js")
+
         include ../public/layouts/footer_withoutSocket.pug
         script(src="/js/OpenPalette.js")
         script.
