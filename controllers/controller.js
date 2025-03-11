@@ -118,7 +118,7 @@ const AccountVerificationMail = async (name, email, identity) => {
                             <div class="content">
                                 <p>Hi ${name},</p>
                                 <p>Thank you for joining Lemon Teams. We are excited to have you on board! To get started, please confirm your email address by clicking the button below:</p>
-                                <p><a href="https://lemonteams.onrender.com/verify?identity=${identity}" class="button" style="color: #fff;">Confirm Email</a></p>
+                                <p><a target="_blank" href="https://lemonteams.onrender.com/verify?identity=${identity}" class="button" style="color: #fff;">Confirm Email</a></p>
                                 <br>
                                 <p>If button is not working you directly Paste this URL to verify your account: https://lemonteams.onrender.com/verify?identity=${identity}</p>
                                 <br>
